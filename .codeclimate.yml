@@ -1,0 +1,12 @@
+exclude_patterns:
+  - "**/*test.js"
+  - "**/*test.jsx"
+plugins:
+  eslint:
+    channel: eslint-4
+    config:
+      extensions:
+        - .es6
+        - .js
+        - .jsx
+    enabled: true
