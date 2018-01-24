@@ -16,7 +16,13 @@ process.env.CHROME_BIN = puppeteer.executablePath();
 const testFile = './setup.test.js';
 module.exports = (config) => {
   config.set({
-    browsers: ['ChromeHeadless'],
+    browsers: ['ChromeHeadlessNoSandbox'],
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox'],
+      },
+    },
     files: [
       {
         pattern: '../dist/dependencies.dll.js/',

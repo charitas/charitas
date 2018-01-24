@@ -27,7 +27,7 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   devServer: {
     contentBase: './dist',
-    overlay: true,
+    historyApiFallback: true,
     hot: true,
   },
   resolve: {
@@ -39,7 +39,6 @@ module.exports = {
         enforce: 'pre',
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: 'eslint-loader',
       },
       {
         test: /\.(js|jsx)$/,
