@@ -8,10 +8,11 @@ module.exports = {
   entry: ['react-hot-loader/patch', './src/index.jsx'],
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Dashboard',
-      inject: false,
-      template,
       appMountId: 'app',
+      inject: false,
+      links: ['https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css'],
+      template,
+      title: 'Dashboard',
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'semantic-ui-react';
 import googleSignin from './google_signin.png';
 
 export default function Login() {
@@ -8,6 +9,7 @@ export default function Login() {
     }}
     >
       <img alt="Sign in with Google" src={googleSignin} style={{ maxWidth: '50%' }} />
+      <Button color="green">Sign in</Button>
     </div>
   );
 }
