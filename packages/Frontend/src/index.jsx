@@ -16,7 +16,7 @@ const render = (Component) => {
   ReactDOM.render(
     <HotReloadContainer>
       <Provider store={store} >
-        <Router basename="/dashboard">
+        <Router>
           <Component />
         </Router>
       </Provider>
