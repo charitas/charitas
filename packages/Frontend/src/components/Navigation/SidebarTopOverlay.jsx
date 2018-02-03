@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
-import { Search, Sidebar, Menu, Icon } from 'semantic-ui-react';
+import { Icon, Menu, Sidebar } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 export default function SidebarTopOverlay({ toggleMenu }) {
   return (
     <Fragment>
-      <Sidebar as={Menu} animation="overlay" direction="top" visible inverted>
+      <Sidebar animation="overlay" as={Menu} direction="top" inverted visible >
         <Menu.Item name="Menu" onClick={toggleMenu}>
           <Icon name="content" />
         </Menu.Item>
@@ -19,7 +19,9 @@ export default function SidebarTopOverlay({ toggleMenu }) {
         <Menu.Item name="Sign in">
           <Icon name="user" />
         </Menu.Item>
-        <Search />
+        <Menu.Item name="Search">
+          <Icon name="search" />
+        </Menu.Item>
       </Sidebar>
     </Fragment>
   );
