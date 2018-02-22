@@ -1,7 +1,26 @@
 import React, { Component } from 'react';
+import Amplify from 'aws-amplify';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import App from '../components/App';
+import logout from '../actions/logout';
 
-export default class AppContainer extends Component {
+Amplify.configure({
+  Auth: {
+    identityPoolId: process.env.AWS_AUTH_IDENTIYPOOLID,
+    region: process.env.AWS_AUTH_REGION,
+    userPoolId: process.env.AWS_AUTH_USERPOOLID,
+    userPoolWebClientId: process.env.AWS_AUTH_USERPOOLWEBCLIENTID,
+    mandatorySignIn: false,
+  },
+});
+
+class AppContainer extends Component {
+  static propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    logout: PropTypes.func.isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -14,8 +33,20 @@ export default class AppContainer extends Component {
   render() {
     return (
       <App
+        isAuthenticated={this.props.isAuthenticated}
+        logout={this.props.logout}
         toggleVisibility={this.toggleVisibility}
         visible={this.state.visible}
       />);
   }
 }
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.user.isAuthenticated,
+});
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

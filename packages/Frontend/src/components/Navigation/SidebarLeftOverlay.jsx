@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Sidebar, Menu } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default class SidebarLeftOverlay extends Component {
   static propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    logout: PropTypes.func.isRequired,
     sideBarVisibility: PropTypes.bool.isRequired,
     toggleMenu: PropTypes.func.isRequired,
   }
@@ -22,28 +25,38 @@ export default class SidebarLeftOverlay extends Component {
     }
   };
 
+  renderLogout = () => (
+    <Menu.Item
+      as="div"
+      name="logout"
+      onClick={() => {
+        this.props.logout();
+        this.props.toggleMenu();
+      }}
+    >
+      Log Out
+    </Menu.Item>
+  )
+
+
+  renderMenuItem = (name, label, path) => (
+    <Menu.Item as="div" name={name} onClick={this.props.toggleMenu}>
+      <Link href={path} to={path}>{label}</Link>
+    </Menu.Item>
+  );
+
   render() {
+    const { renderMenuItem } = this;
     return (
       <div ref={(el) => { this.ref = el; }}>
         <Sidebar as={Menu} animation="overlay" width="thin" visible={this.props.sideBarVisibility} icon="labeled" vertical inverted>
-          <Menu.Item name="home">
-            Home
-          </Menu.Item>
-          <Menu.Item name="humanityParty">
-            Humanity Party
-          </Menu.Item>
-          <Menu.Item name="formatting">
-            Formatting
-          </Menu.Item>
-          <Menu.Item name="transcription">
-            Transcription
-          </Menu.Item>
-          <Menu.Item name="questions">
-            Questions
-          </Menu.Item>
-          <Menu.Item name="journal">
-            Journal
-          </Menu.Item>
+          {renderMenuItem('home', 'Home', '/')}
+          {renderMenuItem('library', 'Library', '/library')}
+          {renderMenuItem('journal', 'Journal', '/journal')}
+          { this.props.isAuthenticated
+              ? this.renderLogout()
+              : renderMenuItem('signin', 'Sign In', '/signin')
+          }
         </Sidebar>
       </div>
     );

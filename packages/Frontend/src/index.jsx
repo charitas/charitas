@@ -10,7 +10,11 @@ import {
 import AppContainer from './containers/AppContainer';
 import app from './reducers';
 
-const store = createStore(app);
+const store = createStore(
+  app,
+  // eslint-disable-next-line no-underscore-dangle
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
 
 const render = (Component) => {
   ReactDOM.render(
