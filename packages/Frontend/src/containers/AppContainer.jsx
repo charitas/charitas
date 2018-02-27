@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Amplify from 'aws-amplify';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { BrowserRouter } from 'react-router-dom';
 import App from '../components/App';
 import logout from '../actions/logout';
 
@@ -32,12 +33,15 @@ class AppContainer extends Component {
 
   render() {
     return (
-      <App
-        isAuthenticated={this.props.isAuthenticated}
-        logout={this.props.logout}
-        toggleVisibility={this.toggleVisibility}
-        visible={this.state.visible}
-      />);
+      <BrowserRouter>
+        <App
+          isAuthenticated={this.props.isAuthenticated}
+          logout={this.props.logout}
+          toggleVisibility={this.toggleVisibility}
+          visible={this.state.visible}
+        />
+      </BrowserRouter>
+    );
   }
 }
 
