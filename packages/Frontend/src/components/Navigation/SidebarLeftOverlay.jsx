@@ -19,20 +19,24 @@ export default class SidebarLeftOverlay extends Component {
     document.removeEventListener('mousedown', this.handleOffClick);
   }
 
+  handleLogout = () => {
+    this.props.logout();
+    this.props.toggleMenu();
+  };
+
   handleOffClick = (e) => {
     if (this.ref && !this.ref.contains(e.target) && this.props.sideBarVisibility) {
       this.props.toggleMenu();
     }
   };
 
+  handleRef = (el) => { this.ref = el; }
+
   renderLogout = () => (
     <Menu.Item
       as="div"
       name="logout"
-      onClick={() => {
-        this.props.logout();
-        this.props.toggleMenu();
-      }}
+      onClick={this.handleLogout}
     >
       Log Out
     </Menu.Item>
@@ -50,7 +54,7 @@ export default class SidebarLeftOverlay extends Component {
   render() {
     const { renderMenuItem } = this;
     return (
-      <div ref={(el) => { this.ref = el; }}>
+      <div ref={this.handleRef}>
         <Sidebar as={Menu} animation="overlay" width="thin" visible={this.props.sideBarVisibility} icon="labeled" vertical inverted>
           {renderMenuItem('home', 'Home', '/')}
           {renderMenuItem('library', 'Library', '/library')}

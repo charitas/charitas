@@ -24,6 +24,7 @@
   "devDependencies": {
     "babel-core": "6.26.0",
     "babel-eslint": "8.0.3",
+    "babel-jest": "22.4.1",
     "babel-loader": "7.1.2",
     "babel-plugin-istanbul": "4.1.5",
     "babel-plugin-transform-class-properties": "6.24.1",
@@ -35,6 +36,7 @@
     "dotenv": "5.0.0",
     "enzyme": "3.2.0",
     "enzyme-adapter-react-16": "1.1.0",
+    "enzyme-to-json": "3.3.1",
     "eslint": "4.9.0",
     "eslint-config-airbnb": "16.1.0",
     "eslint-loader": "1.9.0",
@@ -44,6 +46,7 @@
     "file-loader": "1.1.5",
     "html-webpack-plugin": "2.30.1",
     "html-webpack-template": "6.1.0",
+    "jest": "22.4.2",
     "karma": "1.7.1",
     "karma-chai": "0.1.0",
     "karma-chrome-launcher": "2.2.0",
@@ -63,8 +66,15 @@
     "clean": "rm -rf ./dist",
     "lint": "eslint .",
     "start": "webpack-dev-server --progress --open --config ./config/webpack.config.dev.js",
-    "test": "NODE_ENV=test",
+    "test": "node --harmony-promise-finally ./node_modules/.bin/jest",
     "test-watch": "yarn test --no-single-run --auto-watch",
     "validate": "yarn lint && yarn test"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "setupTestFrameworkScriptFile": "./config/setup.test.js",
+    "testPathIgnorePatterns": ["/node_modules", "./config/setup.test.js"]
   }
 }

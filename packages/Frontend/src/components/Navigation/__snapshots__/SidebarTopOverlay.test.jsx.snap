@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SidebarLeftOverlay should render 1`] = `
+<React.Fragment>
+  <Sidebar
+    animation="overlay"
+    as={[Function]}
+    direction="top"
+    inverted={true}
+    visible={true}
+  >
+    <MenuItem
+      name="Menu"
+      onClick={[Function]}
+    >
+      <Icon
+        as="i"
+        name="content"
+      />
+    </MenuItem>
+    <MenuItem
+      name="Language"
+    >
+      <Icon
+        as="i"
+        name="flag"
+      />
+      Language
+    </MenuItem>
+    <MenuItem
+      name="Settings"
+    >
+      <Icon
+        as="i"
+        name="setting"
+      />
+    </MenuItem>
+    <MenuItem
+      name="Sign in"
+    >
+      <Icon
+        as="i"
+        name="user"
+      />
+    </MenuItem>
+    <MenuItem
+      name="Search"
+    >
+      <Icon
+        as="i"
+        name="search"
+      />
+    </MenuItem>
+  </Sidebar>
+</React.Fragment>
+`;

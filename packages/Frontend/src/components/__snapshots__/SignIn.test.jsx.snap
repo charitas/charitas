@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignIn should render 1`] = `
+<React.Fragment>
+  <p>
+    Username: 
+  </p>
+  <input
+    onKeyUp={[Function]}
+  />
+  <p>
+    Password: 
+  </p>
+  <input
+    onKeyUp={[Function]}
+    type="password"
+  />
+  <button
+    onClick={[Function]}
+  >
+    Submit
+  </button>
+</React.Fragment>
+`;
+
+exports[`SignIn should render a loading message when passed loading as a prop 1`] = `
+<React.Fragment>
+  <p>
+    Username: 
+  </p>
+  <input
+    onKeyUp={[Function]}
+  />
+  <p>
+    Password: 
+  </p>
+  <input
+    onKeyUp={[Function]}
+    type="password"
+  />
+  <button
+    onClick={[Function]}
+  >
+    Submit
+  </button>
+  <p>
+    Loading...
+  </p>
+</React.Fragment>
+`;
+
+exports[`SignIn should render an error when passed as a prop 1`] = `
+<React.Fragment>
+  <p>
+    Username: 
+  </p>
+  <input
+    onKeyUp={[Function]}
+  />
+  <p>
+    Password: 
+  </p>
+  <input
+    onKeyUp={[Function]}
+    type="password"
+  />
+  <button
+    onClick={[Function]}
+  >
+    Submit
+  </button>
+  <p>
+    test error
+  </p>
+</React.Fragment>
+`;
