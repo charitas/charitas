@@ -8,7 +8,7 @@ import logout from '../actions/logout';
 
 Amplify.configure({
   Auth: {
-    identityPoolId: process.env.AWS_AUTH_IDENTIYPOOLID,
+    identityPoolId: process.env.AWS_AUTH_IDENTITYPOOLID,
     region: process.env.AWS_AUTH_REGION,
     userPoolId: process.env.AWS_AUTH_USERPOOLID,
     userPoolWebClientId: process.env.AWS_AUTH_USERPOOLWEBCLIENTID,

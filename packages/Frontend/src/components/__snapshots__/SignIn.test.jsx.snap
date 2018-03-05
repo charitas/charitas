@@ -1,76 +1,188 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SignIn should render 1`] = `
-<React.Fragment>
-  <p>
-    Username: 
-  </p>
-  <input
-    onKeyUp={[Function]}
-  />
-  <p>
-    Password: 
-  </p>
-  <input
-    onKeyUp={[Function]}
-    type="password"
-  />
-  <button
-    onClick={[Function]}
-  >
-    Submit
-  </button>
-</React.Fragment>
+<styled.div>
+  <Segment>
+    <Header
+      as="h1"
+      icon={true}
+      textAlign="center"
+    >
+      <Icon
+        as="i"
+        circular={true}
+        name="user"
+      />
+      <HeaderContent>
+        Sign In
+      </HeaderContent>
+    </Header>
+    <Form
+      as="form"
+    >
+      <FormInput
+        as={[Function]}
+        control={[Function]}
+        onKeyUp={[Function]}
+        placeholder="Username"
+      />
+      <FormInput
+        as={[Function]}
+        control={[Function]}
+        onKeyUp={[Function]}
+        placeholder="Password"
+        type="password"
+      />
+      <Button
+        as="button"
+        color="violet"
+        fluid={true}
+        onClick={[Function]}
+      >
+        Sign In
+      </Button>
+      <Divider
+        horizontal={true}
+      >
+        Or
+      </Divider>
+      <Button
+        as="button"
+        color="blue"
+        fluid={true}
+      >
+        Sign Up Now
+      </Button>
+    </Form>
+  </Segment>
+</styled.div>
 `;
 
 exports[`SignIn should render a loading message when passed loading as a prop 1`] = `
-<React.Fragment>
-  <p>
-    Username: 
-  </p>
-  <input
-    onKeyUp={[Function]}
-  />
-  <p>
-    Password: 
-  </p>
-  <input
-    onKeyUp={[Function]}
-    type="password"
-  />
-  <button
-    onClick={[Function]}
-  >
-    Submit
-  </button>
-  <p>
-    Loading...
-  </p>
-</React.Fragment>
+<styled.div>
+  <Segment>
+    <Header
+      as="h1"
+      icon={true}
+      textAlign="center"
+    >
+      <Icon
+        as="i"
+        circular={true}
+        name="user"
+      />
+      <HeaderContent>
+        Sign In
+      </HeaderContent>
+    </Header>
+    <Form
+      as="form"
+    >
+      <FormInput
+        as={[Function]}
+        control={[Function]}
+        onKeyUp={[Function]}
+        placeholder="Username"
+      />
+      <FormInput
+        as={[Function]}
+        control={[Function]}
+        onKeyUp={[Function]}
+        placeholder="Password"
+        type="password"
+      />
+      <Button
+        as="button"
+        color="violet"
+        fluid={true}
+        onClick={[Function]}
+      >
+        Sign In
+      </Button>
+      <Divider
+        horizontal={true}
+      >
+        Or
+      </Divider>
+      <Button
+        as="button"
+        color="blue"
+        fluid={true}
+      >
+        Sign Up Now
+      </Button>
+    </Form>
+    <styled.div>
+      <Loader
+        active={true}
+        inline="centered"
+      />
+    </styled.div>
+  </Segment>
+</styled.div>
 `;
 
 exports[`SignIn should render an error when passed as a prop 1`] = `
-<React.Fragment>
-  <p>
-    Username: 
-  </p>
-  <input
-    onKeyUp={[Function]}
-  />
-  <p>
-    Password: 
-  </p>
-  <input
-    onKeyUp={[Function]}
-    type="password"
-  />
-  <button
-    onClick={[Function]}
-  >
-    Submit
-  </button>
-  <p>
-    test error
-  </p>
-</React.Fragment>
+<styled.div>
+  <Segment>
+    <Header
+      as="h1"
+      icon={true}
+      textAlign="center"
+    >
+      <Icon
+        as="i"
+        circular={true}
+        name="user"
+      />
+      <HeaderContent>
+        Sign In
+      </HeaderContent>
+    </Header>
+    <Form
+      as="form"
+    >
+      <FormInput
+        as={[Function]}
+        control={[Function]}
+        onKeyUp={[Function]}
+        placeholder="Username"
+      />
+      <FormInput
+        as={[Function]}
+        control={[Function]}
+        onKeyUp={[Function]}
+        placeholder="Password"
+        type="password"
+      />
+      <Button
+        as="button"
+        color="violet"
+        fluid={true}
+        onClick={[Function]}
+      >
+        Sign In
+      </Button>
+      <Divider
+        horizontal={true}
+      >
+        Or
+      </Divider>
+      <Button
+        as="button"
+        color="blue"
+        fluid={true}
+      >
+        Sign Up Now
+      </Button>
+    </Form>
+    <Message
+      negative={true}
+    >
+      <p>
+        test error
+      </p>
+    </Message>
+  </Segment>
+</styled.div>
 `;

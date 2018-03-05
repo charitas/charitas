@@ -19,7 +19,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
-      'process.env.AWS_AUTH_IDENTIYPOOLID': JSON.stringify(process.env.AWS_AUTH_IDENTIYPOOLID),
+      'process.env.AWS_AUTH_IDENTIYPOOLID': JSON.stringify(process.env.AWS_AUTH_IDENTITYPOOLID),
       'process.env.AWS_AUTH_REGION': JSON.stringify(process.env.AWS_AUTH_REGION),
       'process.env.AWS_AUTH_USERPOOLID': JSON.stringify(process.env.AWS_AUTH_USERPOOLID),
       'process.env.AWS_AUTH_USERPOOLWEBCLIENTID': JSON.stringify(process.env.AWS_AUTH_USERPOOLWEBCLIENTID),
