@@ -38,7 +38,7 @@ export default class SidebarLeftOverlay extends Component {
       name="logout"
       onClick={this.handleLogout}
     >
-      Log Out
+      Sign Out
     </Menu.Item>
   )
 

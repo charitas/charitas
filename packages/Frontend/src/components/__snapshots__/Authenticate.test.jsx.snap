@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SignIn should render 1`] = `
+exports[`Authenticate should render 1`] = `
 <styled.div>
   <Segment>
     <Header
@@ -14,7 +14,7 @@ exports[`SignIn should render 1`] = `
         name="user"
       />
       <HeaderContent>
-        Sign In
+        Sign Up
       </HeaderContent>
     </Header>
     <Form
@@ -23,42 +23,52 @@ exports[`SignIn should render 1`] = `
       <FormInput
         as={[Function]}
         control={[Function]}
-        onKeyUp={[Function]}
-        placeholder="Username"
+        placeholder="Email"
       />
       <FormInput
         as={[Function]}
         control={[Function]}
-        onKeyUp={[Function]}
         placeholder="Password"
+        type="password"
+      />
+      <FormInput
+        as={[Function]}
+        control={[Function]}
+        placeholder="Confirm Password"
         type="password"
       />
       <Button
         as="button"
-        color="violet"
+        color="blue"
         fluid={true}
         onClick={[Function]}
       >
-        Sign In
+        Sign Up
       </Button>
       <Divider
         horizontal={true}
       >
         Or
       </Divider>
-      <Button
-        as="button"
-        color="blue"
-        fluid={true}
+      <Link
+        href="/signin"
+        replace={false}
+        to="/signin"
       >
-        Sign Up Now
-      </Button>
+        <Button
+          as="button"
+          color="violet"
+          fluid={true}
+        >
+          Sign In
+        </Button>
+      </Link>
     </Form>
   </Segment>
 </styled.div>
 `;
 
-exports[`SignIn should render a loading message when passed loading as a prop 1`] = `
+exports[`Authenticate should render a loading message when passed loading as a prop 1`] = `
 <styled.div>
   <Segment>
     <Header
@@ -72,7 +82,7 @@ exports[`SignIn should render a loading message when passed loading as a prop 1`
         name="user"
       />
       <HeaderContent>
-        Sign In
+        Sign Up
       </HeaderContent>
     </Header>
     <Form
@@ -81,36 +91,46 @@ exports[`SignIn should render a loading message when passed loading as a prop 1`
       <FormInput
         as={[Function]}
         control={[Function]}
-        onKeyUp={[Function]}
-        placeholder="Username"
+        placeholder="Email"
       />
       <FormInput
         as={[Function]}
         control={[Function]}
-        onKeyUp={[Function]}
         placeholder="Password"
+        type="password"
+      />
+      <FormInput
+        as={[Function]}
+        control={[Function]}
+        placeholder="Confirm Password"
         type="password"
       />
       <Button
         as="button"
-        color="violet"
+        color="blue"
         fluid={true}
         onClick={[Function]}
       >
-        Sign In
+        Sign Up
       </Button>
       <Divider
         horizontal={true}
       >
         Or
       </Divider>
-      <Button
-        as="button"
-        color="blue"
-        fluid={true}
+      <Link
+        href="/signin"
+        replace={false}
+        to="/signin"
       >
-        Sign Up Now
-      </Button>
+        <Button
+          as="button"
+          color="violet"
+          fluid={true}
+        >
+          Sign In
+        </Button>
+      </Link>
     </Form>
     <styled.div>
       <Loader
@@ -122,7 +142,7 @@ exports[`SignIn should render a loading message when passed loading as a prop 1`
 </styled.div>
 `;
 
-exports[`SignIn should render an error when passed as a prop 1`] = `
+exports[`Authenticate should render an error when passed as a prop 1`] = `
 <styled.div>
   <Segment>
     <Header
@@ -136,7 +156,7 @@ exports[`SignIn should render an error when passed as a prop 1`] = `
         name="user"
       />
       <HeaderContent>
-        Sign In
+        Sign Up
       </HeaderContent>
     </Header>
     <Form
@@ -145,36 +165,46 @@ exports[`SignIn should render an error when passed as a prop 1`] = `
       <FormInput
         as={[Function]}
         control={[Function]}
-        onKeyUp={[Function]}
-        placeholder="Username"
+        placeholder="Email"
       />
       <FormInput
         as={[Function]}
         control={[Function]}
-        onKeyUp={[Function]}
         placeholder="Password"
+        type="password"
+      />
+      <FormInput
+        as={[Function]}
+        control={[Function]}
+        placeholder="Confirm Password"
         type="password"
       />
       <Button
         as="button"
-        color="violet"
+        color="blue"
         fluid={true}
         onClick={[Function]}
       >
-        Sign In
+        Sign Up
       </Button>
       <Divider
         horizontal={true}
       >
         Or
       </Divider>
-      <Button
-        as="button"
-        color="blue"
-        fluid={true}
+      <Link
+        href="/signin"
+        replace={false}
+        to="/signin"
       >
-        Sign Up Now
-      </Button>
+        <Button
+          as="button"
+          color="violet"
+          fluid={true}
+        >
+          Sign In
+        </Button>
+      </Link>
     </Form>
     <Message
       negative={true}

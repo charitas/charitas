@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Auth } from 'aws-amplify';
 import { createAssertWithPropsToMatchSnapshot } from '../../test-utils';
-import SignInContainer from './SignInContainer';
+import AuthenticateContainer from './AuthenticateContainer';
 
 jest.mock('aws-amplify', () => ({
   Auth: {
@@ -17,13 +17,18 @@ jest.mock('aws-amplify', () => ({
   },
 }));
 
-describe('SignInContainer', () => {
+describe('AuthenticateContainer', () => {
   const defaultProps = {
     isAuthenticated: false,
     login: () => {},
+    match: {
+      isExact: true,
+      path: '',
+      url: '',
+    },
   };
   const assertWithPropsToMatchSnapshot =
-    createAssertWithPropsToMatchSnapshot(SignInContainer.WrappedComponent, defaultProps);
+    createAssertWithPropsToMatchSnapshot(AuthenticateContainer.WrappedComponent, defaultProps);
   it('should render', () => {
     assertWithPropsToMatchSnapshot();
   });
@@ -32,25 +37,9 @@ describe('SignInContainer', () => {
     assertWithPropsToMatchSnapshot({ isAuthenticated: true });
   });
 
-  describe('submitIfEnter', () => {
-    it('should call SignIn if the key is Enter', () => {
-      const inst = shallow(<SignInContainer.WrappedComponent {...defaultProps} />).instance();
-      inst.signIn = jest.fn();
-      inst.submitIfEnter({ key: 'Enter' });
-      expect(inst.signIn).toHaveBeenCalledTimes(1);
-    });
-
-    it('should not call SignIn if the key is not Enter', () => {
-      const inst = shallow(<SignInContainer.WrappedComponent {...defaultProps} />).instance();
-      inst.signIn = jest.fn();
-      inst.submitIfEnter({ key: 'J' });
-      expect(inst.signIn).toHaveBeenCalledTimes(0);
-    });
-  });
-
   describe('updateFormByKey', () => {
     it('should return a function', () => {
-      const inst = shallow(<SignInContainer.WrappedComponent {...defaultProps} />).instance();
+      const inst = shallow(<AuthenticateContainer.WrappedComponent {...defaultProps} />).instance();
       const res = inst.updateFormByKey('key');
       expect(typeof res).toBe('function');
     });
@@ -58,7 +47,7 @@ describe('SignInContainer', () => {
     it('should return a function that calls setState with the key and target', () => {
       const key = 'key';
       const value = 'val';
-      const inst = shallow(<SignInContainer.WrappedComponent {...defaultProps} />).instance();
+      const inst = shallow(<AuthenticateContainer.WrappedComponent {...defaultProps} />).instance();
       inst.setState = jest.fn();
       const res = inst.updateFormByKey(key);
       res({ target: { value } });
@@ -68,7 +57,7 @@ describe('SignInContainer', () => {
 
   describe('signIn', () => {
     it('should call setState with { error: \'\', loading: true } and a callback', () => {
-      const inst = shallow(<SignInContainer.WrappedComponent {...defaultProps} />).instance();
+      const inst = shallow(<AuthenticateContainer.WrappedComponent {...defaultProps} />).instance();
       inst.setState = jest.fn();
       inst.signIn();
       expect(inst.setState.mock.calls[0][0]).toEqual({ error: '', loading: true });
@@ -79,9 +68,9 @@ describe('SignInContainer', () => {
       it('should call Auth.signIn, Auth.currentAuthenticatedUser, props.login, then set loading false', () => {
         const login = jest.fn();
         const wrapper =
-          shallow(<SignInContainer.WrappedComponent {...defaultProps} login={login} />);
+          shallow(<AuthenticateContainer.WrappedComponent {...defaultProps} login={login} />);
         const inst = wrapper.instance();
-        wrapper.setState({ username: 'user', password: 'password' });
+        wrapper.setState({ email: 'user', password: 'password' });
         inst.setState = jest.fn();
         inst.signIn();
         const callback = inst.setState.mock.calls[0][1];

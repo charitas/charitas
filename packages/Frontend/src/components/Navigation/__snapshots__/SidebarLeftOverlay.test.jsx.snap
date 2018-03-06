@@ -368,7 +368,7 @@ exports[`SidebarLeftOverlay rendering should render a sign out menu item when au
       name="logout"
       onClick={[Function]}
     >
-      Log Out
+      Sign Out
     </MenuItem>
   </Sidebar>
 </div>

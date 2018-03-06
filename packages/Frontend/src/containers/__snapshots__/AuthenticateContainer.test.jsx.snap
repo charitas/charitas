@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthenticateContainer should render 1`] = `
+<Authenticate
+  authenticate={[Function]}
+  error={false}
+  loading={false}
+  signingin={false}
+  updateFormByKey={[Function]}
+/>
+`;
+
+exports[`AuthenticateContainer should render a Redirect when authenticated 1`] = `
+<Redirect
+  push={false}
+  to="/"
+/>
+`;

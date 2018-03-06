@@ -37,11 +37,7 @@ exports[`App should render correctly 1`] = `
   />
   <Route
     component={[Function]}
-    path="/signin"
-  />
-  <Route
-    component={[Function]}
-    path="/signup"
+    path="/sign(up|in)"
   />
 </React.Fragment>
 `;
