@@ -64,7 +64,7 @@
     "build": "webpack --config ./config/webpack.config.prod.js",
     "bootstrap": "webpack --config ./config/webpack.config.vendor.js",
     "clean": "rm -rf ./dist",
-    "lint": "eslint .",
+    "lint": "eslint --ext .js --ext .jsx .",
     "start": "webpack-dev-server --progress --open --config ./config/webpack.config.dev.js",
     "test": "node --harmony-promise-finally ./node_modules/.bin/jest",
     "test-watch": "yarn test --no-single-run --auto-watch",
