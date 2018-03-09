@@ -1,5 +1,6 @@
 import React from 'react';
+import EditorViewContainer from '../containers/EditorViewContainer';
 
 export default function Journal() {
-  return (<h3>Journal</h3>);
+  return (<EditorViewContainer />);
 }

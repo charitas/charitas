@@ -7,8 +7,23 @@ import { Provider } from 'react-redux';
 import {
   BrowserRouter as Router,
 } from 'react-router-dom';
+import firebase from 'firebase';
+import 'firebase/firestore';
+import { Quill } from 'react-quill';
+import QuillCursors from 'quill-cursors';
 import AppContainer from './containers/AppContainer';
 import app from './reducers';
+
+firebase.initializeApp({
+  apiKey: process.env.FB_API_KEY,
+  authDomain: process.env.FB_AUTH_DOMAIN,
+  databaseURL: process.env.FB_DATABASE_URL,
+  projectId: process.env.FB_PROJECT_ID,
+  storageBucket: process.env.FB_STORAGE_BUCKET,
+  messagingSenderId: process.env.FB_MESSAGING_SENDER_ID,
+});
+
+Quill.register('modules/cursors', QuillCursors);
 
 const store = createStore(
   app,
