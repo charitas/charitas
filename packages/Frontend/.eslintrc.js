@@ -30,4 +30,12 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['**/__mocks__/*.js'],
+      env: {
+        jest: true,
+      }
+    }
+  ]
 };

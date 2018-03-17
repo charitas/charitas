@@ -4,7 +4,7 @@ exports[`AuthenticateContainer should render 1`] = `
 <Authenticate
   authenticate={[Function]}
   error={false}
-  loading={false}
+  loading={true}
   signingin={false}
   updateFormByKey={[Function]}
 />

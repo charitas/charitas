@@ -63,6 +63,22 @@ exports[`Authenticate should render 1`] = `
           Sign In
         </Button>
       </Link>
+      <Button
+        as="button"
+        color="blue"
+        fluid={true}
+        onClick={[Function]}
+      >
+        Sign In With Google
+      </Button>
+      <Button
+        as="button"
+        color="blue"
+        fluid={true}
+        onClick={[Function]}
+      >
+        Sign In With Facebook
+      </Button>
     </Form>
   </Segment>
 </styled.div>
@@ -131,6 +147,22 @@ exports[`Authenticate should render a loading message when passed loading as a p
           Sign In
         </Button>
       </Link>
+      <Button
+        as="button"
+        color="blue"
+        fluid={true}
+        onClick={[Function]}
+      >
+        Sign In With Google
+      </Button>
+      <Button
+        as="button"
+        color="blue"
+        fluid={true}
+        onClick={[Function]}
+      >
+        Sign In With Facebook
+      </Button>
     </Form>
     <styled.div>
       <Loader
@@ -205,12 +237,28 @@ exports[`Authenticate should render an error when passed as a prop 1`] = `
           Sign In
         </Button>
       </Link>
+      <Button
+        as="button"
+        color="blue"
+        fluid={true}
+        onClick={[Function]}
+      >
+        Sign In With Google
+      </Button>
+      <Button
+        as="button"
+        color="blue"
+        fluid={true}
+        onClick={[Function]}
+      >
+        Sign In With Facebook
+      </Button>
     </Form>
     <Message
       negative={true}
     >
       <p>
-        test error
+        Could not sign in, please check your email and password and try again
       </p>
     </Message>
   </Segment>

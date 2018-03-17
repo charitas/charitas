@@ -7,7 +7,6 @@ exports[`App should render correctly 1`] = `
   />
   <SidebarLeftOverlay
     isAuthenticated={true}
-    logout={[Function]}
     sideBarVisibility={true}
     toggleMenu={[Function]}
   />

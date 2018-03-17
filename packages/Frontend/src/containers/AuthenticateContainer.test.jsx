@@ -1,26 +1,15 @@
 /* eslint-env jest */
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Auth } from 'aws-amplify';
+import { auth } from 'firebase';
 import { createAssertWithPropsToMatchSnapshot } from '../../test-utils';
 import AuthenticateContainer from './AuthenticateContainer';
 
-jest.mock('aws-amplify', () => ({
-  Auth: {
-    currentAuthenticatedUser: jest.fn(() => Promise.resolve({ username: 'user' })),
-    signIn: jest.fn((username, password) => new Promise((resolve, reject) => {
-      if (username === 'user' && password === 'password') {
-        resolve();
-      }
-      reject();
-    })),
-  },
-}));
+jest.mock('firebase');
 
 describe('AuthenticateContainer', () => {
   const defaultProps = {
     isAuthenticated: false,
-    login: () => {},
     match: {
       isExact: true,
       path: '',
@@ -56,11 +45,11 @@ describe('AuthenticateContainer', () => {
   });
 
   describe('signIn', () => {
-    it('should call setState with { error: \'\', loading: true } and a callback', () => {
+    it('should call setState with { error: false, loading: true } and a callback', () => {
       const inst = shallow(<AuthenticateContainer.WrappedComponent {...defaultProps} />).instance();
       inst.setState = jest.fn();
       inst.signIn();
-      expect(inst.setState.mock.calls[0][0]).toEqual({ error: '', loading: true });
+      expect(inst.setState.mock.calls[0][0]).toEqual({ error: false, loading: true });
       expect(typeof inst.setState.mock.calls[0][1]).toBe('function');
     });
 
@@ -75,7 +64,7 @@ describe('AuthenticateContainer', () => {
         inst.signIn();
         const callback = inst.setState.mock.calls[0][1];
         callback();
-        expect(Auth.signIn).toHaveBeenCalledWith('user', 'password');
+        expect(auth().signInWithEmailAndPassword).toHaveBeenCalledWith('user', 'password');
       });
     });
   });

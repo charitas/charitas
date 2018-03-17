@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { shallow } from 'enzyme';
+import { auth } from 'firebase';
 import SidebarLeftOverlay from './SidebarLeftOverlay';
 import { createAssertWithPropsToMatchSnapshot } from '../../../test-utils';
 
@@ -91,14 +92,12 @@ describe('SidebarLeftOverlay', () => {
       expect(typeof inst.handleLogout).toBe('function');
     });
 
-    it('should call props.logout', () => {
-      const logout = jest.fn();
+    it('should call firebase.auth().logout', () => {
       const inst = shallow(<SidebarLeftOverlay
         {...defaultProps}
-        logout={logout}
       />).instance();
       inst.handleLogout();
-      expect(logout).toHaveBeenCalledTimes(1);
+      expect(auth().signOut).toHaveBeenCalledTimes(1);
     });
 
     it('should call props.toggleMenu', () => {

@@ -10,14 +10,13 @@ import Library from './Library';
 import AuthenticateContainer from '../containers/AuthenticateContainer';
 
 function App({
-  isAuthenticated, logout, toggleVisibility, visible,
+  isAuthenticated, toggleVisibility, visible,
 }) {
   return (
     <Fragment>
       <SidebarTopOverlay toggleMenu={toggleVisibility} />
       <SidebarLeftOverlay
         isAuthenticated={isAuthenticated}
-        logout={logout}
         sideBarVisibility={visible}
         toggleMenu={toggleVisibility}
       />
@@ -33,7 +32,6 @@ function App({
 
 App.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  logout: PropTypes.func.isRequired,
   toggleVisibility: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
 };

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Sidebar, Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { auth } from 'firebase';
 
 export default class SidebarLeftOverlay extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    logout: PropTypes.func.isRequired,
     sideBarVisibility: PropTypes.bool.isRequired,
     toggleMenu: PropTypes.func.isRequired,
   }
@@ -20,7 +20,7 @@ export default class SidebarLeftOverlay extends Component {
   }
 
   handleLogout = () => {
-    this.props.logout();
+    auth().signOut();
     this.props.toggleMenu();
   };
 

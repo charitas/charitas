@@ -17,7 +17,7 @@ describe('Authenticate', () => {
   });
 
   it('should render an error when passed as a prop', () => {
-    assertWithPropsToMatchSnapshot({ error: 'test error' });
+    assertWithPropsToMatchSnapshot({ error: { code: 'errorCode', message: 'test error' } });
   });
 
   it('should render a loading message when passed loading as a prop', () => {
