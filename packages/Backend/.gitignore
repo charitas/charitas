@@ -1,0 +1,11 @@
+# Dependency directories
+node_modules/
+
+# build directory
+/dist
+
+# dotenv environment variables file
+.env
+
+# Configuration files
+.firebaserc
