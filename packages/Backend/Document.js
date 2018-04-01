@@ -1,10 +1,11 @@
-let counter = 0;
+const knex = require('./db');
+
+const createId = () => knex.insert({}).into('documents').returning('id');
 
 class Documents {
   constructor({ id }) {
     if (!id) {
-      this.id = counter;
-      counter += 1;
+      this.id = createId();
     } else {
       this.id = id;
     }
