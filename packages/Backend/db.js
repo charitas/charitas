@@ -1,4 +1,6 @@
-const knex = require('knex')({
+import knex from 'knex';
+
+const options = {
   client: 'pg',
   connection: {
     host: process.env.PG_HOST,
@@ -6,6 +8,6 @@ const knex = require('knex')({
     password: process.env.PG_PASSWORD,
     database: process.env.PG_DATABASE,
   },
-});
+};
 
-module.exports = knex;
+export default knex(options);

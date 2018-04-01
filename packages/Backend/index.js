@@ -1,9 +1,8 @@
-require('dotenv').config();
-const functions = require('firebase-functions');
-const express = require('express');
-const graphqlHTTP = require('express-graphql');
-const { buildSchema } = require('graphql');
-const Document = require('./Document');
+import { https } from 'firebase-functions';
+import express from 'express';
+import graphqlHTTP from 'express-graphql';
+import { buildSchema } from 'graphql';
+import Document from './Document';
 
 const schema = buildSchema(`
   type Document {
@@ -30,6 +29,6 @@ app.use('/v1', graphqlHTTP({
   graphiql: true,
 }));
 
-const api = functions.https.onRequest(app);
+const api = https.onRequest(app);
 
 module.exports = { api };

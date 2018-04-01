@@ -7,6 +7,7 @@
   "author": "MWAW Developer <dev@marvelousworkandawonder.com>",
   "license": "Apache-2.0",
   "scripts": {
+    "build": "webpack",
     "deploy": "firebase deploy --only functions",
     "firebase-login": "firebase login",
     "lint": "eslint index.js",
@@ -16,7 +17,6 @@
     "validate": "yarn lint"
   },
   "dependencies": {
-    "dotenv": "5.0.1",
     "express": "4.16.3",
     "express-graphql": "0.6.12",
     "firebase-admin": "5.11.0",
@@ -27,8 +27,16 @@
     "pg": "7.4.1"
   },
   "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-loader": "7.1.4",
+    "babel-preset-env": "1.6.1",
+    "copy-webpack-plugin": "4.5.1",
+    "dotenv": "5.0.1",
     "eslint": "4.9.0",
     "eslint-config-airbnb-base": "12.1.0",
-    "eslint-plugin-import": "2.7.0"
+    "eslint-plugin-import": "2.7.0",
+    "webpack": "4.4.1",
+    "webpack-cli": "2.0.13",
+    "webpack-node-externals": "1.6.0"
   }
 }
