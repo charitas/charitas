@@ -7,7 +7,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const PRODUCTION = 'production';
 module.exports = {
   entry: './index.js',
-  externals: [nodeExternals()],
+  // we need to use nodeExternals twice here,
+  // once for Backend node_modules and again
+  // for node_modules in the root directory
+  externals: [nodeExternals(), nodeExternals({ modulesDir: '../../node_modules' })],
   mode: PRODUCTION,
   module: {
     rules: [

@@ -4,9 +4,7 @@ import ReactDOM from 'react-dom';
 import { AppContainer as HotReloadContainer } from 'react-hot-loader';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import {
-  BrowserRouter as Router,
-} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import firebase from 'firebase';
 import 'firebase/firestore';
 import { Quill } from 'react-quill';

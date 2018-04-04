@@ -6,6 +6,7 @@ const template = require('html-webpack-template');
 
 const outputPath = path.resolve(__dirname, '..', 'dist');
 module.exports = {
+  mode: 'development',
   entry: ['react-hot-loader/patch', './src/index.jsx'],
   plugins: [
     new HtmlWebpackPlugin({

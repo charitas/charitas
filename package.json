@@ -1,13 +1,15 @@
 {
  "devDependencies": {
-  "lerna": "2.5.1"
+  "lerna": "2.9.1"
  },
+ "private": true,
  "scripts": {
   "build": "lerna exec -- yarn build",
   "bootstrap": "lerna bootstrap",
-  "clean": "lerna clean && lerna exec -- yarn clean",
+  "clean": "lerna clean",
   "lint": "lerna exec -- yarn lint",
   "test": "lerna exec -- yarn test",
-  "validate": "lerna exec -- yarn validate"
- }
+  "validate": "yarn lint && yarn test"
+ },
+ "workspaces": ["packages/*"]
 }
