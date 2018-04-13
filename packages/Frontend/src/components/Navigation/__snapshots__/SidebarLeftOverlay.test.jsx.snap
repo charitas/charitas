@@ -39,45 +39,18 @@ exports[`SidebarLeftOverlay rendering should not render a sidebar when sideBarVi
       </MenuItem>
     </Link>
     <Link
-      href="/"
+      href="/journals"
       replace={false}
-      to="/"
+      to="/journals"
     >
       <MenuItem
         as="div"
-        name="new journal"
+        name="journals"
         onClick={[Function]}
       >
-        New Journal
+        Journals
       </MenuItem>
     </Link>
-    <MenuItem
-      as="div"
-      name="journal"
-      onClick={[Function]}
-    >
-      Journal
-      <MenuMenu>
-        <Link
-          href="/journal"
-          replace={false}
-          to="/journal"
-        >
-          <MenuItem>
-            Read
-          </MenuItem>
-        </Link>
-        <Link
-          href="/newJournal"
-          replace={false}
-          to="/newJournal"
-        >
-          <MenuItem>
-            Create
-          </MenuItem>
-        </Link>
-      </MenuMenu>
-    </MenuItem>
     <Link
       href="/signin"
       replace={false}
@@ -134,45 +107,18 @@ exports[`SidebarLeftOverlay rendering should render a sidebar when sideBarVisibi
       </MenuItem>
     </Link>
     <Link
-      href="/"
+      href="/journals"
       replace={false}
-      to="/"
+      to="/journals"
     >
       <MenuItem
         as="div"
-        name="new journal"
+        name="journals"
         onClick={[Function]}
       >
-        New Journal
+        Journals
       </MenuItem>
     </Link>
-    <MenuItem
-      as="div"
-      name="journal"
-      onClick={[Function]}
-    >
-      Journal
-      <MenuMenu>
-        <Link
-          href="/journal"
-          replace={false}
-          to="/journal"
-        >
-          <MenuItem>
-            Read
-          </MenuItem>
-        </Link>
-        <Link
-          href="/newJournal"
-          replace={false}
-          to="/newJournal"
-        >
-          <MenuItem>
-            Create
-          </MenuItem>
-        </Link>
-      </MenuMenu>
-    </MenuItem>
     <Link
       href="/signin"
       replace={false}
@@ -229,45 +175,18 @@ exports[`SidebarLeftOverlay rendering should render a sign in menu item when not
       </MenuItem>
     </Link>
     <Link
-      href="/"
+      href="/journals"
       replace={false}
-      to="/"
+      to="/journals"
     >
       <MenuItem
         as="div"
-        name="new journal"
+        name="journals"
         onClick={[Function]}
       >
-        New Journal
+        Journals
       </MenuItem>
     </Link>
-    <MenuItem
-      as="div"
-      name="journal"
-      onClick={[Function]}
-    >
-      Journal
-      <MenuMenu>
-        <Link
-          href="/journal"
-          replace={false}
-          to="/journal"
-        >
-          <MenuItem>
-            Read
-          </MenuItem>
-        </Link>
-        <Link
-          href="/newJournal"
-          replace={false}
-          to="/newJournal"
-        >
-          <MenuItem>
-            Create
-          </MenuItem>
-        </Link>
-      </MenuMenu>
-    </MenuItem>
     <Link
       href="/signin"
       replace={false}
@@ -324,45 +243,18 @@ exports[`SidebarLeftOverlay rendering should render a sign out menu item when au
       </MenuItem>
     </Link>
     <Link
-      href="/"
+      href="/journals"
       replace={false}
-      to="/"
+      to="/journals"
     >
       <MenuItem
         as="div"
-        name="new journal"
+        name="journals"
         onClick={[Function]}
       >
-        New Journal
+        Journals
       </MenuItem>
     </Link>
-    <MenuItem
-      as="div"
-      name="journal"
-      onClick={[Function]}
-    >
-      Journal
-      <MenuMenu>
-        <Link
-          href="/journal"
-          replace={false}
-          to="/journal"
-        >
-          <MenuItem>
-            Read
-          </MenuItem>
-        </Link>
-        <Link
-          href="/newJournal"
-          replace={false}
-          to="/newJournal"
-        >
-          <MenuItem>
-            Create
-          </MenuItem>
-        </Link>
-      </MenuMenu>
-    </MenuItem>
     <MenuItem
       as="div"
       name="logout"

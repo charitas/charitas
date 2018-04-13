@@ -17,26 +17,29 @@ exports[`App should render correctly 1`] = `
       }
     }
   />
-  <Route
-    component={[Function]}
-    exact={true}
-    path="/"
-  />
-  <Route
-    component={[Function]}
-    path="/journal"
-  />
-  <Route
-    component={[Function]}
-    path="/newJournal"
-  />
-  <Route
-    component={[Function]}
-    path="/library"
-  />
-  <Route
-    component={[Function]}
-    path="/sign(up|in)"
-  />
+  <Switch>
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/journals"
+    />
+    <Route
+      component={[Function]}
+      path="/journals/:id"
+    />
+    <Route
+      component={[Function]}
+      path="/library"
+    />
+    <Route
+      component={[Function]}
+      path="/sign(up|in)"
+    />
+  </Switch>
 </React.Fragment>
 `;

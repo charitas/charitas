@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { SidebarLeftOverlay, SidebarTopOverlay } from './Navigation';
 import Home from './Home';
-import Journal from './Journal';
-import NewJournal from './NewJournal';
+import JournalContainer from '../containers/JournalContainer';
 import Library from './Library';
 import AuthenticateContainer from '../containers/AuthenticateContainer';
+import EditorContainer from '../containers/EditorContainer';
 
 function App({
   isAuthenticated, toggleVisibility, visible,
@@ -21,11 +21,13 @@ function App({
         toggleMenu={toggleVisibility}
       />
       <div style={{ height: '40px' }} />
-      <Route exact path="/" component={Home} />
-      <Route path="/journal" component={Journal} />
-      <Route path="/newJournal" component={NewJournal} />
-      <Route path="/library" component={Library} />
-      <Route path="/sign(up|in)" component={AuthenticateContainer} />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/journals" component={JournalContainer} />
+        <Route path="/journals/:id" component={EditorContainer} />
+        <Route path="/library" component={Library} />
+        <Route path="/sign(up|in)" component={AuthenticateContainer} />
+      </Switch>
     </Fragment>
   );
 }
