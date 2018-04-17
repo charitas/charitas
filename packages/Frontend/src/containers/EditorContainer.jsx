@@ -122,7 +122,12 @@ export default class EditorContainer extends Component {
     }
     return (
       <Fragment>
-        <input onChange={this.handleTitleChange} value={this.state.title} />
+        <input
+          onChange={this.handleTitleChange}
+          style={{ width: '100%' }}
+          placeholder="Add New Title Here"
+          value={this.state.title}
+        />
         <Editor
           onChangeSelection={this.onChangeSelection}
           setRef={this.setRef}
