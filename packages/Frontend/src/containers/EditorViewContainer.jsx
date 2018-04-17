@@ -1,14 +1,25 @@
 import React, { Component, Fragment } from 'react';
 import firebase from 'firebase';
+import PropTypes from 'prop-types';
 import Editor from '../components/Editor';
+import { getCollection, getDocumentId } from '../helpers/firestore';
 
 export default class EditorViewContainer extends Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      params: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+  }
+
   constructor(props) {
     super(props);
-    firebase
+    this.unsubscribe = firebase
       .firestore()
-      .collection('editor')
-      .doc('test')
+      .collection(getCollection(props.match.url))
+      .doc(getDocumentId(props.match.params.id))
       .onSnapshot(this.handleSnapshot);
     this.state = {
       range: { index: 0, length: 0 },
@@ -27,6 +38,10 @@ export default class EditorViewContainer extends Component {
     if (prevState.range === null && this.state.range !== null) {
       this.setCursor();
     }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   setCursor = () => {
@@ -64,9 +79,9 @@ export default class EditorViewContainer extends Component {
         <h1>{this.state.title}</h1>
         <Editor
           modules={{
-          toolbar: false,
-          cursors: true,
-        }}
+            toolbar: false,
+            cursors: true,
+          }}
           readOnly
           setRef={this.setRef}
           value={this.state.value}

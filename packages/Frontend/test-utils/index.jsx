@@ -3,10 +3,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-// eslint-disable-next-line import/prefer-default-export
-export const createAssertWithPropsToMatchSnapshot = (Component, defaultProps) =>
+export const makeShallowCreateWrapper = (Component, defaultProps) =>
   (extraProps) => {
     const props = { ...defaultProps, ...extraProps };
-    const wrapper = shallow(<Component {...props} />);
-    expect(wrapper).toMatchSnapshot();
+    return shallow(<Component {...props} />);
   };
+
+export const createAssertWithPropsToMatchSnapshot = (Component, defaultProps) => {
+  const createWrapper = makeShallowCreateWrapper(Component, defaultProps);
+  return (extraProps) => {
+    expect(createWrapper(extraProps)).toMatchSnapshot();
+  };
+};

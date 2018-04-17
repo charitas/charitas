@@ -2,22 +2,9 @@ import React, { Component, Fragment } from 'react';
 import firebase from 'firebase';
 import PropTypes from 'prop-types';
 import Editor from '../components/Editor';
+import { getCollection, getDocumentId } from '../helpers/firestore';
 
 export default class EditorContainer extends Component {
-  static getCollection = (url) => {
-    if (url.includes('journals')) {
-      return 'journals';
-    }
-    return '';
-  }
-
-  static getDocumentId = (id) => {
-    if (id === 'create') {
-      return '';
-    }
-    return id;
-  }
-
   static propTypes = {
     history: PropTypes.shape({
       replace: PropTypes.func.isRequired,
@@ -34,8 +21,8 @@ export default class EditorContainer extends Component {
     super(props);
     this.db = firebase.firestore();
     this.state = {
-      collection: EditorContainer.getCollection(props.match.url),
-      documentId: EditorContainer.getDocumentId(props.match.params.id),
+      collection: getCollection(props.match.url),
+      documentId: getDocumentId(props.match.params.id),
       loading: true,
       title: '',
       value: '',
@@ -49,7 +36,7 @@ export default class EditorContainer extends Component {
         value: '',
       })
         .then((docRef) => {
-          this.props.history.replace(`/${this.state.collection}/${docRef.id}`);
+          this.props.history.replace(`/${this.state.collection}/edit/${docRef.id}`);
           this.setState({
             documentId: docRef.id,
             loading: false,

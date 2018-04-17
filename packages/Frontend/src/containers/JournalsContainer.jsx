@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import { List, Map } from 'immutable';
 import { Link } from 'react-router-dom';
 
-export default class JournalContainer extends Component {
+export default class JournalsContainer extends Component {
   constructor(props) {
     super(props);
     this.db = firebase.firestore();
@@ -28,16 +28,23 @@ export default class JournalContainer extends Component {
     }
     return (
       <Fragment>
-        <button><a href="/journals/create">Create Journal</a></button>
+        <button><a href="/journals/edit/create">Create Journal</a></button>
         { this.state.journals.map((journal) => {
-          const href = `/journals/${journal.get('id')}`;
+          const viewHref = `/journals/view/${journal.get('id')}`;
+          const editHref = `/journals/edit/${journal.get('id')}`;
           return (
             <div key={journal.get('id')} >
               <Link
-                to={href}
-                href={href}
+                to={viewHref}
+                href={viewHref}
               >
                 {journal.get('title')}
+              </Link>
+              <Link
+                to={editHref}
+                href={editHref}
+              >
+                (edit)
               </Link>
             </div>
           );

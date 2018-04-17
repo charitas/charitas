@@ -8,14 +8,20 @@ const auth = {
 class MockDocument {
   constructor(id) {
     this.id = id;
-    this.data = id;
+    this.data = () => this.id;
   }
 }
 
-const mockQuerySnapshot = [1, 2, 3].map(id => new MockDocument(id));
+class MockQuerySnapshot {
+  constructor(ids) {
+    this.docs = ids.map(id => new MockDocument(id));
+  }
+}
+
 const firestore = {
   collection: jest.fn(() => ({
-    get: jest.fn(() => Promise.resolve(mockQuerySnapshot)),
+    get: jest.fn(() => Promise.resolve(new MockQuerySnapshot([1, 2, 3]))),
+    add: jest.fn(() => Promise.resolve(new MockDocument(1))),
   })),
 };
 
