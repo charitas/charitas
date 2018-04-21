@@ -1,6 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import firebase from 'firebase';
 import PropTypes from 'prop-types';
+import ContentBody from '../components/ContentBody';
 import Editor from '../components/Editor';
 import { getCollection, getDocumentId } from '../helpers/firestore';
 
@@ -108,7 +109,7 @@ export default class EditorContainer extends Component {
       return (<p>Loading...</p>);
     }
     return (
-      <Fragment>
+      <ContentBody>
         <input
           onChange={this.handleTitleChange}
           style={{ width: '100%' }}
@@ -120,7 +121,7 @@ export default class EditorContainer extends Component {
           setRef={this.setRef}
           value={this.state.value}
         />
-      </Fragment>
+      </ContentBody>
     );
   }
 }
