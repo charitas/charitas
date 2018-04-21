@@ -38,5 +38,5 @@ export default function ContentBody(props) {
 }
 
 ContentBody.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
 };

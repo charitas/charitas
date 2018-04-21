@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import PropTypes from 'prop-types';
+import { Header } from 'somnium';
 import ContentBody from '../components/ContentBody';
 import Editor from '../components/Editor';
 import { getCollection, getDocumentId } from '../helpers/firestore';
@@ -109,19 +110,22 @@ export default class EditorContainer extends Component {
       return (<p>Loading...</p>);
     }
     return (
-      <ContentBody>
-        <input
-          onChange={this.handleTitleChange}
-          style={{ width: '100%' }}
-          placeholder="Add New Title Here"
-          value={this.state.title}
-        />
-        <Editor
-          onChangeSelection={this.onChangeSelection}
-          setRef={this.setRef}
-          value={this.state.value}
-        />
-      </ContentBody>
+      <div>
+        <Header headerTitle="Add New Post" />
+        <ContentBody>
+          <input
+            onChange={this.handleTitleChange}
+            style={{ width: '100%' }}
+            placeholder="Add New Title Here"
+            value={this.state.title}
+          />
+          <Editor
+            onChangeSelection={this.onChangeSelection}
+            setRef={this.setRef}
+            value={this.state.value}
+          />
+        </ContentBody>
+      </div>
     );
   }
 }

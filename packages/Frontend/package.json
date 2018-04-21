@@ -21,6 +21,7 @@
     "react-router-dom": "4.2.2",
     "redux": "3.7.2",
     "semantic-ui-react": "0.79.0",
+    "somnium": "https://github.com/jessbradford/somnium/#master",
     "styled-components": "3.2.5"
   },
   "devDependencies": {
