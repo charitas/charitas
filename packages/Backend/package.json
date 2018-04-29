@@ -1,7 +1,7 @@
 {
-  "name": "sot-graphql",
+  "name": "sot-functions",
   "version": "0.0.1",
-  "description": "GraphQL API for The Source of Truth",
+  "description": "Serverless functions for The Source of Truth",
   "main": "index.js",
   "repository": "https://github.com/TheSourceOfTruth/TheSourceOfTruth",
   "author": "MWAW Developer <dev@marvelousworkandawonder.com>",
@@ -14,20 +14,16 @@
     "logs": "firebase functions:log",
     "shell": "firebase experimental:functions:shell",
     "start": "firebase serve --only functions",
-    "test": "echo 'no tests created'"
+    "test": "jest"
   },
   "dependencies": {
-    "express": "4.16.3",
-    "express-graphql": "0.6.12",
-    "firebase-admin": "5.11.0",
-    "firebase-functions": "0.9.1",
-    "firebase-tools": "3.17.7",
-    "graphql": "0.13.2",
-    "knex": "0.14.4",
-    "pg": "7.4.1"
+    "firebase-admin": "5.12.0",
+    "firebase-functions": "1.0.2",
+    "firebase-tools": "3.18.4"
   },
   "devDependencies": {
     "babel-core": "6.26.0",
+    "babel-jest": "22.4.3",
     "babel-loader": "7.1.4",
     "babel-preset-env": "1.6.1",
     "copy-webpack-plugin": "4.5.1",
@@ -35,6 +31,8 @@
     "eslint": "4.19.1",
     "eslint-config-airbnb-base": "12.1.0",
     "eslint-plugin-import": "2.10.0",
+    "firebase-functions-test": "0.1.2",
+    "jest": "22.4.3",
     "webpack": "4.4.1",
     "webpack-cli": "2.0.13",
     "webpack-node-externals": "1.6.0"
