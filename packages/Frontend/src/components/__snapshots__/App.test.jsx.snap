@@ -29,8 +29,8 @@ exports[`App should render correctly 1`] = `
       path="/journals"
     />
     <Route
-      component={[Function]}
       path="/journals/edit/:id"
+      render={[Function]}
     />
     <Route
       component={[Function]}

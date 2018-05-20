@@ -1,14 +1,13 @@
 /* eslint-env jest */
 import { createAssertWithPropsToMatchSnapshot, makeShallowCreateWrapper } from '../../test-utils';
-import EditorContainer from './EditorContainer';
+import FirepadContainer from './FirepadContainer';
 
-jest.mock('firebase');
-
-describe('EditorContainer', () => {
+describe('FirepadContainer', () => {
   const defaultProps = {
     history: {
       replace: () => {},
     },
+    isAuthenticated: false,
     match: {
       url: '',
       params: {
@@ -17,13 +16,19 @@ describe('EditorContainer', () => {
     },
   };
 
+  const assertWithPropsToMatchSnapshot =
+    createAssertWithPropsToMatchSnapshot(FirepadContainer.WrappedComponent, defaultProps);
 
-  it('should render', () => {
-    createAssertWithPropsToMatchSnapshot(EditorContainer, defaultProps)();
+  it('should render loading when not authenticated', () => {
+    assertWithPropsToMatchSnapshot();
+  });
+
+  it('should render when authenticated', () => {
+    assertWithPropsToMatchSnapshot({ isAuthenticated: true });
   });
 
   describe('journals', () => {
-    const createWrapper = makeShallowCreateWrapper(EditorContainer, defaultProps);
+    const createWrapper = makeShallowCreateWrapper(FirepadContainer.WrappedComponent, defaultProps);
 
     it('should set it\'s collection to journals when the url contains journals', () => {
       const extraProps = {

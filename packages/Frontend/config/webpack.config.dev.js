@@ -12,7 +12,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       appMountId: 'app',
       inject: false,
-      links: ['https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css'],
+      links: [
+        'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css',
+      ],
       mobile: true,
       template,
       title: 'Dashboard',
@@ -59,6 +61,10 @@ module.exports = {
             cacheDirectory: true,
           },
         },
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000',
       },
       {
         test: /\.(png|jpg|gif)$/,

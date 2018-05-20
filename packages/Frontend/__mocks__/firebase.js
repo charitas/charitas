@@ -25,7 +25,19 @@ const firestore = {
   })),
 };
 
+const database = {
+  ref: () => ({
+    child: () => {},
+    push: () => ({
+      key: '',
+      on: () => {},
+      once: () => {},
+    }),
+  }),
+};
+
 firebase.auth = () => auth;
 firebase.firestore = () => firestore;
+firebase.database = () => database;
 
 module.exports = firebase;

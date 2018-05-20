@@ -25,10 +25,10 @@ class AppContainer extends Component {
     auth().onAuthStateChanged((user) => {
       if (user) {
         const {
-          displayName, email, emailVerified, isAnonymous, metadata, providerData,
+          displayName, email, emailVerified, isAnonymous, metadata, providerData, uid,
         } = user;
         this.props.login({
-          displayName, email, emailVerified, isAnonymous, metadata, providerData,
+          displayName, email, emailVerified, isAnonymous, metadata, providerData, uid,
         });
       } else {
         this.props.logout();
