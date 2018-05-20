@@ -22,8 +22,11 @@ describe('AuthenticateContainer', () => {
     assertWithPropsToMatchSnapshot();
   });
 
-  it('should render a Redirect when authenticated', () => {
-    assertWithPropsToMatchSnapshot({ isAuthenticated: true });
+  it('should render a Redirect when authenticated non-anonymously', () => {
+    assertWithPropsToMatchSnapshot({
+      isAuthenticated: true,
+      isAnonymous: false,
+    });
   });
 
   describe('updateFormByKey', () => {

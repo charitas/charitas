@@ -204,7 +204,7 @@ exports[`SidebarLeftOverlay rendering should render a sign in menu item when not
 </div>
 `;
 
-exports[`SidebarLeftOverlay rendering should render a sign out menu item when authenticated 1`] = `
+exports[`SidebarLeftOverlay rendering should render a sign out menu item when authenticated non-anonymously 1`] = `
 <div>
   <Sidebar
     animation="overlay"

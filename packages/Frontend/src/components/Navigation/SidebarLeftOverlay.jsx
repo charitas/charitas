@@ -6,7 +6,7 @@ import { auth } from 'firebase';
 
 export default class SidebarLeftOverlay extends Component {
   static propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
+    isAnonymous: PropTypes.bool.isRequired,
     sideBarVisibility: PropTypes.bool.isRequired,
     toggleMenu: PropTypes.func.isRequired,
   }
@@ -59,7 +59,7 @@ export default class SidebarLeftOverlay extends Component {
           {renderMenuItem('home', 'Home', '/')}
           {renderMenuItem('library', 'Library', '/library')}
           {renderMenuItem('journals', 'Journals', '/journals')}
-          { this.props.isAuthenticated
+          { !this.props.isAnonymous
               ? this.renderLogout()
               : renderMenuItem('signin', 'Sign In', '/signin')
           }

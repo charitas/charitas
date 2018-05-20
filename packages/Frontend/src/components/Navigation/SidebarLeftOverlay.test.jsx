@@ -9,6 +9,7 @@ describe('SidebarLeftOverlay', () => {
   const noOp = () => {};
   const defaultProps = Object.freeze({
     isAuthenticated: false,
+    isAnonymous: true,
     logout: noOp,
     sideBarVisibility: true,
     toggleMenu: noOp,
@@ -21,8 +22,11 @@ describe('SidebarLeftOverlay', () => {
       assertWithPropsToMatchSnapshot();
     });
 
-    it('should render a sign out menu item when authenticated', () => {
-      assertWithPropsToMatchSnapshot({ isAuthenticated: true });
+    it('should render a sign out menu item when authenticated non-anonymously', () => {
+      assertWithPropsToMatchSnapshot({
+        isAuthenticated: true,
+        isAnonymous: false,
+      });
     });
 
     it('should not render a sidebar when sideBarVisibility is false', () => {

@@ -10,13 +10,13 @@ import AuthenticateContainer from '../containers/AuthenticateContainer';
 import FirepadContainer from '../containers/FirepadContainer';
 
 function App({
-  isAuthenticated, toggleVisibility, visible,
+  isAnonymous, toggleVisibility, visible,
 }) {
   return (
     <Fragment>
       <SidebarTopOverlay toggleMenu={toggleVisibility} />
       <SidebarLeftOverlay
-        isAuthenticated={isAuthenticated}
+        isAnonymous={isAnonymous}
         sideBarVisibility={visible}
         toggleMenu={toggleVisibility}
       />
@@ -37,7 +37,7 @@ function App({
 }
 
 App.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
+  isAnonymous: PropTypes.bool.isRequired,
   toggleVisibility: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
 };

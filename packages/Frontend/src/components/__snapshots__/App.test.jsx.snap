@@ -6,7 +6,6 @@ exports[`App should render correctly 1`] = `
     toggleMenu={[Function]}
   />
   <SidebarLeftOverlay
-    isAuthenticated={true}
     sideBarVisibility={true}
     toggleMenu={[Function]}
   />

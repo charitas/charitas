@@ -10,7 +10,7 @@ exports[`AuthenticateContainer should render 1`] = `
 />
 `;
 
-exports[`AuthenticateContainer should render a Redirect when authenticated 1`] = `
+exports[`AuthenticateContainer should render a Redirect when authenticated non-anonymously 1`] = `
 <Redirect
   push={false}
   to="/"

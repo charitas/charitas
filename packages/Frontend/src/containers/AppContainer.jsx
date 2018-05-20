@@ -9,9 +9,13 @@ import login from '../actions/login';
 
 class AppContainer extends Component {
   static propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
+    isAnonymous: PropTypes.bool,
     logout: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    isAnonymous: true,
   }
 
   constructor(props) {
@@ -32,6 +36,12 @@ class AppContainer extends Component {
         });
       } else {
         this.props.logout();
+        auth().signInAnonymously().catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // eslint-disable-next-line no-console
+          return console.log(errorCode, errorMessage);
+        });
       }
     });
   }
@@ -42,7 +52,7 @@ class AppContainer extends Component {
     return (
       <BrowserRouter>
         <App
-          isAuthenticated={this.props.isAuthenticated}
+          isAnonymous={this.props.isAnonymous}
           toggleVisibility={this.toggleVisibility}
           visible={this.state.visible}
         />
@@ -52,7 +62,7 @@ class AppContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.user.isAuthenticated,
+  isAnonymous: state.user.isAnonymous,
 });
 
 const mapDispatchToProps = dispatch => ({

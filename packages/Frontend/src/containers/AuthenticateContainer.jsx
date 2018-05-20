@@ -10,12 +10,16 @@ const signInRoute = '/signin';
 
 class AuthenticateContainer extends Component {
   static propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
+    isAnonymous: PropTypes.bool,
     match: PropTypes.shape({
       isExact: PropTypes.bool.isRequired,
       path: PropTypes.string.isRequired,
       url: PropTypes.string.isRequired,
     }).isRequired,
+  }
+
+  static defaultProps = {
+    isAnonymous: true,
   }
 
   constructor(props) {
@@ -86,7 +90,7 @@ class AuthenticateContainer extends Component {
   };
 
   render() {
-    if (this.props.isAuthenticated) {
+    if (!this.props.isAnonymous) {
       return <Redirect to="/" />;
     }
 
@@ -102,7 +106,7 @@ class AuthenticateContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.user.isAuthenticated,
+  isAnonymous: state.user.isAnonymous,
 });
 
 const mapDispatchToProps = dispatch => ({
