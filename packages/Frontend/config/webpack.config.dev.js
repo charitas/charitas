@@ -14,6 +14,8 @@ module.exports = {
       inject: false,
       links: [
         'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css',
+        'https://fonts.googleapis.com/css?family=Roboto:300,400,500',
+        'https://fonts.googleapis.com/icon?family=Material+Icons',
       ],
       mobile: true,
       template,

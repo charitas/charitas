@@ -8,7 +8,11 @@ exports[`FirepadContainer should render loading when not authenticated 1`] = `
 
 exports[`FirepadContainer should render when authenticated 1`] = `
 <Firepad
+  dialogIsOpen={false}
+  handleClose={[Function]}
+  handleSubmit={[Function]}
   handleTitleChange={[Function]}
+  openDialog={[Function]}
   readOnly={true}
   title=""
 />

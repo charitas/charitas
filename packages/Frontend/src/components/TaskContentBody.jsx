@@ -11,25 +11,25 @@ const StyledBody = styled.div`
     padding-right: 20px;
     padding-left: 20px;
     grid-gap: 10px;
-    grid-template-rows: 25px 455px;
+    grid-template-rows: 50px 25px 455px;
   }
 
   @media(min-width: 600px) and (max-width: 950px) {
     padding-right: 75px;
     padding-left: 75px;
     grid-gap: 20px;
-    grid-template-rows: 40px 600px;
+    grid-template-rows: 50px 40px 600px;
   }
 
   @media(min-width: 950px) {
     padding-right: 175px;
     padding-left: 175px;
     grid-gap: 20px;
-    grid-template-rows: 40px 600px;
+    grid-template-rows: 50px 40px 600px;
   }
 `;
 
-export default function ContentBody(props) {
+export default function TaskContentBody(props) {
   return (
     <StyledBody>
       { props.children }
@@ -37,6 +37,6 @@ export default function ContentBody(props) {
   );
 }
 
-ContentBody.propTypes = {
+TaskContentBody.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element).isRequired,
 };

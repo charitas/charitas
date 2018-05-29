@@ -8,6 +8,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@firebase/app-types": "0.1.2",
+    "@material-ui/core": "1.1.0",
+    "@material-ui/icons": "1.1.0",
     "codemirror": "5.37.0",
     "firebase": "4.12.1",
     "firepad": "1.4.0",

@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Header } from 'somnium';
 import styled from 'styled-components';
 import 'codemirror/lib/codemirror.css';
 import 'firepad/dist/firepad.css';
-import ContentBody from './ContentBody';
+import Button from '@material-ui/core/Button';
+import Dialog from './Dialog';
+import TaskContentBody from './TaskContentBody';
+import TaskHeader from './TaskHeader';
 
 const StyledFirepad = styled.div`
   height: '100%';
@@ -24,33 +26,56 @@ const StyledFirepad = styled.div`
   }
 `;
 
-export default function Firepad({ handleTitleChange, readOnly, title }) {
+export default function Firepad({
+  dialogIsOpen,
+  handleClose,
+  handleSubmit,
+  handleTitleChange,
+  openDialog,
+  readOnly,
+  title,
+}) {
   return (
     <div>
-      <Header headerTitle="Add New Post" />
-      <ContentBody>
+      <Dialog
+        dialogIsOpen={dialogIsOpen}
+        handleClose={handleClose}
+        handleSubmit={handleSubmit}
+      />
+      <TaskContentBody>
+        <TaskHeader>
+          <div>Add New Post</div>
+          { !readOnly &&
+            <Button onClick={openDialog} className="buttons">Submit</Button>
+          }
+        </TaskHeader>
         { readOnly ?
             (<h1>{title}</h1>) :
-            (<input
+            <input
               onChange={handleTitleChange}
-              style={{ width: '100%' }}
               placeholder="Add New Title Here"
+              style={{ width: '100%' }}
               value={title}
-            />)
+            />
         }
         <StyledFirepad id="firepad-container" />
-      </ContentBody>
+      </TaskContentBody>
     </div>
   );
 }
 
 Firepad.propTypes = {
+  dialogIsOpen: PropTypes.bool,
+  handleClose: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   handleTitleChange: PropTypes.func.isRequired,
+  openDialog: PropTypes.func.isRequired,
   title: PropTypes.string,
   readOnly: PropTypes.bool,
 };
 
 Firepad.defaultProps = {
+  dialogIsOpen: false,
   readOnly: true,
   title: '',
 };

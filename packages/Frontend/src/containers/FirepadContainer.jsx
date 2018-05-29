@@ -34,6 +34,7 @@ class FirepadContainer extends Component {
     super(props);
     this.state = {
       collection: getCollection(props.match.url),
+      dialogIsOpen: false,
       documentId: getDocumentId(props.match.params.id),
       title: '',
     };
@@ -82,6 +83,16 @@ class FirepadContainer extends Component {
     );
   }
 
+  handleClose = () => {
+    this.setState({ dialogIsOpen: false });
+  };
+
+  handleSubmit = () => {}
+
+  openDialog = () => {
+    this.setState({ dialogIsOpen: true });
+  }
+
   handleTitleChange = ({ target: { value } }) => {
     const newTitle = { title: value };
     this.setState(newTitle, () => {
@@ -96,7 +107,11 @@ class FirepadContainer extends Component {
     return (
       <Firepad
         title={this.state.title}
+        handleClose={this.handleClose}
+        handleSubmit={this.handleSubmit}
         handleTitleChange={this.handleTitleChange}
+        dialogIsOpen={this.state.dialogIsOpen}
+        openDialog={this.openDialog}
         readOnly={this.props.readOnly}
       />
     );
