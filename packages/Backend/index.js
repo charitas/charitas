@@ -3,4 +3,5 @@ import { config } from 'firebase-functions';
 
 admin.initializeApp(config().firebase);
 
-export * from './permissions';
+export * from './src/permissions';
+export { default as handleSubmit } from './src/journal/handleSubmit';

@@ -1,7 +1,7 @@
 {
-  "name": "sot-functions",
+  "name": "@TheSourceOfTruth/Backend",
   "version": "0.0.1",
-  "description": "Serverless functions for The Source of Truth",
+  "description": "Backend for The Source of Truth",
   "main": "index.js",
   "repository": "https://github.com/TheSourceOfTruth/TheSourceOfTruth",
   "author": "MWAW Developer <dev@marvelousworkandawonder.com>",
@@ -17,9 +17,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "firebase-admin": "5.12.0",
+    "firebase-admin": "5.12.1",
     "firebase-functions": "1.0.2",
-    "firebase-tools": "3.18.4"
+    "firebase-tools": "3.18.4",
+    "firepad": "1.4.0",
+    "jsdom": "9.12.0"
   },
   "devDependencies": {
     "babel-core": "6.26.0",

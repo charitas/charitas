@@ -7,6 +7,7 @@ describe('App', () => {
   it('should render correctly', () => {
     const wrapper = shallow(<App.WrappedComponent
       isAuthenticated
+      isAnonymous
       logout={() => {}}
       toggleVisibility={() => {}}
       visible

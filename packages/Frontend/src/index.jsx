@@ -7,8 +7,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import firebase from 'firebase';
 import 'firebase/firestore';
-import { Quill } from 'react-quill';
-import QuillCursors from 'quill-cursors';
 import AppContainer from './containers/AppContainer';
 import app from './reducers';
 
@@ -20,8 +18,6 @@ firebase.initializeApp({
   storageBucket: process.env.FB_STORAGE_BUCKET,
   messagingSenderId: process.env.FB_MESSAGING_SENDER_ID,
 });
-
-Quill.register('modules/cursors', QuillCursors);
 
 const store = createStore(
   app,

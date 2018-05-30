@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { database } from 'firebase';
+import { database, firestore } from 'firebase';
 import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
 import { connect } from 'react-redux';
+import { CHANGING_PHASE, CREATE, JOURNALS, REALTIME_DATABASE_ID, VIEW } from '../constants';
 import Firepad from '../components/Firepad';
-import { getCollection, getDocumentId } from '../helpers/firestore';
 
 global.CodeMirror = CodeMirror;
 const { fromCodeMirror } = require('firepad/dist/firepad');
@@ -18,62 +18,153 @@ class FirepadContainer extends Component {
     match: PropTypes.shape({
       url: PropTypes.string.isRequired,
       params: PropTypes.shape({
-        id: PropTypes.string.isRequired,
+        id: PropTypes.string,
+        phase: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
-    readOnly: PropTypes.bool,
     uid: PropTypes.string,
   }
 
   static defaultProps = {
-    readOnly: true,
     uid: '',
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      collection: getCollection(props.match.url),
+      [CHANGING_PHASE]: false,
       dialogIsOpen: false,
-      documentId: getDocumentId(props.match.params.id),
+      firepadInitialized: false,
+      loading: true,
+      notFound: false,
+      realtimeDatabaseReady: false,
       title: '',
     };
-    this.setRef();
-    this.ref.once('value', (snapshot) => {
-      this.setState({ title: snapshot.val().title });
-    });
   }
 
   componentDidMount() {
-    if (this.props.isAuthenticated && this.props.uid) {
+    this.getOrCreatePrimaryDocument()
+      .then((primaryDocRef) => {
+        if (primaryDocRef) {
+          this.primaryDocRef = primaryDocRef;
+          primaryDocRef
+            .onSnapshot(this.handleSnapshot);
+        }
+      });
+  }
+
+  componentDidUpdate() {
+    if (
+      this.props.isAuthenticated &&
+      this.state.realtimeDatabaseReady &&
+      !this.state.firepadInitialized
+    ) {
       this.initFirepad();
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (!prevProps.isAuthenticated && this.props.isAuthenticated && this.props.uid) {
-      this.initFirepad();
+  getOrCreatePrimaryDocument() {
+    const { id, phase } = this.props.match.params;
+    if (phase === CREATE && !id) {
+      return firestore()
+        .collection(JOURNALS)
+        .add({
+          phase,
+        });
     }
+    const primaryDoc = firestore()
+      .collection(JOURNALS)
+      .doc(id);
+    return primaryDoc
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          return primaryDoc;
+        }
+        this.setState({
+          notFound: true,
+        });
+        return null;
+      });
   }
 
-  setRef() {
-    const collectionRef = database().ref(this.state.collection);
-    if (this.state.documentId) {
-      this.ref = collectionRef.child(this.state.documentId);
+  getOrCreateFirepadDocument(primaryDoc) {
+    const { phase, id } = this.props.match.params;
+    if (phase === CREATE && !id) {
+      this.createFirepadDocument(primaryDoc);
     } else {
-      const docRef = collectionRef.push();
-      this.props.history.replace(`/${this.state.collection}/edit/${docRef.key}`);
-      this.ref = docRef;
+      const realTimeId = primaryDoc.data()[REALTIME_DATABASE_ID];
+      this.ref = database().ref(JOURNALS).child(realTimeId);
+      this.ref.once('value', (snapshot) => {
+        this.setState({ title: snapshot.val().title });
+      });
+      this.setState({
+        realtimeDatabaseReady: true,
+      });
     }
+  }
+
+  createFirepadDocument(primaryDoc) {
+    this.ref = database().ref(JOURNALS).push();
+    this.primaryDocRef.update({
+      [REALTIME_DATABASE_ID]: this.ref.key,
+    })
+      .then(() => {
+        this.props.history.replace(`/${JOURNALS}/${CREATE}/${primaryDoc.id}`);
+        this.setState({
+          realtimeDatabaseReady: true,
+        });
+      });
+  }
+
+  handleSnapshot = (primaryDoc) => {
+    if (primaryDoc.exists) {
+      this.primaryDoc = primaryDoc;
+      const changingPhase = primaryDoc.data()[CHANGING_PHASE];
+      if (changingPhase) {
+        this.setState({
+          changingPhase,
+          realtimeDatabaseReady: false,
+          creatingFirepad: false,
+        });
+      } else if (
+        this.verifyPhases(primaryDoc) &&
+        !this.state.realtimeDatabaseReady &&
+        !this.state.creatingFirepad
+      ) {
+        this.setState({ creatingFirepad: true }, () => {
+          this.getOrCreateFirepadDocument(primaryDoc);
+        });
+      }
+    } else {
+      this.setState({ notFound: true });
+    }
+  }
+
+  verifyPhases(primaryDoc) {
+    const { phase } = this.props.match.params;
+    const dbPhase = primaryDoc.data().phase;
+    if (phase === VIEW || phase === dbPhase) {
+      return primaryDoc;
+    }
+    this.setState({
+      error: {
+        message: `You are trying to ${phase} a document,
+            but it's currently in the ${dbPhase} phase`,
+        code: 'phase-mismatch',
+      },
+    });
+    return null;
   }
 
   initFirepad() {
-    const { readOnly, uid } = this.props;
+    const { uid } = this.props;
+    const readOnly = this.isReadOnly();
     const cm = CodeMirror(document.getElementById('firepad-container'), {
       lineWrapping: true,
       readOnly: readOnly ? 'nocursor' : false,
     });
-    fromCodeMirror(
+    this.firepadInst = fromCodeMirror(
       this.ref, cm,
       {
         richTextToolbar: !readOnly,
@@ -81,17 +172,29 @@ class FirepadContainer extends Component {
         userId: uid,
       },
     );
+    this.setState({
+      firepadInitialized: true,
+    });
+    this.firepadInst.on('ready', () => {
+      this.setState({
+        loading: false,
+      }, () => {
+        // we call refresh here because we get a blank editor until we click on it otherwise
+        // see https://github.com/codemirror/CodeMirror/issues/2469
+        cm.refresh();
+      });
+    });
   }
 
   handleClose = () => {
     this.setState({ dialogIsOpen: false });
   };
 
-  handleSubmit = () => {}
-
   openDialog = () => {
     this.setState({ dialogIsOpen: true });
   }
+
+  isReadOnly = () => this.props.match.params.phase === VIEW
 
   handleTitleChange = ({ target: { value } }) => {
     const newTitle = { title: value };
@@ -100,19 +203,31 @@ class FirepadContainer extends Component {
     });
   }
 
+  handleSubmit = () => {
+    this.primaryDocRef
+      .update({
+        [CHANGING_PHASE]: true,
+      })
+      .catch((error) => {
+        this.setState({ error });
+      });
+  }
+
   render() {
-    if (!this.props.isAuthenticated) {
-      return (<p>Loading...</p>);
-    }
+    const loading = !this.props.isAuthenticated || this.state.loading;
     return (
       <Firepad
-        title={this.state.title}
+        changingPhase={this.state.changingPhase}
+        dialogIsOpen={this.state.dialogIsOpen}
+        error={this.state.error}
         handleClose={this.handleClose}
         handleSubmit={this.handleSubmit}
         handleTitleChange={this.handleTitleChange}
-        dialogIsOpen={this.state.dialogIsOpen}
+        loading={loading}
+        notFound={this.state.notFound}
         openDialog={this.openDialog}
-        readOnly={this.props.readOnly}
+        readOnly={this.isReadOnly()}
+        title={this.state.title}
       />
     );
   }

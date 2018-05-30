@@ -8,6 +8,8 @@ import JournalsContainer from '../containers/JournalsContainer';
 import Library from './Library';
 import AuthenticateContainer from '../containers/AuthenticateContainer';
 import FirepadContainer from '../containers/FirepadContainer';
+import NotFound from '../components/NotFound';
+import Tasks from '../components/Tasks';
 
 function App({
   isAnonymous, toggleVisibility, visible,
@@ -24,13 +26,12 @@ function App({
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/journals" component={JournalsContainer} />
-        <Route
-          path="/journals/edit/:id"
-          render={props => <FirepadContainer readOnly={false} {...props} />}
-        />
-        <Route path="/journals/view/:id" component={FirepadContainer} />
-        <Route path="/library" component={Library} />
-        <Route path="/sign(up|in)" component={AuthenticateContainer} />
+        <Route exact path="/journals/:phase(edit|view)/:id" component={FirepadContainer} />
+        <Route exact path="/journals/:phase(create)/:id?" component={FirepadContainer} />
+        <Route exact path="/library" component={Library} />
+        <Route exact path="/sign(up|in)" component={AuthenticateContainer} />
+        <Route exact path="/tasks" component={Tasks} />
+        <Route component={NotFound} />
       </Switch>
     </Fragment>
   );

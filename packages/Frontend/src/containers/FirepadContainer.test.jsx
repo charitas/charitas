@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { createAssertWithPropsToMatchSnapshot, makeShallowCreateWrapper } from '../../test-utils';
+import { createAssertWithPropsToMatchSnapshot } from '../../test-utils';
 import FirepadContainer from './FirepadContainer';
 
 describe('FirepadContainer', () => {
@@ -11,7 +11,7 @@ describe('FirepadContainer', () => {
     match: {
       url: '',
       params: {
-        id: '',
+        phase: '',
       },
     },
   };
@@ -19,29 +19,11 @@ describe('FirepadContainer', () => {
   const assertWithPropsToMatchSnapshot =
     createAssertWithPropsToMatchSnapshot(FirepadContainer.WrappedComponent, defaultProps);
 
-  it('should render loading when not authenticated', () => {
+  it('should pass loading true props when not authenticated', () => {
     assertWithPropsToMatchSnapshot();
   });
 
   it('should render when authenticated', () => {
     assertWithPropsToMatchSnapshot({ isAuthenticated: true });
-  });
-
-  describe('journals', () => {
-    const createWrapper = makeShallowCreateWrapper(FirepadContainer.WrappedComponent, defaultProps);
-
-    it('should set it\'s collection to journals when the url contains journals', () => {
-      const extraProps = {
-        match: {
-          url: '/journals/edit/',
-          params: {
-            id: '',
-          },
-        },
-      };
-
-      const wrapper = createWrapper(extraProps);
-      expect(wrapper.state().collection).toEqual('journals');
-    });
   });
 });

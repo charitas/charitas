@@ -1,19 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FirepadContainer should render loading when not authenticated 1`] = `
-<p>
-  Loading...
-</p>
+exports[`FirepadContainer should pass loading true props when not authenticated 1`] = `
+<Firepad
+  changingPhase={false}
+  dialogIsOpen={false}
+  error={false}
+  handleClose={[Function]}
+  handleSubmit={[Function]}
+  handleTitleChange={[Function]}
+  loading={true}
+  notFound={false}
+  openDialog={[Function]}
+  readOnly={false}
+  title=""
+/>
 `;
 
 exports[`FirepadContainer should render when authenticated 1`] = `
 <Firepad
+  changingPhase={false}
   dialogIsOpen={false}
+  error={false}
   handleClose={[Function]}
   handleSubmit={[Function]}
   handleTitleChange={[Function]}
+  loading={true}
+  notFound={false}
   openDialog={[Function]}
-  readOnly={true}
+  readOnly={false}
   title=""
 />
 `;

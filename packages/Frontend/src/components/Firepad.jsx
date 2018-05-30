@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import 'codemirror/lib/codemirror.css';
@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Dialog from './Dialog';
 import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
+import NotFound from '../components/NotFound';
 
 const StyledFirepad = styled.div`
   height: '100%';
@@ -27,29 +28,45 @@ const StyledFirepad = styled.div`
 `;
 
 export default function Firepad({
+  changingPhase,
   dialogIsOpen,
+  error,
   handleClose,
   handleSubmit,
   handleTitleChange,
+  loading,
+  notFound,
   openDialog,
   readOnly,
   title,
 }) {
+  if (error) {
+    return (<p>{error.message}</p>);
+  }
+  if (changingPhase) {
+    return (<p>Currently moving this document to the next phase</p>);
+  }
+  if (notFound) {
+    return (<NotFound />);
+  }
+  const displayStyle = loading ? { display: 'none' } : {};
   return (
-    <div>
-      <Dialog
-        dialogIsOpen={dialogIsOpen}
-        handleClose={handleClose}
-        handleSubmit={handleSubmit}
-      />
-      <TaskContentBody>
-        <TaskHeader>
-          <div>Add New Post</div>
-          { !readOnly &&
+    <Fragment>
+      { loading && (<p>Loading...</p>) }
+      <div style={displayStyle}>
+        <Dialog
+          dialogIsOpen={dialogIsOpen}
+          handleClose={handleClose}
+          handleSubmit={handleSubmit}
+        />
+        <TaskContentBody>
+          <TaskHeader>
+            <div>Add New Post</div>
+            { !readOnly &&
             <Button onClick={openDialog} className="buttons">Submit</Button>
           }
-        </TaskHeader>
-        { readOnly ?
+          </TaskHeader>
+          { readOnly ?
             (<h1>{title}</h1>) :
             <input
               onChange={handleTitleChange}
@@ -58,17 +75,28 @@ export default function Firepad({
               value={title}
             />
         }
-        <StyledFirepad id="firepad-container" />
-      </TaskContentBody>
-    </div>
+          <StyledFirepad id="firepad-container" />
+        </TaskContentBody>
+      </div>
+    </Fragment>
   );
 }
 
 Firepad.propTypes = {
+  changingPhase: PropTypes.bool.isRequired,
   dialogIsOpen: PropTypes.bool,
+  error: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.shape({
+      message: PropTypes.string,
+      code: PropTypes.string,
+    }),
+  ]),
   handleClose: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleTitleChange: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  notFound: PropTypes.bool.isRequired,
   openDialog: PropTypes.func.isRequired,
   title: PropTypes.string,
   readOnly: PropTypes.bool,
@@ -76,6 +104,7 @@ Firepad.propTypes = {
 
 Firepad.defaultProps = {
   dialogIsOpen: false,
+  error: false,
   readOnly: true,
   title: '',
 };

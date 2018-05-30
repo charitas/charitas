@@ -6,24 +6,44 @@ const auth = {
 };
 
 class MockDocument {
+  constructor() {
+    this.exists = true;
+  }
+  data = () => {}
+}
+
+class MockDocumentReference {
   constructor(id) {
     this.id = id;
-    this.data = () => this.id;
   }
+  data = () => this.id;
+  get = () => Promise.resolve(new MockDocument());
+  onSnapshot = (callback) => { callback(new MockDocument()); }
 }
 
 class MockQuerySnapshot {
   constructor(ids) {
-    this.docs = ids.map(id => new MockDocument(id));
+    this.ids = ids;
+    this.docs = this.ids.map(id => new MockDocumentReference(id));
   }
 }
 
-const firestore = {
-  collection: jest.fn(() => ({
-    get: jest.fn(() => Promise.resolve(new MockQuerySnapshot([1, 2, 3]))),
-    add: jest.fn(() => Promise.resolve(new MockDocument(1))),
-  })),
-};
+class MockCollectionReference {
+  constructor(collectionName) {
+    this.collectionName = collectionName;
+  }
+  get = jest.fn(() => Promise.resolve(new MockQuerySnapshot([1, 2, 3])));
+  add = jest.fn(() => Promise.resolve(new MockDocumentReference(1)));
+  doc = jest.fn(() => new MockDocumentReference(2));
+}
+
+class Firestore {
+  constructor() {
+    this.collection = collectionName => new MockCollectionReference(collectionName);
+  }
+}
+
+const firestore = new Firestore();
 
 const database = {
   ref: () => ({
