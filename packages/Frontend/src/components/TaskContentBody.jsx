@@ -1,31 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import colors from '../constants/colors';
 
 const StyledBody = styled.div`
-  padding-top: 20px;
   display: grid;
   grid-template-columns: 1fr;
+  background-color: ${colors.white};
 
   @media(max-width: 600px) {
-    padding-right: 20px;
-    padding-left: 20px;
     grid-gap: 10px;
-    grid-template-rows: 50px 25px 455px;
+    grid-template-rows: 1fr 0.75fr 14.9fr;
   }
 
-  @media(min-width: 600px) and (max-width: 950px) {
-    padding-right: 75px;
-    padding-left: 75px;
-    grid-gap: 20px;
-    grid-template-rows: 50px 40px 600px;
-  }
-
-  @media(min-width: 950px) {
-    padding-right: 175px;
-    padding-left: 175px;
-    grid-gap: 20px;
-    grid-template-rows: 50px 40px 600px;
+  @media(min-width: 600px) {
+    grid-gap: 10px;
+    grid-template-rows: 1fr 0.75fr 19.7fr;
   }
 `;
 

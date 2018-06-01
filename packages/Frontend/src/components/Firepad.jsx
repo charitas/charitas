@@ -5,6 +5,7 @@ import 'codemirror/lib/codemirror.css';
 import 'firepad/dist/firepad.css';
 import Button from '@material-ui/core/Button';
 import Dialog from './Dialog';
+import colors from '../constants/colors';
 import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
 import NotFound from '../components/NotFound';
@@ -12,14 +13,55 @@ import NotFound from '../components/NotFound';
 const StyledFirepad = styled.div`
   height: '100%';
   width: '100%';
-  .firepad {
-    border: 1px solid #DCDCDC;
+  .CodeMirror {
+    background-color: ${colors.white};
+  }
+  .firepad-with-toolbar .CodeMirror {
+    bottom: 0px;
+    @media(max-width: 386px) {
+      top: 98px;
+    }
+    @media(min-width: 387px) and (max-width: 695px) {
+      top: 72px;
+    }
+    @media(min-width: 696px) and (max-width: 800px) {
+      top: 46px;
+    }
+    @media(min-width: 800px) and (max-width: 974px) {
+      top: 72px;
+    }
+    @media(min-width: 975px) {
+      top: 46px;
+    }
+  }
+  .CodeMirror-vscrollbar {
+    display: none !important;
+  }
+  .firepad-toolbar {
+    border-bottom: 1px solid ${colors.grey};
+    line-height: 15px;
+    @media(max-width: 386px) {
+      height: 98px;
+    }
+    @media(min-width: 387px) and (max-width: 695px) {
+      height: 72px;
+    }
+    @media(min-width: 696px) and (max-width: 800px) {
+      height: 46px;
+    }
+    @media(min-width: 800px) and (max-width: 975px) {
+      height: 72px;
+    }
+    @media(min-width: 975px) {
+      height: 46px;
+    }
   }
   .firepad-btn {
     border: 0;
-    color: #3d4347;
+    color: ${colors.darkGrey};
+    background-color: ${colors.white};
     &:hover {
-    background-color: grey;
+    background-color: ${colors.darkGrey};
     }
   }
   .powered-by-firepad {
@@ -61,17 +103,19 @@ export default function Firepad({
         />
         <TaskContentBody>
           <TaskHeader>
-            <div>Add New Post</div>
+            <h2>Add New Post</h2>
             { !readOnly &&
             <Button onClick={openDialog} className="buttons">Submit</Button>
-          }
+                }
           </TaskHeader>
           { readOnly ?
-            (<h1>{title}</h1>) :
+            (<h4>{title}</h4>) :
             <input
               onChange={handleTitleChange}
               placeholder="Add New Title Here"
-              style={{ width: '100%' }}
+              style={{
+                width: '100%', backgroundColor: colors.white, border: 'none', borderBottom: `1px solid ${colors.grey}`, fontStyle: 'italic',
+              }}
               value={title}
             />
         }

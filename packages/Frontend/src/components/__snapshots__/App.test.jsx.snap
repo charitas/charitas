@@ -23,36 +23,38 @@ exports[`App should render correctly 1`] = `
       exact={true}
       path="/"
     />
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/journals"
-    />
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/journals/:phase(edit|view)/:id"
-    />
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/journals/:phase(create)/:id?"
-    />
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/library"
-    />
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/sign(up|in)"
-    />
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/tasks"
-    />
+    <View>
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/journals"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/journals/:phase(edit|view)/:id"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/journals/:phase(create)/:id?"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/library"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/sign(up|in)"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/tasks"
+      />
+    </View>
     <Route
       component={[Function]}
     />

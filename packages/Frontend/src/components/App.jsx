@@ -10,6 +10,8 @@ import AuthenticateContainer from '../containers/AuthenticateContainer';
 import FirepadContainer from '../containers/FirepadContainer';
 import NotFound from '../components/NotFound';
 import Tasks from '../components/Tasks';
+import View from './View';
+import '../constants/Font';
 
 function App({
   isAnonymous, toggleVisibility, visible,
@@ -25,12 +27,14 @@ function App({
       <div style={{ height: '40px' }} />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/journals" component={JournalsContainer} />
-        <Route exact path="/journals/:phase(edit|view)/:id" component={FirepadContainer} />
-        <Route exact path="/journals/:phase(create)/:id?" component={FirepadContainer} />
-        <Route exact path="/library" component={Library} />
-        <Route exact path="/sign(up|in)" component={AuthenticateContainer} />
-        <Route exact path="/tasks" component={Tasks} />
+        <View>
+          <Route exact path="/journals" component={JournalsContainer} />
+          <Route exact path="/journals/:phase(edit|view)/:id" component={FirepadContainer} />
+          <Route exact path="/journals/:phase(create)/:id?" component={FirepadContainer} />
+          <Route exact path="/library" component={Library} />
+          <Route exact path="/sign(up|in)" component={AuthenticateContainer} />
+          <Route exact path="/tasks" component={Tasks} />
+        </View>
         <Route component={NotFound} />
       </Switch>
     </Fragment>
