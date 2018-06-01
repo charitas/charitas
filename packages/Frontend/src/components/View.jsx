@@ -5,10 +5,11 @@ import colors from '../constants/colors';
 
 const StyledDiv = styled.div`
   background-color: ${colors.white};
-  top: 0;
-  bottom: 0;
+  padding: 0;
+  margin: 0;
   display: grid;
   grid-template-rows: 100%;
+  min-height: 100vh;
   @media(max-width: 800px) {
     grid-template-columns: 0 5fr 0;
   }
@@ -24,15 +25,12 @@ const StyledDiv = styled.div`
     padding: 20px;
     background-color: ${colors.white};
   }
-  .fullpage{
-    height: 100vh;
-  }
 `;
 
 export default function View(props) {
   return (
     <StyledDiv>
-      <div className="sides fullpage" />
+      <div className="sides" />
       <div className="content">
         { props.children }
       </div>

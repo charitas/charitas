@@ -6,6 +6,7 @@ import colors from '../constants/colors';
 
 const StyledDiv = styled.div`
   background-color: ${colors.darkGrey};
+  position: absolute;
   top: 0;
   bottom: 0;
   right: 0;

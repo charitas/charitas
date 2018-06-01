@@ -2,7 +2,15 @@
 
 exports[`Authenticate should render 1`] = `
 <styled.div>
-  <Segment>
+  <Segment
+    style={
+      Object {
+        "backgroundColor": "#FAFAFA",
+        "border": "none",
+        "boxShadow": "none",
+      }
+    }
+  >
     <Header
       as="h1"
       icon={true}
@@ -68,16 +76,37 @@ exports[`Authenticate should render 1`] = `
         color="blue"
         fluid={true}
         onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#4285F4",
+            "backgroundImage": "url('https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/btn_google_light_normal_ios.svg?alt=media&token=d1349925-4489-44dc-9e47-8037a8a6d14f')",
+            "backgroundPosition": "0px 0px",
+            "backgroundRepeat": "no-repeat",
+            "fontFamily": "'Roboto', sans-serif",
+            "height": "46px",
+            "src": "url('https://fonts.googleapis.com/css?family=Roboto')",
+          }
+        }
       >
-        Sign In With Google
+        Sign in with Google
       </Button>
       <Button
         as="button"
         color="blue"
         fluid={true}
         onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#4267B2",
+            "backgroundImage": "url('https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/flogo-HexRBG-Wht-58.svg?alt=media&token=d0812834-f629-45cb-b74e-ef94db7a72cd')",
+            "backgroundPosition": "3px 3px",
+            "backgroundRepeat": "no-repeat",
+            "backgroundSize": "39px",
+            "height": "45px",
+          }
+        }
       >
-        Sign In With Facebook
+        Login With Facebook
       </Button>
     </Form>
   </Segment>
@@ -86,7 +115,15 @@ exports[`Authenticate should render 1`] = `
 
 exports[`Authenticate should render a loading message when passed loading as a prop 1`] = `
 <styled.div>
-  <Segment>
+  <Segment
+    style={
+      Object {
+        "backgroundColor": "#FAFAFA",
+        "border": "none",
+        "boxShadow": "none",
+      }
+    }
+  >
     <Header
       as="h1"
       icon={true}
@@ -152,16 +189,37 @@ exports[`Authenticate should render a loading message when passed loading as a p
         color="blue"
         fluid={true}
         onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#4285F4",
+            "backgroundImage": "url('https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/btn_google_light_normal_ios.svg?alt=media&token=d1349925-4489-44dc-9e47-8037a8a6d14f')",
+            "backgroundPosition": "0px 0px",
+            "backgroundRepeat": "no-repeat",
+            "fontFamily": "'Roboto', sans-serif",
+            "height": "46px",
+            "src": "url('https://fonts.googleapis.com/css?family=Roboto')",
+          }
+        }
       >
-        Sign In With Google
+        Sign in with Google
       </Button>
       <Button
         as="button"
         color="blue"
         fluid={true}
         onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#4267B2",
+            "backgroundImage": "url('https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/flogo-HexRBG-Wht-58.svg?alt=media&token=d0812834-f629-45cb-b74e-ef94db7a72cd')",
+            "backgroundPosition": "3px 3px",
+            "backgroundRepeat": "no-repeat",
+            "backgroundSize": "39px",
+            "height": "45px",
+          }
+        }
       >
-        Sign In With Facebook
+        Login With Facebook
       </Button>
     </Form>
     <styled.div>
@@ -176,7 +234,15 @@ exports[`Authenticate should render a loading message when passed loading as a p
 
 exports[`Authenticate should render an error when passed as a prop 1`] = `
 <styled.div>
-  <Segment>
+  <Segment
+    style={
+      Object {
+        "backgroundColor": "#FAFAFA",
+        "border": "none",
+        "boxShadow": "none",
+      }
+    }
+  >
     <Header
       as="h1"
       icon={true}
@@ -242,16 +308,37 @@ exports[`Authenticate should render an error when passed as a prop 1`] = `
         color="blue"
         fluid={true}
         onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#4285F4",
+            "backgroundImage": "url('https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/btn_google_light_normal_ios.svg?alt=media&token=d1349925-4489-44dc-9e47-8037a8a6d14f')",
+            "backgroundPosition": "0px 0px",
+            "backgroundRepeat": "no-repeat",
+            "fontFamily": "'Roboto', sans-serif",
+            "height": "46px",
+            "src": "url('https://fonts.googleapis.com/css?family=Roboto')",
+          }
+        }
       >
-        Sign In With Google
+        Sign in with Google
       </Button>
       <Button
         as="button"
         color="blue"
         fluid={true}
         onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#4267B2",
+            "backgroundImage": "url('https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/flogo-HexRBG-Wht-58.svg?alt=media&token=d0812834-f629-45cb-b74e-ef94db7a72cd')",
+            "backgroundPosition": "3px 3px",
+            "backgroundRepeat": "no-repeat",
+            "backgroundSize": "39px",
+            "height": "45px",
+          }
+        }
       >
-        Sign In With Facebook
+        Login With Facebook
       </Button>
     </Form>
     <Message
