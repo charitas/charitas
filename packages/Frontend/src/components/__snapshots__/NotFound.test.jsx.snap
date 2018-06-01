@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFound should render 1`] = `
+<styled.div>
+  <styled.div>
+    <p
+      style={
+        Object {
+          "fontSize": "150px",
+          "margin": "0 0 0em",
+        }
+      }
+    >
+      404
+    </p>
+    <p
+      style={
+        Object {
+          "fontSize": "25px",
+        }
+      }
+    >
+      Oops, something went wrong
+    </p>
+    <WithStyles(Divider)
+      style={
+        Object {
+          "backgroundColor": "#FAFAFA",
+        }
+      }
+    />
+    <p
+      style={
+        Object {
+          "margin": "0 0 0em",
+        }
+      }
+    >
+      PAGE NOT FOUND
+    </p>
+    <WithStyles(Button)
+      style={
+        Object {
+          "backgroundColor": "#039BE5",
+          "color": "#FAFAFA",
+          "top": "10px",
+        }
+      }
+      variant="raised"
+    >
+      Return to Home
+    </WithStyles(Button)>
+  </styled.div>
+</styled.div>
+`;
