@@ -37,6 +37,7 @@ const handleSubmit = firestoreFunction
           .collection(JOURNALS)
           .doc(context.params.journalId);
         return Promise.all([
+          currentRef.update({ phase: nextPhase }),
           primaryDoc
             .update({
               phase: nextPhase,

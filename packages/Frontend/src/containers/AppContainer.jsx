@@ -28,12 +28,20 @@ class AppContainer extends Component {
   componentDidMount() {
     auth().onAuthStateChanged((user) => {
       if (user) {
-        const {
-          displayName, email, emailVerified, isAnonymous, metadata, providerData, uid,
-        } = user;
-        this.props.login({
-          displayName, email, emailVerified, isAnonymous, metadata, providerData, uid,
-        });
+        auth().currentUser.getIdTokenResult()
+          .then((idTokenResult) => {
+            const {
+              displayName, email, emailVerified, isAnonymous, metadata, providerData, uid,
+            } = user;
+            const { author, editor } = idTokenResult.claims;
+            const claims = { author, editor };
+            this.props.login({
+              claims, displayName, email, emailVerified, isAnonymous, metadata, providerData, uid,
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         this.props.logout();
         auth().signInAnonymously().catch((error) => {

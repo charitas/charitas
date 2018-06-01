@@ -43,17 +43,15 @@ class FirepadContainer extends Component {
   }
 
   componentDidMount() {
-    this.getOrCreatePrimaryDocument()
-      .then((primaryDocRef) => {
-        if (primaryDocRef) {
-          this.primaryDocRef = primaryDocRef;
-          primaryDocRef
-            .onSnapshot(this.handleSnapshot);
-        }
-      });
+    if (this.props.isAuthenticated) {
+      this.init();
+    }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    if (!prevProps.isAuthenticated && this.props.isAuthenticated) {
+      this.init();
+    }
     if (
       this.props.isAuthenticated &&
       this.state.realtimeDatabaseReady &&
@@ -95,17 +93,31 @@ class FirepadContainer extends Component {
     } else {
       const realTimeId = primaryDoc.data()[REALTIME_DATABASE_ID];
       this.ref = database().ref(JOURNALS).child(realTimeId);
-      this.ref.once('value', (snapshot) => {
-        this.setState({ title: snapshot.val().title });
-      });
+      this.ref.child('title').once('value', (snapshot) => {
+        this.setState({ title: snapshot.val() });
+      }, error => this.setState({ error }));
       this.setState({
         realtimeDatabaseReady: true,
       });
     }
   }
 
+  init() {
+    this.getOrCreatePrimaryDocument()
+      .then((primaryDocRef) => {
+        if (primaryDocRef) {
+          this.primaryDocRef = primaryDocRef;
+          primaryDocRef
+            .onSnapshot(this.handleSnapshot);
+        }
+      });
+  }
+
   createFirepadDocument(primaryDoc) {
     this.ref = database().ref(JOURNALS).push();
+    this.ref.child('phase')
+      .set(CREATE)
+      .catch(error => this.setState({ error }));
     this.primaryDocRef.update({
       [REALTIME_DATABASE_ID]: this.ref.key,
     })
