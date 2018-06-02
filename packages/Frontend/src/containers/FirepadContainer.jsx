@@ -37,6 +37,8 @@ class FirepadContainer extends Component {
       loading: true,
       notFound: false,
       [PHASE]: '',
+      submitted: false,
+      submitting: false,
       title: '',
     };
   }
@@ -177,17 +179,28 @@ class FirepadContainer extends Component {
   }
 
   handleSubmit = () => {
-    database()
-      .ref('tasks').push({
-        type: 'submit',
-        payload: {
-          id: this.ref.key,
-        },
-      })
-      .catch(this.handleError);
-    this.ref.update({
-      [CHANGING_PHASE]: true,
-    }).catch(this.handleError);
+    this.setState({ submitting: true }, () => {
+      this.ref.off();
+      Promise.all([
+        database()
+          .ref('tasks').push({
+            type: 'submit',
+            payload: {
+              id: this.ref.key,
+            },
+          }),
+        this.ref.update({
+          [CHANGING_PHASE]: true,
+        }),
+      ])
+        .then(() => {
+          this.setState({
+            submitting: false,
+            submitted: true,
+          });
+        })
+        .catch(this.handleError);
+    });
   }
 
   render() {
@@ -205,6 +218,8 @@ class FirepadContainer extends Component {
         openDialog={this.openDialog}
         phase={this.state.phase}
         readOnly={this.isReadOnly()}
+        submitting={this.state.submitting}
+        submitted={this.state.submitted}
         title={this.state.title}
       />
     );

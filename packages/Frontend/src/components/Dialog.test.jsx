@@ -11,8 +11,11 @@ describe('Dialog Component', () => {
   it('should render Dialog when dialogIsOpen is true', () => {
     const wrapper = shallow(<Dialog
       dialogIsOpen
-      handleClose={() => {}}
-      handleSubmit={() => {}}
+      buttons={[{
+        label: '',
+        action: () => {},
+      }]}
+      title=""
     />);
     expect(wrapper).toMatchSnapshot();
   });
@@ -20,8 +23,11 @@ describe('Dialog Component', () => {
   it('should not render Dialog when dialogIsOpen is false', () => {
     const wrapper = shallow(<Dialog
       dialogIsOpen={false}
-      handleClose={() => {}}
-      handleSubmit={() => {}}
+      buttons={[{
+        label: '',
+        action: () => {},
+      }]}
+      title=""
     />);
     expect(wrapper).toMatchSnapshot();
   });

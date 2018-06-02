@@ -4,29 +4,41 @@ import Button from '@material-ui/core/Button';
 import MDialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import colors from '../constants/colors';
 
-export default function Dialog(props) {
-  const {
-    dialogIsOpen,
-    handleClose,
-    handleSubmit,
-  } = props;
-
+export default function Dialog({
+  buttons,
+  dialogIsOpen,
+  content,
+  handleClose,
+  title,
+}) {
   return (
     <div>
       <MDialog
         open={dialogIsOpen}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="responsive-dialog-title">Are you sure you want to submit?</DialogTitle>
+        <DialogTitle id="responsive-dialog-title">
+          {title}
+        </DialogTitle>
+        { content &&
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {content}
+            </DialogContentText>
+          </DialogContent>
+        }
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-              Cancel
-          </Button>
-          <Button onClick={handleSubmit} color="primary" autoFocus>
-              Submit
-          </Button>
+          {buttons.map(button =>
+            (React.isValidElement(button) ? button : (
+              <Button key={button.label} onClick={button.action} style={{ color: `${colors.blue}` }}>
+                {button.label}
+              </Button>)))}
         </DialogActions>
       </MDialog>
     </div>
@@ -34,7 +46,20 @@ export default function Dialog(props) {
 }
 
 Dialog.propTypes = {
+  buttons: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      action: PropTypes.func.isRequired,
+    }).isRequired,
+    PropTypes.element.isRequired,
+  ]).isRequired).isRequired,
+  content: PropTypes.string,
   dialogIsOpen: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  handleClose: PropTypes.func,
+  title: PropTypes.string.isRequired,
+};
+
+Dialog.defaultProps = {
+  content: '',
+  handleClose: () => {},
 };

@@ -13,6 +13,8 @@ exports[`FirepadContainer should pass loading true props when not authenticated 
   openDialog={[Function]}
   phase=""
   readOnly={false}
+  submitted={false}
+  submitting={false}
   title=""
 />
 `;
@@ -30,6 +32,8 @@ exports[`FirepadContainer should render when authenticated 1`] = `
   openDialog={[Function]}
   phase=""
   readOnly={false}
+  submitted={false}
+  submitting={false}
   title=""
 />
 `;

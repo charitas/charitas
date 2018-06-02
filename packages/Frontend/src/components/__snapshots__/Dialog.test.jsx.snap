@@ -3,29 +3,23 @@
 exports[`Dialog Component should not render Dialog when dialogIsOpen is false 1`] = `
 <div>
   <WithStyles(Dialog)
+    aria-describedby="alert-dialog-description"
     aria-labelledby="responsive-dialog-title"
     onClose={[Function]}
     open={false}
   >
     <WithStyles(DialogTitle)
       id="responsive-dialog-title"
-    >
-      Are you sure you want to submit?
-    </WithStyles(DialogTitle)>
+    />
     <WithStyles(DialogActions)>
       <WithStyles(Button)
-        color="primary"
         onClick={[Function]}
-      >
-        Cancel
-      </WithStyles(Button)>
-      <WithStyles(Button)
-        autoFocus={true}
-        color="primary"
-        onClick={[Function]}
-      >
-        Submit
-      </WithStyles(Button)>
+        style={
+          Object {
+            "color": "#039BE5",
+          }
+        }
+      />
     </WithStyles(DialogActions)>
   </WithStyles(Dialog)>
 </div>
@@ -34,29 +28,23 @@ exports[`Dialog Component should not render Dialog when dialogIsOpen is false 1`
 exports[`Dialog Component should render Dialog when dialogIsOpen is true 1`] = `
 <div>
   <WithStyles(Dialog)
+    aria-describedby="alert-dialog-description"
     aria-labelledby="responsive-dialog-title"
     onClose={[Function]}
     open={true}
   >
     <WithStyles(DialogTitle)
       id="responsive-dialog-title"
-    >
-      Are you sure you want to submit?
-    </WithStyles(DialogTitle)>
+    />
     <WithStyles(DialogActions)>
       <WithStyles(Button)
-        color="primary"
         onClick={[Function]}
-      >
-        Cancel
-      </WithStyles(Button)>
-      <WithStyles(Button)
-        autoFocus={true}
-        color="primary"
-        onClick={[Function]}
-      >
-        Submit
-      </WithStyles(Button)>
+        style={
+          Object {
+            "color": "#039BE5",
+          }
+        }
+      />
     </WithStyles(DialogActions)>
   </WithStyles(Dialog)>
 </div>

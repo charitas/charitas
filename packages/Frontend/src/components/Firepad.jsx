@@ -4,11 +4,13 @@ import styled from 'styled-components';
 import 'codemirror/lib/codemirror.css';
 import 'firepad/dist/firepad.css';
 import Button from '@material-ui/core/Button';
-import Dialog from './Dialog';
 import colors from '../constants/colors';
+import GenericError from './errors/GenericError';
+import NotFound from '../components/NotFound';
+import PhaseError from './errors/PhaseError';
+import SubmitDialog from './SubmitDialog';
 import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
-import NotFound from '../components/NotFound';
 
 const StyledFirepad = styled.div`
   height: '100%';
@@ -79,11 +81,14 @@ export default function Firepad({
   loading,
   notFound,
   openDialog,
+  phase,
   readOnly,
+  submitted,
+  submitting,
   title,
 }) {
-  if (error) {
-    return (<p>{error.message}</p>);
+  if (error && error.code !== 'phase-mismatch') {
+    return (<GenericError />);
   }
   if (changingPhase && !readOnly) {
     return (<p>Currently moving this document to the next phase</p>);
@@ -94,12 +99,15 @@ export default function Firepad({
   const displayStyle = loading ? { display: 'none' } : {};
   return (
     <Fragment>
+      { error && <PhaseError phase={phase} />}
       { loading && (<p>Loading...</p>) }
       <div style={displayStyle}>
-        <Dialog
+        <SubmitDialog
           dialogIsOpen={dialogIsOpen}
           handleClose={handleClose}
           handleSubmit={handleSubmit}
+          submitted={submitted}
+          submitting={submitting}
         />
         <TaskContentBody>
           <TaskHeader>
@@ -142,8 +150,11 @@ Firepad.propTypes = {
   loading: PropTypes.bool.isRequired,
   notFound: PropTypes.bool.isRequired,
   openDialog: PropTypes.func.isRequired,
-  title: PropTypes.string,
+  phase: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,
+  submitted: PropTypes.bool.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  title: PropTypes.string,
 };
 
 Firepad.defaultProps = {
