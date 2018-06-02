@@ -30,14 +30,14 @@ exports[`App should render correctly 1`] = `
         path="/journals"
       />
       <Route
-        component={[Function]}
         exact={true}
         path="/journals/:phase(edit|view)/:id"
+        render={[Function]}
       />
       <Route
-        component={[Function]}
         exact={true}
         path="/journals/:phase(create)/:id?"
+        render={[Function]}
       />
       <Route
         component={[Function]}

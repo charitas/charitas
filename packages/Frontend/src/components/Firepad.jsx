@@ -132,8 +132,8 @@ Firepad.propTypes = {
   error: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.shape({
-      message: PropTypes.string,
-      code: PropTypes.string,
+      message: PropTypes.string.isRequired,
+      code: PropTypes.string.isRequired,
     }),
   ]),
   handleClose: PropTypes.func.isRequired,

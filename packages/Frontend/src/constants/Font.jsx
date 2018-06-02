@@ -1,10 +1,5 @@
 import { injectGlobal } from 'styled-components';
 
-const NotoSerifFont = `
-  font-family: 'Noto Serif', serif;
-  src: url('https://fonts.googleapis.com/css?family=Noto+Serif:400,400i,700,700i');
-`;
-
 const NotoSansFont = `
   font-family: 'Noto Sans', sans-serif;
   src: url('https://fonts.googleapis.com/css?family=Noto+Sans');
@@ -13,14 +8,10 @@ const NotoSansFont = `
 // eslint-disable-next-line no-unused-expressions
 injectGlobal`
   @font-face {
-    ${NotoSerifFont}
+    ${NotoSansFont}
   }
 
-  body, h1, h3, h4, div {
-    ${NotoSerifFont}
-  }
-
-  .MuiButton-label-11, h2, input {
+  body, h1, h3, h4, h2, input, div {
     ${NotoSansFont}
   }
 `;
