@@ -6,7 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PRODUCTION = 'production';
 module.exports = {
-  entry: './index.js',
+  entry: ['babel-polyfill', './src/index.js'],
   // we need to use nodeExternals twice here,
   // once for Backend node_modules and again
   // for node_modules in the root directory

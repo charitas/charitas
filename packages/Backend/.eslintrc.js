@@ -1,7 +1,7 @@
 module.exports = {
-  extends: 'airbnb-base',
-  "env": {
-    "node": true,
+  extends: ['airbnb-base', 'plugin:promise/recommended'],
+  env: {
+    node: true,
   },
   overrides: [
     {
@@ -10,5 +10,6 @@ module.exports = {
         jest: true,
       }
     }
-  ]
+  ],
+  plugins: ['promise'],
 };

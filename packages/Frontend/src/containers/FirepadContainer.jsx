@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { database, firestore } from 'firebase';
+import { database } from 'firebase';
 import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
 import { connect } from 'react-redux';
-import { CHANGING_PHASE, CREATE, JOURNALS, REALTIME_DATABASE_ID, VIEW } from '../constants';
+import { CHANGING_PHASE, CREATE, JOURNALS, PHASE, VIEW } from '../constants';
 import Firepad from '../components/Firepad';
 
 global.CodeMirror = CodeMirror;
@@ -34,10 +34,9 @@ class FirepadContainer extends Component {
     this.state = {
       [CHANGING_PHASE]: false,
       dialogIsOpen: false,
-      firepadInitialized: false,
       loading: true,
       notFound: false,
-      realtimeDatabaseReady: false,
+      [PHASE]: '',
       title: '',
     };
   }
@@ -52,100 +51,58 @@ class FirepadContainer extends Component {
     if (!prevProps.isAuthenticated && this.props.isAuthenticated) {
       this.init();
     }
-    if (
-      this.props.isAuthenticated &&
-      this.state.realtimeDatabaseReady &&
-      !this.state.firepadInitialized
-    ) {
-      this.initFirepad();
-    }
   }
 
-  getOrCreatePrimaryDocument() {
-    const { id, phase } = this.props.match.params;
-    if (phase === CREATE && !id) {
-      return firestore()
-        .collection(JOURNALS)
-        .add({
-          phase,
-        });
-    }
-    const primaryDoc = firestore()
-      .collection(JOURNALS)
-      .doc(id);
-    return primaryDoc
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          return primaryDoc;
-        }
-        this.setState({
-          notFound: true,
-        });
-        return null;
-      });
+  componentWillUnmount() {
+    this.ref.off();
   }
 
-  getOrCreateFirepadDocument(primaryDoc) {
+  getOrCreateFirepadDocument() {
     const { phase, id } = this.props.match.params;
     if (phase === CREATE && !id) {
-      this.createFirepadDocument(primaryDoc);
-    } else {
-      const realTimeId = primaryDoc.data()[REALTIME_DATABASE_ID];
-      this.ref = database().ref(JOURNALS).child(realTimeId);
-      this.ref.child('title').once('value', (snapshot) => {
-        this.setState({ title: snapshot.val() });
-      }, error => this.setState({ error }));
-      this.setState({
-        realtimeDatabaseReady: true,
-      });
+      return this.createFirepadDocument();
     }
+    this.ref = database().ref(JOURNALS).child(id);
+    this.listenForDocChanges();
+    return Promise.resolve();
   }
 
-  init() {
-    this.getOrCreatePrimaryDocument()
-      .then((primaryDocRef) => {
-        if (primaryDocRef) {
-          this.primaryDocRef = primaryDocRef;
-          primaryDocRef
-            .onSnapshot(this.handleSnapshot);
-        }
-      });
-  }
-
-  createFirepadDocument(primaryDoc) {
+  createFirepadDocument() {
     this.ref = database().ref(JOURNALS).push();
-    this.ref.child('phase')
-      .set(CREATE)
-      .catch(error => this.setState({ error }));
-    this.primaryDocRef.update({
-      [REALTIME_DATABASE_ID]: this.ref.key,
-    })
+    return Promise.all([
+      this.ref.child(PHASE).set(CREATE),
+      this.ref.child('title').set(''),
+      this.ref.child(CHANGING_PHASE).set(false),
+    ])
       .then(() => {
-        this.props.history.replace(`/${JOURNALS}/${CREATE}/${primaryDoc.id}`);
-        this.setState({
-          realtimeDatabaseReady: true,
-        });
-      });
+        this.props.history.replace(`/${JOURNALS}/${CREATE}/${this.ref.key}`);
+        this.listenForDocChanges();
+      })
+      .catch(this.handleError);
   }
 
-  handleSnapshot = (primaryDoc) => {
-    if (primaryDoc.exists) {
-      this.primaryDoc = primaryDoc;
-      const changingPhase = primaryDoc.data()[CHANGING_PHASE];
-      if (changingPhase) {
+  listenForDocChanges() {
+    this.ref.on('value', this.handleSnapshot, this.handleError);
+  }
+
+  handleError = (error) => {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    this.setState({ error });
+  }
+
+  handleSnapshot = (snapshot) => {
+    const data = snapshot.val();
+    if (data !== null) {
+      const { changingPhase, phase, title } = data;
+      if (this.verifyPhase(phase)) {
+        if (!this.state.firepadInitialized) {
+          this.setState({ firepadInitialized: true }, this.initFirepad);
+        }
         this.setState({
           changingPhase,
-          realtimeDatabaseReady: false,
-          creatingFirepad: false,
-        });
-      } else if (
-        this.verifyPhases(primaryDoc) &&
-        !this.state.realtimeDatabaseReady &&
-        !this.state.creatingFirepad
-      ) {
-        this.setState({ creatingFirepad: true }, () => {
-          this.getOrCreateFirepadDocument(primaryDoc);
+          phase,
+          title,
         });
       }
     } else {
@@ -153,11 +110,17 @@ class FirepadContainer extends Component {
     }
   }
 
-  verifyPhases(primaryDoc) {
+  init() {
+    this.getOrCreateFirepadDocument()
+      .then(() => {
+        this.listenForDocChanges();
+      });
+  }
+
+  verifyPhase(dbPhase) {
     const { phase } = this.props.match.params;
-    const dbPhase = primaryDoc.data().phase;
     if (phase === VIEW || phase === dbPhase) {
-      return primaryDoc;
+      return true;
     }
     this.setState({
       error: {
@@ -166,7 +129,7 @@ class FirepadContainer extends Component {
         code: 'phase-mismatch',
       },
     });
-    return null;
+    return false;
   }
 
   initFirepad() {
@@ -184,9 +147,6 @@ class FirepadContainer extends Component {
         userId: uid,
       },
     );
-    this.setState({
-      firepadInitialized: true,
-    });
     this.firepadInst.on('ready', () => {
       this.setState({
         loading: false,
@@ -211,18 +171,23 @@ class FirepadContainer extends Component {
   handleTitleChange = ({ target: { value } }) => {
     const newTitle = { title: value };
     this.setState(newTitle, () => {
-      this.ref.update(newTitle);
+      this.ref.update(newTitle)
+        .catch(this.handleError);
     });
   }
 
   handleSubmit = () => {
-    this.primaryDocRef
-      .update({
-        [CHANGING_PHASE]: true,
+    database()
+      .ref('tasks').push({
+        type: 'submit',
+        payload: {
+          id: this.ref.key,
+        },
       })
-      .catch((error) => {
-        this.setState({ error });
-      });
+      .catch(this.handleError);
+    this.ref.update({
+      [CHANGING_PHASE]: true,
+    }).catch(this.handleError);
   }
 
   render() {
@@ -238,6 +203,7 @@ class FirepadContainer extends Component {
         loading={loading}
         notFound={this.state.notFound}
         openDialog={this.openDialog}
+        phase={this.state.phase}
         readOnly={this.isReadOnly()}
         title={this.state.title}
       />

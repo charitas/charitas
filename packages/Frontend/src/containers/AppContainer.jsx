@@ -40,7 +40,8 @@ class AppContainer extends Component {
             });
           })
           .catch((error) => {
-            console.log(error);
+            // eslint-disable-next-line
+            console.error(error);
           });
       } else {
         this.props.logout();

@@ -1,4 +1,4 @@
-import * as admin from 'firebase-admin';
+import { auth, firestore } from 'firebase-admin';
 import { permissionConstants, PERMISSIONS, USER_ID } from './constants';
 
 export const validateClaims = (claims = {}) =>
@@ -18,19 +18,19 @@ export const validateClaims = (claims = {}) =>
 
 export function setClaims(newCustomClaims, context) {
   const id = context.params[USER_ID];
-  const db = admin.firestore();
-  return admin.auth().getUser(id).then((user) => {
+  const db = firestore();
+  return auth().getUser(id).then((user) => {
     const currentCustomClaims = user.customClaims;
-    return admin.auth().setCustomUserClaims(
+    return auth().setCustomUserClaims(
       id,
       Object.assign({}, currentCustomClaims, validateClaims(newCustomClaims)),
     );
-  }).then(() => {
-    const userDoc = db.collection('users').doc(id);
-    return userDoc.set({
-      permissionsTimestamp: new Date(),
-    }, { merge: true });
-  })
+  }).then(() => db
+    .collection('users')
+    .doc(id)
+    .set({
+      permissionsTimestamp: firestore.FieldValue.serverTimestamp(),
+    }, { merge: true }))
     .catch((err) => {
       const errMessage = err instanceof Error ? err : new Error(err);
       // eslint-disable-next-line no-console

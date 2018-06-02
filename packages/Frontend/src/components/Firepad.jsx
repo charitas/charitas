@@ -85,7 +85,7 @@ export default function Firepad({
   if (error) {
     return (<p>{error.message}</p>);
   }
-  if (changingPhase) {
+  if (changingPhase && !readOnly) {
     return (<p>Currently moving this document to the next phase</p>);
   }
   if (notFound) {

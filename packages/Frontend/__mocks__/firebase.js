@@ -43,18 +43,22 @@ class Firestore {
   }
 }
 
-const firestore = new Firestore();
 
-const database = {
-  ref: () => ({
-    child: () => {},
-    push: () => ({
-      key: '',
-      on: () => {},
-      once: () => {},
-    }),
-  }),
-};
+class DatabaseReference {
+  constructor() {
+    this.key = '';
+  }
+  ref = () => ({
+    child: () => new DatabaseReference(),
+    push: () => new DatabaseReference(),
+  })
+  on = () => {}
+  once = () => {}
+}
+
+
+const database = new DatabaseReference();
+const firestore = new Firestore();
 
 firebase.auth = () => auth;
 firebase.firestore = () => firestore;

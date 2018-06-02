@@ -1,7 +1,11 @@
 {
   "rules": {
+    "tasks": {
+      ".write": "auth.token.author === true || auth.token.editor === true"
+    },
     "journals": {
       "$journal": {
+        ".read": "auth != null",
         "history": {
           ".read": "auth != null",
           "$revision": {
@@ -25,6 +29,11 @@
         "title": {
           ".read": "auth != null",
           ".write": "(data.parent().child('phase').val() === 'create' && auth.token.author === true) || (data.parent().child('phase').val() === 'edit' && auth.token.editor === true)"
+        },
+        "changingPhase": {
+          ".read": "auth != null",
+          ".write": "(auth.token.author === true && data.parent().child('phase').val() === 'create') || (auth.token.editor === true && data.parent().child('phase').val() === 'edit')",
+          ".validate": "newData.val() === true || newData.val() === false"
         }
       }
     }

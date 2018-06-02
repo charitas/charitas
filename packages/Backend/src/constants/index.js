@@ -1,9 +1,6 @@
 export const JOURNALS = 'journals';
-export const REALTIME_DATABASE_ID = 'realtimeDatabaseId';
 export const JOURNAL_BACKUPS = 'journalBackups';
-export const BACKUP_REALTIME_DATABASE_ID = 'backupRealtimeDatabaseId';
 export const CHANGING_PHASE = 'changingPhase';
-export const PHASES = 'phases';
 export const CREATE = 'create';
 export const EDIT = 'edit';
 export const PUBLISHED = 'published';
