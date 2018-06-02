@@ -39,6 +39,7 @@ exports[`NotFound should render 1`] = `
       PAGE NOT FOUND
     </p>
     <WithStyles(Button)
+      onClick={[Function]}
       style={
         Object {
           "backgroundColor": "#039BE5",

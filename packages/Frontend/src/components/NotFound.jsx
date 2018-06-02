@@ -1,4 +1,6 @@
 import React from 'react';
+import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
@@ -26,7 +28,7 @@ const StyledHeader = styled.div`
   top: 25%;
 `;
 
-export default function NotFound() {
+function NotFound({ history }) {
   return (
     <StyledDiv>
       <StyledHeader>
@@ -34,10 +36,26 @@ export default function NotFound() {
         <p style={{ fontSize: '25px' }}>Oops, something went wrong</p>
         <Divider style={{ backgroundColor: `${colors.white}` }} />
         <p style={{ margin: '0 0 0em' }}>PAGE NOT FOUND</p>
-        <Button variant="raised" style={{ backgroundColor: `${colors.blue}`, color: `${colors.white}`, top: '10px' }}>
+        <Button
+          variant="raised"
+          style={{
+            backgroundColor: `${colors.blue}`,
+            color: `${colors.white}`,
+            top: '10px',
+          }}
+          onClick={() => { history.push('/'); }}
+        >
           Return to Home
         </Button>
       </StyledHeader>
     </StyledDiv>
   );
 }
+
+NotFound.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default withRouter(NotFound);
