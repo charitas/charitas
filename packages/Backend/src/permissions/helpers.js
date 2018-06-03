@@ -1,4 +1,4 @@
-import { auth, firestore } from 'firebase-admin';
+import { auth, database, firestore } from 'firebase-admin';
 import { permissionConstants, PERMISSIONS, USER_ID } from './constants';
 
 export const validateClaims = (claims = {}) =>
@@ -18,25 +18,23 @@ export const validateClaims = (claims = {}) =>
 
 export function setClaims(newCustomClaims, context) {
   const id = context.params[USER_ID];
-  const db = firestore();
   return auth().getUser(id).then((user) => {
     const currentCustomClaims = user.customClaims;
     return auth().setCustomUserClaims(
       id,
       Object.assign({}, currentCustomClaims, validateClaims(newCustomClaims)),
     );
-  }).then(() => db
-    .collection('users')
-    .doc(id)
-    .set({
-      permissionsTimestamp: firestore.FieldValue.serverTimestamp(),
-    }, { merge: true }))
+  }).then(() => database()
+    .ref(`users/${id}`)
+    .update({
+      permissionsTimestamp: new Date().getTime(),
+    }))
     .catch((err) => {
       const errMessage = err instanceof Error ? err : new Error(err);
       // eslint-disable-next-line no-console
       console.error(errMessage);
       if (err.code === 'auth/user-not-found') {
-        return db.collection(PERMISSIONS).doc(id).delete();
+        return firestore().collection(PERMISSIONS).doc(id).delete();
       }
       return null;
     });

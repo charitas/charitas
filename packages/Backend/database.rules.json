@@ -3,6 +3,12 @@
     "tasks": {
       ".write": "auth.token.author === true || auth.token.editor === true"
     },
+    "users": {
+      "$userId": {
+        ".read": "$userId === auth.uid",
+        ".write": false
+      }
+    },
     "journals": {
       "$journal": {
         ".read": "auth != null",

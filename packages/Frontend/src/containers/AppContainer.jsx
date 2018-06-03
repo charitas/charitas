@@ -2,20 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BrowserRouter } from 'react-router-dom';
-import { auth } from 'firebase';
+import { auth, database } from 'firebase';
 import App from '../components/App';
-import logout from '../actions/logout';
-import login from '../actions/login';
+import removeUser from '../actions/removeUser';
+import setUser from '../actions/setUser';
 
 class AppContainer extends Component {
   static propTypes = {
     isAnonymous: PropTypes.bool,
-    logout: PropTypes.func.isRequired,
-    login: PropTypes.func.isRequired,
+    removeUser: PropTypes.func.isRequired,
+    setUser: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     isAnonymous: true,
+  }
+
+  static handleError(error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
   }
 
   constructor(props) {
@@ -27,32 +32,56 @@ class AppContainer extends Component {
 
   componentDidMount() {
     auth().onAuthStateChanged((user) => {
+      if (this.forceTokenRefresh && this.permissionsTimestampRef) {
+        this.permissionsTimestampRef.off('value', this.forceTokenRefresh);
+      }
       if (user) {
-        auth().currentUser.getIdTokenResult()
-          .then((idTokenResult) => {
-            const {
-              displayName, email, emailVerified, isAnonymous, metadata, providerData, uid,
-            } = user;
-            const { author, editor } = idTokenResult.claims;
-            const claims = { author, editor };
-            this.props.login({
-              claims, displayName, email, emailVerified, isAnonymous, metadata, providerData, uid,
-            });
-          })
-          .catch((error) => {
-            // eslint-disable-next-line
-            console.error(error);
-          });
+        this.handleLogin(user);
       } else {
-        this.props.logout();
-        auth().signInAnonymously().catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // eslint-disable-next-line no-console
-          return console.log(errorCode, errorMessage);
-        });
+        this.logoutAndSignInAnonymously();
       }
     });
+  }
+
+  setPermissionTimestampListener(uid) {
+    this.permissionsTimestampRef = database().ref(`users/${uid}/permissionsTimestamp`);
+    this.permissionsTimestampRef
+      .on('value', this.handlePermissionsTimestampSnapshot, AppContainer.handleError);
+  }
+
+  getAndProcessIdToken = () => {
+    auth().currentUser.getIdTokenResult()
+      .then(({ issuedAtTime, claims }) => {
+        const { author, editor } = claims;
+        this.props.setUser({ claims: { author, editor } });
+        this.setState({ issuedAtTime });
+      })
+      .catch(AppContainer.handleError);
+  }
+
+  handleLogin = (user) => {
+    this.forceTokenRefresh = () => user.getIdToken(true);
+    const {
+      displayName, email, emailVerified, isAnonymous, metadata, providerData, uid,
+    } = user;
+    this.props.setUser({
+      displayName, email, emailVerified, isAnonymous, metadata, providerData, uid,
+    });
+    this.setPermissionTimestampListener(user.uid);
+    this.getAndProcessIdToken();
+  }
+
+  logoutAndSignInAnonymously = () => {
+    this.user = null;
+    this.props.removeUser();
+    auth().signInAnonymously().catch(AppContainer.handleError);
+  }
+
+  handlePermissionsTimestampSnapshot = (snapshot) => {
+    const permissionsTimestamp = snapshot.val();
+    if (permissionsTimestamp > Date.parse(this.state.issuedAtTime)) {
+      this.forceTokenRefresh().then(this.getAndProcessIdToken);
+    }
   }
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
@@ -75,8 +104,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout()),
-  login: user => dispatch(login(user)),
+  removeUser: () => dispatch(removeUser()),
+  setUser: user => dispatch(setUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

@@ -4,7 +4,6 @@ import { Redirect, withRouter } from 'react-router';
 import { auth } from 'firebase';
 import PropTypes from 'prop-types';
 import Authenticate from '../components/Authenticate';
-import login from '../actions/login';
 
 const signInRoute = '/signin';
 
@@ -109,8 +108,4 @@ const mapStateToProps = state => ({
   isAnonymous: state.user.isAnonymous,
 });
 
-const mapDispatchToProps = dispatch => ({
-  login: user => dispatch(login(user)),
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthenticateContainer));
+export default withRouter(connect(mapStateToProps)(AuthenticateContainer));
