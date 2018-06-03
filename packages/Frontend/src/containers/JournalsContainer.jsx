@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import firebase from 'firebase';
 import { List, Map } from 'immutable';
 import { Link } from 'react-router-dom';
+import Loading from '../components/Loading';
 
 export default class JournalsContainer extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ export default class JournalsContainer extends Component {
 
   render() {
     if (this.state.loading) {
-      return (<p>Loading</p>);
+      return (<Loading />);
     }
     return (
       <Fragment>

@@ -6,6 +6,7 @@ import 'firepad/dist/firepad.css';
 import Button from '@material-ui/core/Button';
 import colors from '../constants/colors';
 import GenericError from './errors/GenericError';
+import Loading from './Loading';
 import NotFound from '../components/NotFound';
 import PhaseError from './errors/PhaseError';
 import SubmitDialog from './SubmitDialog';
@@ -100,7 +101,7 @@ export default function Firepad({
   return (
     <Fragment>
       { error && <PhaseError phase={phase} />}
-      { loading && (<p>Loading...</p>) }
+      { loading && (<Loading />) }
       <div style={displayStyle}>
         <SubmitDialog
           dialogIsOpen={dialogIsOpen}

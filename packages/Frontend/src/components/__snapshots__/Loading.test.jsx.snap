@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading should render 1`] = `
+<LinearIndeterminate
+  classes={
+    Object {
+      "barColorPrimary": "LinearIndeterminate-barColorPrimary-2",
+      "root": "LinearIndeterminate-root-1",
+    }
+  }
+/>
+`;

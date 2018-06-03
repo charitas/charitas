@@ -4,6 +4,10 @@ import NotFound from './NotFound';
 
 describe('NotFound', () => {
   it('should render', () => {
-    createAssertWithPropsToMatchSnapshot(NotFound.WrappedComponent, {})();
+    createAssertWithPropsToMatchSnapshot(NotFound.WrappedComponent, {
+      history: {
+        push: () => {},
+      },
+    })();
   });
 });

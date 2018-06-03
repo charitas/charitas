@@ -101,12 +101,12 @@ class FirepadContainer extends Component {
         if (!this.state.firepadInitialized) {
           this.setState({ firepadInitialized: true }, this.initFirepad);
         }
-        this.setState({
-          changingPhase,
-          phase,
-          title,
-        });
       }
+      this.setState({
+        changingPhase,
+        phase,
+        title,
+      });
     } else {
       this.setState({ notFound: true });
     }
