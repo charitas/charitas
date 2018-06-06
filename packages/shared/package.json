@@ -1,0 +1,21 @@
+{
+  "name": "@the-source-of-truth/shared",
+  "version": "0.0.1",
+  "description": "Shared code for The Source of Truth",
+  "main": "src/index.js",
+  "repository": "https://github.com/TheSourceOfTruth/TheSourceOfTruth.git",
+  "author": "MWAW Developer <dev@marvelousworkandawonder.com>",
+  "license": "Apache-2.0",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "echo 'no tests for shared'"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "eslint": "4.19.1",
+    "eslint-config-airbnb-base": "12.1.0",
+    "eslint-plugin-import": "2.10.0",
+    "eslint-plugin-promise": "3.8.0"
+  }
+}

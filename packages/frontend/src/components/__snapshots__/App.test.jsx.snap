@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should render correctly 1`] = `
+<React.Fragment>
+  <SidebarTopOverlay
+    toggleMenu={[Function]}
+  />
+  <SidebarLeftOverlay
+    isAnonymous={true}
+    sideBarVisibility={true}
+    toggleMenu={[Function]}
+  />
+  <div
+    style={
+      Object {
+        "height": "40px",
+      }
+    }
+  />
+  <Switch>
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/"
+    />
+    <View>
+      <Route
+        exact={true}
+        path="/documents/:phase(edit|view)/:id"
+        render={[Function]}
+      />
+      <Route
+        exact={true}
+        path="/documents/:phase(create)/:id?"
+        render={[Function]}
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/library"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/sign(up|in)"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/tasks"
+      />
+    </View>
+    <Route
+      component={[Function]}
+    />
+  </Switch>
+</React.Fragment>
+`;

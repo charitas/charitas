@@ -1,0 +1,48 @@
+{
+  "rules": {
+    "tasks": {
+      ".write": "auth.token.author === true || auth.token.editor === true"
+    },
+    "users": {
+      "$userId": {
+        ".read": "$userId === auth.uid",
+        ".write": false
+      }
+    },
+    "documents": {
+      ".read": "auth != null",
+      "$document": {
+        ".read": "auth != null",
+        "history": {
+          ".read": "auth != null",
+          "$revision": {
+            ".write": "((data.parent().parent().child('phase').val() === 'create' && auth.token.author === true) || (data.parent().parent().child('phase').val() === 'edit' && auth.token.editor === true)) && !data.exists() && newData.child('a').val() === auth.uid"
+          }
+        },
+        "users": {
+          ".read": "auth != null",
+          "$userid": {
+            ".write": "$userid === auth.uid"
+          }
+        },
+        "checkpoint": {
+          ".read": "auth != null",
+          ".write": "((data.parent().child('phase').val() === 'create' && auth.token.author === true) || (data.parent().child('phase').val() === 'edit' && auth.token.editor === true)) && newData.child('a').val() === auth.uid && data.parent().child('history').child(newData.child('id').val()).child('a').val() === auth.uid"
+        },
+        "phase": {
+          ".read": "auth != null",
+          ".write": "!data.exists() && auth.token.author === true && newData.val() === 'create'"
+        },
+        "title": {
+          ".read": "auth != null",
+          ".write": "(data.parent().child('phase').val() === 'create' && auth.token.author === true) || (data.parent().child('phase').val() === 'edit' && auth.token.editor === true)"
+        },
+        "changingPhase": {
+          ".read": "auth != null",
+          ".write": "(auth.token.author === true && data.parent().child('phase').val() === 'create') || (auth.token.editor === true && data.parent().child('phase').val() === 'edit')",
+          ".validate": "newData.val() === true || newData.val() === false"
+        }
+      }
+    }
+  }
+}
