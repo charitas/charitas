@@ -22,7 +22,6 @@
     "babel-polyfill": "6.26.0",
     "firebase-admin": "5.12.1",
     "firebase-functions": "1.0.2",
-    "firebase-tools": "3.18.4",
     "firepad": "1.4.0",
     "jsdom": "9.12.0"
   },

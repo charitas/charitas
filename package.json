@@ -1,15 +1,21 @@
 {
  "devDependencies": {
+  "firebase-tools": "3.18.6",
   "lerna": "2.9.1"
  },
  "private": true,
  "scripts": {
-  "build": "lerna exec -- yarn build",
+  "build:functions": "lerna exec --scope @the-source-of-truth/backend -- yarn build",
+  "build:hosting": "lerna exec --scope @the-source-of-truth/frontend -- yarn build",
   "bootstrap": "lerna bootstrap",
   "clean": "lerna clean",
+  "deploy": "firebase deploy",
   "lint": "lerna exec -- yarn lint",
+  "logs": "firebase functions:log",
   "test": "lerna exec -- yarn test",
   "validate": "yarn lint && yarn test"
  },
- "workspaces": ["packages/*"]
+ "workspaces": [
+  "packages/*"
+ ]
 }
