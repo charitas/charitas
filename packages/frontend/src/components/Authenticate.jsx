@@ -27,6 +27,7 @@ const StyledDiv = styled.div`
 
   .ui.violet.button, .ui.violet.buttons {
     margin-bottom: 10px;
+    background-color: ${colors.purple};
   }
 
   .button {

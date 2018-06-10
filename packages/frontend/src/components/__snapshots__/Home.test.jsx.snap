@@ -1,7 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Home should render 1`] = `
-<h3>
-  Home
-</h3>
+<Home
+  classes={
+    Object {
+      "button": "Home-button-1",
+      "input": "Home-input-2",
+    }
+  }
+/>
 `;

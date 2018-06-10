@@ -31,6 +31,7 @@ module.exports = {
       'process.env.FB_PROJECT_ID': JSON.stringify(process.env.FB_PROJECT_ID),
       'process.env.FB_STORAGE_BUCKET': JSON.stringify(process.env.FB_STORAGE_BUCKET),
       'process.env.FB_MESSAGING_SENDER_ID': JSON.stringify(process.env.FB_MESSAGING_SENDER_ID),
+      'process.env.HERO_IMAGE_URL': JSON.stringify(process.env.HERO_IMAGE_URL),
     }),
   ],
   output: {
