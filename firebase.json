@@ -12,6 +12,10 @@
   },
   "hosting": {
     "public": "packages/frontend/dist",
-    "predeploy": "yarn build:hosting"
+    "predeploy": "yarn build:hosting",
+    "rewrites": [{
+      "source": "**",
+      "destination": "/index.html"
+    }]
   }
 }
