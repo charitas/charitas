@@ -1,16 +1,23 @@
 after_script:
-  - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 before_install:
-  - "curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.3.2"
-  - "export PATH=\"$HOME/.yarn/bin:$PATH\""
+- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.3.2
+- export PATH="$HOME/.yarn/bin:$PATH"
 before_script:
-  - "curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter"
-  - "chmod +x ./cc-test-reporter"
-  - "./cc-test-reporter before-build"
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
 install:
-  - yarn
-  - "yarn bootstrap"
+- yarn
+- yarn bootstrap
 language: node_js
 node_js:
-  - "8"
-script: "yarn lint && yarn test --ci"
+- '8'
+script: yarn lint && yarn test --ci
+deploy:
+  provider: firebase
+  token:
+    secure: "mL5JekSy+atEXKIojHdnAu+VMAYlUGfeIt2HQ1/RzDpnGdfqmsAkYFB1dH8q8VxpFp8leRh5rr9UO0Xtlv1bkEJvNll1ncl1KXNOKpxuS2Kay8q1K1+6dk4Kkm6h0c1vAsJL3ZX4PD6NFuoEePKutjJQrzOmJTEPVsgs8Me6KHA/Xw2SJ0mtc526xQOL/nxTSNt79+ulpwIIy34UIaeLJtEOkEXEnErktWeDXEGE/6ZvatBh8BVTmoUo4goaq9oH5xZdYg39X7E8efNV/CeWbACWpNHl5LL5D1MPlEEzAuTFF19HlyWRY5SdImCl2TZNtlpjG6taAXWTEfA5lDx8svMhyI69fX32J7UISELjCRRv74IZUZo5DIM6JaP41uBMiPDpMkOcBmuMosouI31fnvWcZlujLtgEom4xs7ZNiOs1ZixANvtwCAeQD19SmgIUdApz3RLZ5OlRDP73tJq7YGVOvyJqDnW3Tb4BFG48cR6XKTVqjc17KcqpeH/eEsb2OYekixaxA4PTXX5Z6IIboEfUTOVBiNAYrOlFTxcn1Ecow4saMvuJo9+BbMyGvG2tu2U3+jJfb6DVzXDZOrB2dHmLrNX8DSXIwmWdombnW61girszuh8cxViq3f95KtkETo8eOwZRbGgVkrlt1hMMP+zd71rCDZdbvi8ik+/JFKQ="
+  project:
+    secure: "MjC685meg2iVWqRtKei5fq/8rGWTPF3THF57Nrgbx4RngIT0aBLvHjpfd80nIuJgR6BOxUkHiBGY9ICRmhvtNl/GNPeoItZEW2N7jLsnsbiopCphzqaxfGw4qI6KqJvCjkutFpcs9AllxpdfmvCLZtDxJqVWEZIIlMp3Z6Pn53A67+5gwNXlVJa4mVmldDin7KOHQ3sFmC8/pBHRC78LajeOkd+bbljpr9mUDHJeB70NaFIjdRDsG2n6tHPilHDgWBv0lmkZNG31rgT04isjPConY9EBj3pIorH0pgRDKXwk5+E/NbHmiVULQdiR1/sysDK5Lm7gMjQaXdfhXI4jasNOsgvoNUXMTC0Lr3sVvZEuN/1mi9pdDOUR7aW3Z+m0txszV1DT7SH3UzFWsbMs8HGTzTgYBPOXbKWw1R9vAU91Lbb/soM8kKwaj8wxdnZrHmZZOKtXQjqNCqJe7DipCwRCGK5FZnrarEHGAdNkfmFDaqpwGOW/ChN38+zFvrz1azAW7adyjx0aodfnrhSjJKJKoLXqdP/jfYAiAewI8GhE4oXr+W/P3kGSINZ7Lpu+2F5Fo486+a0QEHlDM6kQCkiFDd1+Co1LFjJNBb13U7L1w9t7QwPgMaZav/QNmszkrXfQMx2mrHd5q+HlQgLsA+MbAKfAFgrBIWOurrmu54M="
