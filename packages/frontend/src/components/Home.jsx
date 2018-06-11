@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { LIBRARY } from '@the-source-of-truth/shared/constants';
 import colors from '../constants/colors';
+import HomeIntroduction from './HomeIntroduction';
 
 const styles = theme => ({
   button: {
@@ -21,8 +24,7 @@ const StyledDiv = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100%;
-  min-height: 100vh;
+  min-height: 95.5vh;
 `;
 
 const StyledHeader = styled.div`
@@ -41,23 +43,38 @@ const CenteredDiv = styled.div`
   top: 170px;
 `;
 
-function Home({ classes }) {
-  return (
-    <StyledDiv>
-      <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', height: '100vh', width: '100%' }} >
-        <CenteredDiv>
-          <StyledHeader className="StyledHome">
-          MARVELOUS WORK AND A WONDER®
-          </StyledHeader>
-          <div style={{ fontStyle: 'italic', padding: '25px' }}>insert short desc, scripture, or quote of MWAW here</div>
-          <div>
-            <Button className={classes.button} >Introduction</Button>
-            <Button color="default" className={classes.button}>Journal</Button>
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.ref = React.createRef();
+  }
+
+  scrollToIntro = () => { this.ref.current.scrollIntoView(); }
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <Fragment>
+        <StyledDiv>
+          <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', height: '95.5vh', width: '100%' }} >
+            <CenteredDiv>
+              <StyledHeader className="StyledHome">
+                MARVELOUS WORK AND A WONDER
+                <div className="StyledHome" style={{ display: 'inline-block', fontSize: '22px', verticalAlign: 'super' }}>®</div>
+              </StyledHeader>
+              <div>
+                <Button className={classes.button} onClick={this.scrollToIntro}>
+                  Introduction
+                </Button>
+                <Button color="default" className={classes.button} onClick={() => this.props.history.push(`./${LIBRARY}`)}>Library</Button>
+              </div>
+            </CenteredDiv>
           </div>
-        </CenteredDiv>
-      </div>
-    </StyledDiv>
-  );
+        </StyledDiv>
+        <HomeIntroduction ref={this.ref} />
+      </Fragment>
+    );
+  }
 }
 
 Home.propTypes = {
@@ -65,6 +82,9 @@ Home.propTypes = {
     button: PropTypes.string.isRequired,
     input: PropTypes.string.isRequired,
   }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
-export default withStyles(styles)(Home);
+export default withStyles(styles)(withRouter(Home));

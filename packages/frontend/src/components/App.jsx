@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import { CREATE, DOCUMENTS, EDIT, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
+import { CREATE, DOCUMENTS, EDIT, LIBRARY, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
 import { SidebarLeftOverlay, SidebarTopOverlay } from './Navigation';
 import AuthenticateContainer from '../containers/AuthenticateContainer';
 import ConnectionError from './errors/ConnectionError';
@@ -39,7 +39,7 @@ function App({
             path={`/${DOCUMENTS}/:${PHASE}(${CREATE})/:id?`}
             render={props => (<ConnectionError {...props} component={FirepadContainer} />)}
           />
-          <Route exact path="/library" component={Library} />
+          <Route exact path={`/${LIBRARY}`} component={Library} />
           <Route exact path="/sign(up|in)" component={AuthenticateContainer} />
           <Route exact path="/tasks" component={TasksContainer} />
         </View>

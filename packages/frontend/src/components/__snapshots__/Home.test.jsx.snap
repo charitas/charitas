@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Home should render 1`] = `
-<Home
+<withRouter(Home)
   classes={
     Object {
-      "button": "Home-button-1",
-      "input": "Home-input-2",
+      "button": "withRouter-Home--button-1",
+      "input": "withRouter-Home--input-2",
     }
   }
 />
