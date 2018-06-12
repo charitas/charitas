@@ -49,7 +49,7 @@ class Home extends Component {
     this.ref = React.createRef();
   }
 
-  scrollToIntro = () => { this.ref.current.scrollIntoView(); }
+  scrollToIntro = () => { this.ref.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' }); }
 
   render() {
     const { classes } = this.props;
