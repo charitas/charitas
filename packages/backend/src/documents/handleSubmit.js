@@ -1,5 +1,6 @@
 import { database } from 'firebase-admin';
 import { CHANGING_PHASE, CREATE, DOCUMENTS, DOCUMENT_BACKUPS, EDIT, PUBLISHED } from '@the-source-of-truth/shared/constants';
+import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import PromiseFirepad from './PromiseFirepad';
 
 const phaseOrder = [CREATE, EDIT, PUBLISHED];
@@ -20,8 +21,6 @@ const createBackup = refToBackup =>
       // eslint-disable-next-line no-console
       console.error(error);
     });
-
-const checkPermissions = (claims, phase) => (claims.author && phase === 'create') || (claims.editor && phase === 'edit');
 
 const handleSubmit = (payload, context) => {
   const ref = database().ref(DOCUMENTS).child(payload.id);

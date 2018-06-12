@@ -8,7 +8,7 @@ describe('TasksContainer', () => {
   const defaultProps = {};
 
   const assertWithPropsToMatchSnapshot =
-    createAssertWithPropsToMatchSnapshot(TasksContainer, defaultProps);
+    createAssertWithPropsToMatchSnapshot(TasksContainer.WrappedComponent, defaultProps);
   it('should render', () => {
     assertWithPropsToMatchSnapshot();
   });

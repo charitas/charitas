@@ -1,32 +1,45 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { database } from 'firebase';
 import { fromJS, List, Map } from 'immutable';
-import { Link } from 'react-router-dom';
-import { CREATE, DOCUMENTS, EDIT, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
+import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Add from '@material-ui/icons/Add';
+import { CREATE, DOCUMENTS, EDIT, PHASE } from '@the-source-of-truth/shared/constants';
+import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import Loading from '../components/Loading';
+import TasksCard from '../components/TasksCard';
+import colors from '../constants/colors';
 
-export default class TasksContainer extends Component {
-  static createDocumentLinks(doc) {
-    const title = doc.get('title');
-    const phase = doc.get(PHASE);
-    const viewHref = `/${DOCUMENTS}/${VIEW}/${doc.get('id')}`;
-    const editHref = `/${DOCUMENTS}/${phase}/${doc.get('id')}`;
-    return (
-      <div key={doc.get('id')} >
-        <Link
-          to={viewHref}
-          href={viewHref}
-        >
-          {title || 'Untitled'}
-        </Link>
-        <Link
-          to={editHref}
-          href={editHref}
-        >
-          {'    (continue)'}
-        </Link>
-      </div>
-    );
+const styles = {
+  root: {
+    display: 'grid',
+    justifyContent: 'center',
+    gridGap: '20px',
+    gridTemplateColumns: 'repeat(auto-fit, 250px)',
+  },
+  card: {
+    maxheight: 265,
+    maxwidth: 240,
+  },
+};
+
+class TasksContainer extends Component {
+  static propTypes = {
+    claims: PropTypes.shape({
+      editor: PropTypes.bool,
+      author: PropTypes.bool,
+    }).isRequired,
+    classes: PropTypes.shape({
+      root: PropTypes.string.isRequired,
+      card: PropTypes.string.isRequired,
+    }).isRequired,
   }
 
   constructor(props) {
@@ -58,6 +71,16 @@ export default class TasksContainer extends Component {
       .on('value', this.handleSnapshot(phase), this.handleError);
   }
 
+  createDocumentLinks(phase) {
+    return this.state.documents.get(phase).map((doc) => {
+      const id = doc.get('id');
+      return (
+        <TasksCard claims={this.props.claims} doc={doc} id={id} key={id} />
+      );
+    });
+  }
+
+
   handleError = (error) => {
     // eslint-disable-next-line no-console
     console.error(error);
@@ -79,14 +102,49 @@ export default class TasksContainer extends Component {
     if (this.state.loading) {
       return (<Loading />);
     }
+
+    const isAuthor = checkPermissions(this.props.claims, CREATE);
+
     return (
       <Fragment>
-        <button><a href={`/${DOCUMENTS}/create`}>Create Document</a></button>
-        <h3>Create Tasks</h3>
-        { this.state.documents.get(CREATE).map(TasksContainer.createDocumentLinks) }
-        <h3>Edit Tasks</h3>
-        { this.state.documents.get(EDIT).map(TasksContainer.createDocumentLinks) }
+        <h2>Tasks</h2>
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <h3>New Publications (Creations)</h3>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className={this.props.classes.root}>
+            { isAuthor &&
+              <Card className={this.props.classes.card}>
+                <Button
+                  style={{
+                    height: '100%',
+                    width: '100%',
+                  }}
+                >
+                  <a href={`/${DOCUMENTS}/create`} style={{ color: `${colors.darkGrey}` }}>
+                    <Add style={{ height: '100px', width: '100px' }} />
+                  </a>
+                </Button>
+              </Card>
+            }
+            {this.createDocumentLinks(CREATE)}
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <h3>Publications in Progress (Editing)</h3>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className={this.props.classes.root}>
+            {this.createDocumentLinks(EDIT)}
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
       </Fragment>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  claims: state.user.claims,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(TasksContainer));

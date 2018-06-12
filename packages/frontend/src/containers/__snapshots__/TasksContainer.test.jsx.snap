@@ -1,3 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TasksContainer should render 1`] = `<WithStyles(LinearIndeterminate) />`;
+exports[`TasksContainer should render 1`] = `
+<TasksContainer
+  classes={
+    Object {
+      "card": "TasksContainer-card-2",
+      "root": "TasksContainer-root-1",
+    }
+  }
+/>
+`;
