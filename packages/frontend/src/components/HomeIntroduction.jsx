@@ -1,115 +1,14 @@
 import React from 'react';
 import View from './View';
 
-/* eslint-disable max-len */
+const html = '<div><span style="font-size: 18px">Before Greek authors wrote the Hebrew</span><span style="font-size: 18px"><i>&nbsp;Pentateuch</i></span><span style="font-size: 18px">&nbsp;(Greek:&nbsp;</span><span style="font-size: 18px"><i>five books</i></span><span style="font-size: 18px">; Hebrew:&nbsp;</span><span style="font-size: 18px"><i>Torah</i></span><span style="font-size: 18px">), they had produced two other literary masterpieces known as the&nbsp;</span><span style="font-size: 18px"><i>Iliad</i></span><span style="font-size: 18px">&nbsp;and the&nbsp;</span><span style="font-size: 18px"><i>Odyssey</i></span><span style="font-size: 18px">.&nbsp;&nbsp;The hero of the&nbsp;</span><span style="font-size: 18px"><i>Iliad</i></span><span style="font-size: 18px">&nbsp;was Achilles.&nbsp;&nbsp;The hero of the&nbsp;</span><span style="font-size: 18px"><i>Odyssey</i></span><span style="font-size: 18px">&nbsp;was Odysseus.&nbsp;&nbsp;There were prophets and gods in both stories.&nbsp;&nbsp;Calchas and Aegyptius were examples of these prophets in the&nbsp;</span><span style="font-size: 18px"><i>Iliad</i></span><span style="font-size: 18px">&nbsp;and the&nbsp;</span><span style="font-size: 18px"><i>Odyssey</i></span><span style="font-size: 18px">&nbsp;stories respectively.&nbsp;&nbsp;Zeus is the main god of both.&nbsp;&nbsp;Greek authors became world-renowned for their writing and storytelling abilities.</span></div><div><span style="font-size: 18px"></span><br/></div><div><span style="font-size: 18px">By 600 BCE, the Hebrew culture had not yet developed language skills proficient enough to properly write its own history.&nbsp;&nbsp;Hebrew history was stories that had been passed down orally for many generations.&nbsp;&nbsp;In an effort to consolidate the various oral accounts of their history scattered among its culture, ancient Hebrew tribal leaders hired Greek authors to write the Hebrew&nbsp;</span><span style="font-size: 18px"><i>Torah</i></span><span style="font-size: 18px">, which was originally called the&nbsp;</span><span style="font-size: 18px"><i>Pentateuch</i></span><span style="font-size: 18px">.&nbsp;&nbsp;</span></div><div><span style="font-size: 18px"></span><br/></div><div><span style="font-size: 18px">The main heroes of the Torah were Abraham and Moses.&nbsp;&nbsp;The Hebrew god was&nbsp;</span><span style="font-size: 18px"><i>Elohim</i></span><span style="font-size: 18px">, which (interpreted properly) is a plural form of a Hebrew term meaning “god.”&nbsp;&nbsp;</span><span style="font-size: 18px"><i>Elohim</i></span><span style="font-size: 18px">&nbsp;replaced a plurality of gods accepted by most other ancient religions.&nbsp;&nbsp;Over the years following the publication of the&nbsp;</span><span style="font-size: 18px"><i>Pentaeuch</i></span><span style="font-size: 18px">, Hebrew leaders utilized Greek authors and storytellers to elaborate and expound upon the Hebrew story.&nbsp;&nbsp;</span><b><span style="font-size: 18px">This is how the Old Testament of the Bible was created.&nbsp;</span></b></div><div><b><span style="font-size: 18px"></span></b><br/></div><div><span style="font-size: 18px">Near the end of the 4th Century CE, Greek writing skills were once again called upon to create another story.&nbsp;&nbsp;This one dovetailed the Old Testament and incorporated other contemporary beliefs held by the masses who were living in the Great Roman Empire.&nbsp;&nbsp;</span><b><span style="font-size: 18px">This is how the New Testament was created.</span></b></div><div><b><span style="font-size: 18px"></span></b><br/></div><div><b><span style="font-size: 18px"><i>(NOTE: A comprehensive and detailed explanation of how the Bible came to be is presented on this website.)</i></span></b><span style="font-size: 18px"><i></i></span></div><div><span style="font-size: 18px"></span><br/></div><div><span style="font-size: 18px">The entire Bible was first written in Greek.&nbsp;&nbsp;Greek authors were commissioned and hired to use their adroit writing and storytelling skills to tell the Bible&#39;s story.&nbsp;&nbsp;The Bible is a fictitious story.&nbsp;&nbsp;Its storyline and characters are not any more real than those of the&nbsp;</span><span style="font-size: 18px"><i>Odyssey</i></span><span style="font-size: 18px">&nbsp;or of the&nbsp;</span><span style="font-size: 18px"><i>Iliad</i></span><span style="font-size: 18px">.&nbsp;&nbsp;However, the Bible has been and is more widely read and accepted as&nbsp;</span><span style="font-size: 18px"><i>real</i></span><span style="font-size: 18px">&nbsp;by more people than any other book ever written.&nbsp;&nbsp;The Bible&#39;s power over the human mind is unmatched and often unchallenged.</span></div><div><span style="font-size: 18px"></span><br/></div><div><span style="font-size: 18px">Throughout the years that the Bible has existed, unscrupulous individuals have used it for personal profit and to control the hearts and minds of billions of people.&nbsp;&nbsp;Anyone who stood up to these religious leaders and called out the Bible for what it really was and pointed out how the people were being controlled, decieved, and misled, was killed.&nbsp;&nbsp;To counter how the&nbsp;</span><span style="font-size: 18px"><i>Torah/Pentateuch</i></span><span style="font-size: 18px">&nbsp;was being used, anonymous groups worked behind the scenes and out of the sight and control of religious authority.&nbsp;&nbsp;One of these ancient groups invented and introduced a Hebrew hero/prophet named Isaiah.&nbsp;&nbsp;This rougue group of authors created the plot and story for the book of Isaiah in an attempt to get their point across: that the men who called themselves prophets and priests, as well as the religions that these created, were all corrupt.</span></div><div><span style="font-size: 18px"></span><br/></div><div><span style="font-size: 18px">The term&nbsp;</span><span style="font-size: 18px"><i>Marvelous Work and a Wonder</i></span><span style="font-size: 18px">® was taken from the book of Isaiah:</span></div><div><span style="font-size: 18px"></span><br/></div><ul><div><span style="font-size: 18px">“Forasmuch as this people draw near me with their mouth, and with their lips do honour me, but have removed their heart far from me, and their fear toward me is taught by the precept of men: Therefore, behold, I will proceed to do a marvelous work among this people, even a&nbsp;</span><b><span style="font-size: 18px"><i>marvelous work and a wonder</i></span></b><span style="font-size: 18px">: for the wisdom of their wise men shall perish, and the understanding of their prudent men shall be hid.”&nbsp;&nbsp;(Isaiah 29:13–14)</span></div></ul><div><span style="font-size: 18px"></span><br/></div><div><span style="font-size: 18px"></span><br/></div><div><span style="font-size: 18px">Religion is the false “precepts of men” that instill fear and remove an individual&#39;s ability to be responsible for their own actions.&nbsp;&nbsp;Religion greatly impedes free will.&nbsp;&nbsp;Free will is the essence of human nature and the main source of happiness.&nbsp;&nbsp;When someone is convinced that an entity outside of their own mind has influence or control over them, the individuality of this person is diminished and often destroyed.&nbsp;&nbsp;One must first be convinced that the only source of wisdom, guidance, and direction is the “god within their own mind” before individual free will can be restored, protected, and supported.&nbsp;&nbsp;The concept of “God” used in the book of Isaiah was meant to counter the way that religious leaders were using the&nbsp;</span><span style="font-size: 18px"><i>Torah</i></span><span style="font-size: 18px">.&nbsp;&nbsp;Its intent was meant to re-empower the individual and restore free will.&nbsp;&nbsp;If the authors could get people to reject their religious leaders and turn “to God,” the people would be more apt to listen to the “god within their own minds.”&nbsp;&nbsp;The book of Isaiah is filled with passages and descriptions similar to these:</span></div><div><span style="font-size: 18px"></span><br/></div><ul><div><span style="font-size: 18px"></span><br/></div><div><span style="font-size: 18px">“Cease ye from man, whose breath is in his nostrils: for wherein is he to be accounted of?&nbsp;&nbsp;...For the Lord hath poured out upon you the spirit of deep sleep, and hath closed your eyes: the prophets and your rulers, the seers hath he covered.&nbsp;&nbsp;...His watchmen are blind: they are all ignorant, they are all dumb dogs, they cannot bark; sleeping, lying down, loving to slumber.”&nbsp;&nbsp;(Isaiah 2:22; 29:10; 56:10)</span></div><div><span style="font-size: 18px">&nbsp;&nbsp;&nbsp;</span></div></ul><div><span style="font-size: 18px"></span><br/></div><div><span style="font-size: 18px">The three main religions that base their beliefs on the Bible (Judaism, Christianity, and Islam) have triggered more human misery and strife than any other social causation known to humanity.&nbsp;&nbsp;Poverty and inequality are a direct result of religious belief and impede free will by creating slavery, where a person is forced to work for another in order to survive.&nbsp;&nbsp;The book of Isaiah advocates strongly for the elimination of poverty by addressing the vanity and uselessness of religious doctrines and ordinances.&nbsp;&nbsp;Passages similar to the following can be found throughout the story:</span></div><div><span style="font-size: 18px"></span><br/></div><div><span style="font-size: 18px"></span><br/></div><ul><div><span style="font-size: 18px">“To what purpose is the multitude of your sacrifices unto me? saith the Lord: I am full of the burnt offerings of rams, and the fat of fed beasts; and I delight not in the blood of bullocks, or of lambs, or of he goats.&nbsp;&nbsp;When ye come to appear before me, who hath required this at your hand, to tread my courts?&nbsp;&nbsp;Bring no more vain oblations; incense is an abomination unto me; the new moons and sabbaths, the calling of assemblies, I cannot away with; it is iniquity, even the solemn meeting.&nbsp;&nbsp;Your new moons and your appointed feasts my soul hateth: they are a trouble unto me; I am weary to bear them.&nbsp;&nbsp;And when ye spread forth your hands, I will hide mine eyes from you: yea, when ye make many prayers, I will not hear: your hands are full of blood.&nbsp;&nbsp;Wash you, make you clean; put away the evil of your doings from before mine eyes; cease to do evil; Learn to do well; seek judgment, relieve the oppressed, judge the fatherless, plead for the widow.”&nbsp;&nbsp;(Isaiah 1:11–17)</span></div><div><span style="font-size: 18px"></span><br/></div><div><span style="font-size: 18px"></span><br/></div></ul><div><span style="font-size: 18px">These types of anonymous groups of individuals have always existed throughout history and have done what they could to counter the negative effects of religious control.&nbsp;&nbsp;They often use the religious beliefs in which the masses are indoctrinated to counter religion.&nbsp;&nbsp;They continue to do so today.&nbsp;&nbsp;</span></div><div><span style="font-size: 18px"></span><br/></div><div><span style="font-size: 18px">During the early 19th Century, in the newly formed United States of America, a group of these anonymous individuals laid the foundation for this modern&nbsp;</span><span style="font-size: 18px"><i>Marvelous Work and a Wonder</i></span><span style="font-size: 18px">®.&nbsp;&nbsp;This same anonymous group exists today and continues to do everything within its power to return free will and power to the individual.</span></div><div><span style="font-size: 18px"></span><br/></div><div><span style="font-size: 18px">The&nbsp;</span><span style="font-size: 18px"><i>Marvelous Work and a Wonder®</i></span><span style="font-size: 18px">&nbsp;is their work.&nbsp;</span></div><div><span style="font-size: 18px"></span><br/></div><div><span style="font-size: 18px">This is their official website.</span></div><div><span style="font-size: 18px"></span><br/></div><div>&nbsp;</div>';
+
+/* eslint-disable react/no-danger */
 const HomeIntroduction = React.forwardRef((props, ref) => (
   <View>
     <div ref={ref}>
       <h2 style={{ marginTop: '25px' }}>Introduction</h2>
-      <div>
-        Before Greek authors wrote&nbsp;<i>The Pentateuch</i>&nbsp;(Greek: “<i>five books</i>”),
-        they had produced other literary masterpieces known as the&nbsp;<i>Iliad</i>&nbsp;and
-        the&nbsp;<i>Odyssey</i>.&nbsp;&nbsp;The hero of the&nbsp;<i>Iliad</i>&nbsp;is
-        Achilles.&nbsp;&nbsp;The hero of the&nbsp;<i>Odyssey</i>&nbsp;is Odysseus.&nbsp;&nbsp;There
-        were prophets and gods in both stories.&nbsp;&nbsp;Calchas and Aegyptius are examples of
-        these prophets in the&nbsp;<i>Iliad</i>&nbsp;and the&nbsp;<i>Odyssey</i>&nbsp;stories
-        respectively. Zeus is the main god of both. Nearly 200 years later, Greek authors had become
-        world-renowned for their writing and storytelling abilities.
-      </div>
-      <div>
-        <br />
-      </div>
-      <div>
-        By 600 BCE, the Hebrew culture had not yet developed its language skills enough to properly
-        write its own history—stories that had been passed down orally for many generations. In an
-        effort to consolidate the various oral accounts of their history, Ancient Hebrew tribal
-        leaders hired Greek authors to write the Hebrew&nbsp;<i>Torah</i>, which was originally
-        called&nbsp;<i>The Pentateuch</i>.&nbsp;&nbsp;The main hero of Torah was
-        Abraham.&nbsp;&nbsp;The Hebrew god was&nbsp;<i>Elohim</i>, which (interpreted properly) is a
-        plural form of a Hebrew term meaning “god.” Over the years following the publication
-        of&nbsp;<i>The Pentaeuch</i>, Hebrew leaders used Greek authors and storytellers to
-        elaborate and expound upon the Hebrew story.&nbsp;&nbsp;
-        <b>
-          This is how the Old Testament of the Bible was created.&nbsp;
-        </b>
-      </div>
-      <div>
-        <b />
-        <br />
-      </div>
-      <div>
-        Near the 4th Century C.E., Greek authors were once again called upon to create another
-        story. This one dovetailed the Old Testament and incorporated other contemporary beliefs
-        held by the masses who were living in the Great Roman Empire at the time.&nbsp;&nbsp;Thus,
-        the New Testament was created.
-      </div>
-      <div>
-        <br />
-      </div>
-      <div>
-        The Bible was first written in Greek, by Greek authors who were commissioned and hired to
-        use their adroit writing and storytelling skills to tell a story.&nbsp;&nbsp;The Bible is a
-        fictitious story.&nbsp;&nbsp;Its storyline and its characters are not any more real than its
-        predecessors&#39;, those of the&nbsp;<i>Odyssey</i>&nbsp;and of the&nbsp;<i>Iliad</i>.&nbsp;&nbsp;However,
-        the Bible has been and is more widely read and accepted as&nbsp;<i>real</i>&nbsp;by more
-        people than any other book on Earth.
-      </div>
-      <div>
-        <br />
-      </div>
-      <div>
-        Throughout the years that the Bible has existed, unscrupulous individuals have used it for
-        personal profit and to control the hearts and minds of billions of people.&nbsp;&nbsp;Anyone
-        who has stood up to these religious leaders and called the Bible out for what it really is,
-        was killed.&nbsp;&nbsp;Later Greek authors witnessed how the Bible was being
-        used.&nbsp;&nbsp;To counter how the story was being used, other Greek authors invented
-        another Hebrew hero named Isaiah.&nbsp;&nbsp;Attempting to get their point across—that
-        religion and the men who called themselves prophets and priests were corrupt—they created
-        the book of Isaiah.
-      </div>
-      <div>
-        <br />
-      </div>
-      <div>
-        The term&nbsp;<i>Marvelous Work and a Wonder</i>® was taken from the book of Isaiah:
-      </div>
-      <div>
-        <br />
-      </div>
-      <ul>
-        <div>
-          “Forasmuch as this people draw near me with their mouth, and with their lips do honour me,
-          but have removed their heart far from me, and their fear toward me is taught by the
-          precept of men: Therefore, behold, I will proceed to do a marvellous work among this
-          people, even a&nbsp;
-          <b>
-            <i>marvellous work and a wonder</i>
-          </b>: for the wisdom of their wise men shall perish, and the understanding of their
-          prudent men shall be hid.”&nbsp;&nbsp;(Isaiah 29:13–14)
-        </div>
-      </ul>
-      <div>
-        <br />
-      </div>
-      <div>
-        All religion is false.&nbsp;&nbsp;The three main religions that base their beliefs on the
-        Bible (Judaism, Christianity, and Islam) have triggered more human misery and strife than
-        any other social causation known to humanity.&nbsp;&nbsp;Anonymous groups of individuals
-        have always existed throughout history to counter the negative effects of
-        religion.&nbsp;&nbsp;They have always used the religious beliefs in which the masses were
-        indoctrinated to counter religion. They continue to do so today.&nbsp;&nbsp;
-      </div>
-      <div>
-        <br />
-      </div>
-      <div>
-        In the early 19th Century, in the newly formed United States of America, a group of these
-        individuals laid the foundation for this modern&nbsp;<i>Marvelous Work and a Wonder</i>®.
-      </div>
-      <div>
-        <br />
-      </div>
-      <div>This is their official website.</div>
+      <div dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   </View>
 ));
