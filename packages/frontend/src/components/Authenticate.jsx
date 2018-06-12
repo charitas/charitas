@@ -105,21 +105,6 @@ export default function Authenticate({
           >
                 Sign in with Google
           </Button>
-          <Button
-            color="blue"
-            onClick={() => authenticate('facebook')}
-            fluid
-            style={{
-                  backgroundColor: '#4267B2',
-                  backgroundImage: 'url(\'https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/flogo-HexRBG-Wht-58.svg?alt=media&token=d0812834-f629-45cb-b74e-ef94db7a72cd\')',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: '39px',
-                  backgroundPosition: '3px 3px',
-                  height: '45px',
-                }}
-          >
-                Login With Facebook
-          </Button>
         </Form>
         { loading && (
         <StyledLoader>

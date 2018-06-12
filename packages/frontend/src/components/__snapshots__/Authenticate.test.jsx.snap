@@ -90,24 +90,6 @@ exports[`Authenticate should render 1`] = `
       >
         Sign in with Google
       </Button>
-      <Button
-        as="button"
-        color="blue"
-        fluid={true}
-        onClick={[Function]}
-        style={
-          Object {
-            "backgroundColor": "#4267B2",
-            "backgroundImage": "url('https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/flogo-HexRBG-Wht-58.svg?alt=media&token=d0812834-f629-45cb-b74e-ef94db7a72cd')",
-            "backgroundPosition": "3px 3px",
-            "backgroundRepeat": "no-repeat",
-            "backgroundSize": "39px",
-            "height": "45px",
-          }
-        }
-      >
-        Login With Facebook
-      </Button>
     </Form>
   </Segment>
 </styled.div>
@@ -202,24 +184,6 @@ exports[`Authenticate should render a loading message when passed loading as a p
         }
       >
         Sign in with Google
-      </Button>
-      <Button
-        as="button"
-        color="blue"
-        fluid={true}
-        onClick={[Function]}
-        style={
-          Object {
-            "backgroundColor": "#4267B2",
-            "backgroundImage": "url('https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/flogo-HexRBG-Wht-58.svg?alt=media&token=d0812834-f629-45cb-b74e-ef94db7a72cd')",
-            "backgroundPosition": "3px 3px",
-            "backgroundRepeat": "no-repeat",
-            "backgroundSize": "39px",
-            "height": "45px",
-          }
-        }
-      >
-        Login With Facebook
       </Button>
     </Form>
     <styled.div>
@@ -321,24 +285,6 @@ exports[`Authenticate should render an error when passed as a prop 1`] = `
         }
       >
         Sign in with Google
-      </Button>
-      <Button
-        as="button"
-        color="blue"
-        fluid={true}
-        onClick={[Function]}
-        style={
-          Object {
-            "backgroundColor": "#4267B2",
-            "backgroundImage": "url('https://firebasestorage.googleapis.com/v0/b/thesourceoftruth-28554.appspot.com/o/flogo-HexRBG-Wht-58.svg?alt=media&token=d0812834-f629-45cb-b74e-ef94db7a72cd')",
-            "backgroundPosition": "3px 3px",
-            "backgroundRepeat": "no-repeat",
-            "backgroundSize": "39px",
-            "height": "45px",
-          }
-        }
-      >
-        Login With Facebook
       </Button>
     </Form>
     <Message

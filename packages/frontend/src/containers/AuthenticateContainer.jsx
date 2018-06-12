@@ -61,9 +61,6 @@ class AuthenticateContainer extends Component {
     if (provider === 'google') {
       return this.authenticateWithProvider(new auth.GoogleAuthProvider());
     }
-    if (provider === 'facebook') {
-      return this.authenticateWithProvider(new auth.FacebookAuthProvider());
-    }
     if (this.props.match.url === signInRoute) {
       return this.signIn();
     }
