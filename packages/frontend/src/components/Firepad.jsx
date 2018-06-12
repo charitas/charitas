@@ -46,10 +46,10 @@ const StyledFirepad = styled.div`
     @media(max-width: 386px) {
       height: 98px;
     }
-    @media(min-width: 387px) and (max-width: 695px) {
+    @media(min-width: 387px) and (max-width: 639px) {
       height: 72px;
     }
-    @media(min-width: 696px) and (max-width: 800px) {
+    @media(min-width: 640px) and (max-width: 800px) {
       height: 46px;
     }
     @media(min-width: 800px) and (max-width: 975px) {
@@ -72,6 +72,7 @@ const StyledFirepad = styled.div`
   }
 `;
 
+let fontDisplayNone = false;
 export default function Firepad({
   changingPhase,
   dialogIsOpen,
@@ -97,6 +98,10 @@ export default function Firepad({
   if (notFound) {
     return (<NotFound />);
   }
+  if (!loading && !fontDisplayNone) {
+    fontDisplayNone = true;
+    document.querySelector('.firepad-btn.firepad-dropdown').parentNode.style.display = 'none';
+  }
   const displayStyle = loading ? { display: 'none' } : {};
   return (
     <Fragment>
@@ -119,11 +124,17 @@ export default function Firepad({
           </TaskHeader>
           { readOnly ?
             (<h4>{title}</h4>) :
-            <input
+            <textarea
               onChange={handleTitleChange}
               placeholder="Add New Title Here"
               style={{
-                width: '100%', backgroundColor: colors.white, border: 'none', borderBottom: `1px solid ${colors.grey}`, fontStyle: 'italic',
+                backgroundColor: colors.white,
+                border: 'none',
+                borderBottom: `1px solid ${colors.grey}`,
+                fontStyle: 'italic',
+                height: '40px',
+                resize: 'none',
+                width: '100%',
               }}
               value={title}
             />
