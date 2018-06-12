@@ -24,9 +24,9 @@ class SimpleSnackbar extends React.Component {
   };
 
   componentDidMount() {
-    const connectedRef = database().ref('.info/connected');
-    setTimeout(() => {
-      connectedRef.on('value', (snap) => {
+    this.connectedRef = database().ref('.info/connected');
+    this.timeout = setTimeout(() => {
+      this.connectedRef.on('value', (snap) => {
         if (snap.val() === true) {
           this.setState({ open: false });
         } else {
@@ -34,6 +34,11 @@ class SimpleSnackbar extends React.Component {
         }
       });
     }, 5000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
+    this.connectedRef.off();
   }
 
   handleClick = () => {
