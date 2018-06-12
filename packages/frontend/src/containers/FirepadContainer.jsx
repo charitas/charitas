@@ -210,6 +210,7 @@ class FirepadContainer extends Component {
         changingPhase={this.state.changingPhase}
         dialogIsOpen={this.state.dialogIsOpen}
         error={this.state.error}
+        firepadInst={this.firepadInst}
         handleClose={this.handleClose}
         handleSubmit={this.handleSubmit}
         handleTitleChange={this.handleTitleChange}

@@ -5,6 +5,7 @@ exports[`FirepadContainer should pass loading true props when not authenticated 
   changingPhase={false}
   dialogIsOpen={false}
   error={false}
+  firepadInst={null}
   handleClose={[Function]}
   handleSubmit={[Function]}
   handleTitleChange={[Function]}
@@ -24,6 +25,7 @@ exports[`FirepadContainer should render when authenticated 1`] = `
   changingPhase={false}
   dialogIsOpen={false}
   error={false}
+  firepadInst={null}
   handleClose={[Function]}
   handleSubmit={[Function]}
   handleTitleChange={[Function]}

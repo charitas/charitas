@@ -12,6 +12,7 @@ import PhaseError from './errors/PhaseError';
 import SubmitDialog from './SubmitDialog';
 import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
+import ImageUploader from '../containers/ImageUploader';
 
 const StyledFirepad = styled.div`
   height: '100%';
@@ -76,6 +77,7 @@ export default function Firepad({
   changingPhase,
   dialogIsOpen,
   error,
+  firepadInst,
   handleClose,
   handleSubmit,
   handleTitleChange,
@@ -108,6 +110,7 @@ export default function Firepad({
     <Fragment>
       { error && <PhaseError phase={phase} />}
       { loading && (<Loading />) }
+      <ImageUploader firepadInst={firepadInst} />
       <div style={displayStyle}>
         <SubmitDialog
           dialogIsOpen={dialogIsOpen}
@@ -157,6 +160,12 @@ Firepad.propTypes = {
       code: PropTypes.string.isRequired,
     }),
   ]),
+  firepadInst: PropTypes.shape({
+    firepadWrapper_: PropTypes.shape({
+      removeChild: PropTypes.func.isRequired,
+    }),
+    makeImageDialog_: PropTypes.func.isRequired,
+  }),
   handleClose: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleTitleChange: PropTypes.func.isRequired,
@@ -173,6 +182,7 @@ Firepad.propTypes = {
 Firepad.defaultProps = {
   dialogIsOpen: false,
   error: false,
+  firepadInst: null,
   readOnly: true,
   title: '',
 };
