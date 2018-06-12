@@ -9,19 +9,6 @@ export default function SidebarTopOverlay({ toggleMenu }) {
         <Menu.Item name="Menu" onClick={toggleMenu}>
           <Icon name="content" />
         </Menu.Item>
-        <Menu.Item name="Language">
-          <Icon name="flag" />
-          Language
-        </Menu.Item>
-        <Menu.Item name="Settings">
-          <Icon name="setting" />
-        </Menu.Item>
-        <Menu.Item name="Sign in">
-          <Icon name="user" />
-        </Menu.Item>
-        <Menu.Item name="Search">
-          <Icon name="search" />
-        </Menu.Item>
       </Sidebar>
     </Fragment>
   );
