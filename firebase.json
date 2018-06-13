@@ -16,6 +16,9 @@
     "rewrites": [{
       "source": "**",
       "destination": "/index.html"
-    }]
+    }],
+    "ignore": [
+      "/**/*.map"
+    ]
   }
 }

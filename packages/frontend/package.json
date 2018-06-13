@@ -66,7 +66,7 @@
     "webpack-dev-server": "3.1.1"
   },
   "scripts": {
-    "build": "webpack --config ./config/webpack.config.dev.js",
+    "build": "webpack --config ./config/webpack.config.prod.js",
     "clean": "rm -rf ./dist",
     "lint": "eslint --ext .js --ext .jsx .",
     "start": "webpack-dev-server --progress --config ./config/webpack.config.dev.js",
