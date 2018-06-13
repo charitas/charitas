@@ -60,12 +60,13 @@ class TasksCard extends Component {
     const {
       doc, classes, history, id, claims,
     } = this.props;
-    const title = doc.get('title');
+    const title = doc.get('title') || '';
     const phase = doc.get(PHASE);
     const viewHref = `/${DOCUMENTS}/${VIEW}/${id}`;
     const editHref = `/${DOCUMENTS}/${phase}/${id}`;
     const hasPermissions = checkPermissions(claims, phase);
-    const time = doc.get(TIME)[phase];
+    const timeObj = doc.get(TIME);
+    const time = timeObj ? timeObj[phase] : '';
 
     return (
       <div key={id} >
@@ -114,7 +115,7 @@ TasksCard.propTypes = {
   }).isRequired,
   id: PropTypes.string.isRequired,
   doc: ImmutablePropTypes.mapContains({
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     phase: PropTypes.string.isRequired,
   }).isRequired,
 };
