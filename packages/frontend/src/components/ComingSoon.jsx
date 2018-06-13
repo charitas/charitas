@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Divider from '@material-ui/core/Divider';
 import colors from '../constants/colors';
+import ReleaseTimer from './ReleaseTimer';
 
 const height = 'height: 200px;';
 const width = 'width: 200px;';
@@ -77,6 +78,7 @@ export default function ComingSoon({ addCharToKey }) {
           </p>
           <Divider style={{ backgroundColor: `${colors.white}` }} />
           <p style={{ fontSize: '25px', padding: '20px' }}>June 16, 2018</p>
+          <ReleaseTimer dateTo={{ year: 2018, month: 6, date: 16 }} />
         </StyledHeader>
         <TopLeft
           onClick={() => addCharToKey('a')}
