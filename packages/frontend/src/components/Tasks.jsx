@@ -22,10 +22,6 @@ const styles = {
     gridGap: '20px',
     gridTemplateColumns: 'repeat(auto-fit, 250px)',
   },
-  card: {
-    maxheight: 265,
-    maxwidth: 240,
-  },
 };
 
 function Tasks({ claims, classes }) {

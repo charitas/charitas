@@ -5,8 +5,10 @@ exports[`Library should render 1`] = `
   <h3>
     Library
   </h3>
-  <Connect(DocumentsContainer)
-    phase="published"
-  />
+  <styled.div>
+    <Connect(DocumentsContainer)
+      phase="published"
+    />
+  </styled.div>
 </React.Fragment>
 `;

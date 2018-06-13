@@ -5,7 +5,6 @@ exports[`TasksContainer should render 1`] = `
   claims={Object {}}
   classes={
     Object {
-      "card": "Tasks-card-2",
       "root": "Tasks-root-1",
     }
   }

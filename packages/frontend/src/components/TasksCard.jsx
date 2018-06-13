@@ -26,8 +26,8 @@ const { Headless } = require('firepad/dist/firepad');
 
 const styles = {
   card: {
-    maxheight: 265,
-    maxwidth: 240,
+    width: 240,
+    maxHeight: 350,
   },
 };
 
@@ -86,7 +86,7 @@ class TasksCard extends Component {
     };
 
     return (
-      <div key={id} >
+      <div key={id}>
         <Card className={classes.card}>
           <Tooltip id="tooltip-icon" title="View Document">
             <Button

@@ -6,11 +6,12 @@ import colors from '../constants/colors';
 
 const styles = {
   root: {
-    flexGrow: 1,
     backgroundColor: `${colors.grey}`,
-    top: '-20px',
-    width: '100vw',
-    right: '20px',
+    flexGrow: 1,
+    left: 0,
+    position: 'fixed',
+    top: '40px',
+    width: '100%',
   },
   barColorPrimary: {
     backgroundColor: `${colors.blue}`,
