@@ -19,7 +19,7 @@ module.exports = {
       ],
       mobile: true,
       template,
-      title: 'Dashboard',
+      title: 'Marvelous Work and a Wonder',
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),

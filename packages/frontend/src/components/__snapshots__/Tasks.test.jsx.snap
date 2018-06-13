@@ -1,11 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TasksContainer should render 1`] = `
-<TasksContainer
+<Tasks
+  claims={Object {}}
   classes={
     Object {
-      "card": "TasksContainer-card-2",
-      "root": "TasksContainer-root-1",
+      "card": "Tasks-card-2",
+      "root": "Tasks-root-1",
     }
   }
 />

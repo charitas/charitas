@@ -52,8 +52,8 @@ class AppContainer extends Component {
   getAndProcessIdToken = () => {
     auth().currentUser.getIdTokenResult()
       .then(({ issuedAtTime, claims }) => {
-        const { author, editor } = claims;
-        this.props.setUser({ claims: { author, editor } });
+        const { approver, author, editor } = claims;
+        this.props.setUser({ claims: { approver, author, editor } });
         this.setState({ issuedAtTime });
       })
       .catch(AppContainer.handleError);

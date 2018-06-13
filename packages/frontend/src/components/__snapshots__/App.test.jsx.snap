@@ -26,11 +26,25 @@ exports[`App should render correctly 1`] = `
     <View>
       <Route
         exact={true}
-        path="/documents/:phase(edit|view)/:id"
+        key="phase_route_edit"
+        path="/documents/:phase(edit)/:id"
         render={[Function]}
       />
       <Route
         exact={true}
+        key="phase_route_view"
+        path="/documents/:phase(view)/:id"
+        render={[Function]}
+      />
+      <Route
+        exact={true}
+        key="phase_route_approve"
+        path="/documents/:phase(approve)/:id"
+        render={[Function]}
+      />
+      <Route
+        exact={true}
+        key="phase_route_create"
         path="/documents/:phase(create)/:id?"
         render={[Function]}
       />

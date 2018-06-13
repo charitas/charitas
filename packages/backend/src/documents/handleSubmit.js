@@ -1,9 +1,9 @@
 import { database } from 'firebase-admin';
-import { CHANGING_PHASE, CREATE, DOCUMENTS, DOCUMENT_BACKUPS, EDIT, PUBLISHED } from '@the-source-of-truth/shared/constants';
+import { APPROVE, CHANGING_PHASE, CREATE, DOCUMENTS, DOCUMENT_BACKUPS, EDIT, PUBLISHED } from '@the-source-of-truth/shared/constants';
 import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import PromiseFirepad from './PromiseFirepad';
 
-const phaseOrder = [CREATE, EDIT, PUBLISHED];
+const phaseOrder = [CREATE, EDIT, APPROVE, PUBLISHED];
 const getNextPhase = currentPhase => phaseOrder[phaseOrder.findIndex(p => p === currentPhase) + 1];
 
 const createBackup = refToBackup =>
@@ -28,6 +28,7 @@ const handleSubmit = (payload, context) => {
     .then((snapshot) => {
       const data = snapshot.val();
       const prevPhase = data.phase;
+      const { time } = data;
       const isAllowed = checkPermissions(context.auth.token, prevPhase);
       if (isAllowed) {
         const pageRefFirepad = new PromiseFirepad(ref);
@@ -36,14 +37,16 @@ const handleSubmit = (payload, context) => {
           pageRefFirepad.getText(),
           createBackup(ref),
           prevPhase,
+          time,
         ]);
       }
       throw new Error('Insufficient permissions for this task');
     })
-    .then(([html, text, backupRef, prevPhase]) => {
+    .then(([html, text, backupRef, prevPhase, time]) => {
       const nextPhase = getNextPhase(prevPhase);
       return ref.update({
         phase: nextPhase,
+        time: { ...time, [nextPhase]: database.ServerValue.TIMESTAMP },
         [CHANGING_PHASE]: false,
         [`${prevPhase}PhaseBackup`]: {
           id: backupRef.key,

@@ -40,5 +40,8 @@ export default function View(props) {
 }
 
 View.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };

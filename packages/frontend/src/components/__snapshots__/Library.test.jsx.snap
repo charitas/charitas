@@ -1,7 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Library should render 1`] = `
-<h3>
-  Library
-</h3>
+<React.Fragment>
+  <h3>
+    Library
+  </h3>
+  <Connect(DocumentsContainer)
+    phase="published"
+  />
+</React.Fragment>
 `;

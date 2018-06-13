@@ -20,7 +20,9 @@ export default class ImageUploader extends Component {
   }
 
   state = {
+    modalOpen: false,
     replaced: false,
+    uploading: false,
   }
 
   componentDidMount() {

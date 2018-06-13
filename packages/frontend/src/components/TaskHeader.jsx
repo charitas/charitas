@@ -25,5 +25,8 @@ export default function TaskHeader(props) {
 }
 
 TaskHeader.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };

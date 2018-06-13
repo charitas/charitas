@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import { DOCUMENTS, TASKS, VIEW } from '@the-source-of-truth/shared/constants';
+import { APPROVE, DOCUMENTS, PUBLISHED, TASKS, VIEW } from '@the-source-of-truth/shared/constants';
 import Dialog from '../Dialog';
 
 const getPhaseString = (phase) => {
@@ -11,7 +11,13 @@ const getPhaseString = (phase) => {
   if (phase === 'edit') {
     return 'in editing.';
   }
-  return 'published.';
+  if (phase === APPROVE) {
+    return 'awaiting approval';
+  }
+  if (phase === PUBLISHED) {
+    return 'published.';
+  }
+  return 'in an unknown phase';
 };
 
 function PhaseError({ history, match, phase }) {
@@ -22,7 +28,9 @@ function PhaseError({ history, match, phase }) {
       buttons={[
         {
           label: 'View',
-          action: () => { history.push(`/${DOCUMENTS}/${VIEW}/${match.params.id}`); },
+          action: () => {
+            history.push(`/${DOCUMENTS}/${VIEW}/${match.params.id}`);
+          },
         },
         {
           label: 'Back to Tasks',

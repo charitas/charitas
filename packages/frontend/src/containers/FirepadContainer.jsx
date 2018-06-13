@@ -3,7 +3,7 @@ import { database } from 'firebase';
 import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
 import { connect } from 'react-redux';
-import { CHANGING_PHASE, CREATE, DOCUMENTS, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
+import { CHANGING_PHASE, CREATE, DOCUMENTS, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/constants';
 import Firepad from '../components/Firepad';
 
 global.CodeMirror = CodeMirror;
@@ -75,6 +75,7 @@ class FirepadContainer extends Component {
       this.ref.child(PHASE).set(CREATE),
       this.ref.child('title').set(''),
       this.ref.child(CHANGING_PHASE).set(false),
+      this.ref.child(TIME).child(CREATE).set(database.ServerValue.TIMESTAMP),
     ])
       .then(() => {
         this.props.history.replace(`/${DOCUMENTS}/${CREATE}/${this.ref.key}`);

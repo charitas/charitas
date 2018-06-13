@@ -1,3 +1,4 @@
+export const APPROVE = 'approve';
 export const CHANGING_PHASE = 'changingPhase';
 export const CREATE = 'create';
 export const DOCUMENTS = 'documents';
@@ -8,4 +9,5 @@ export const PHASE = 'phase';
 export const PHASES = 'phases';
 export const PUBLISHED = 'published';
 export const TASKS = 'tasks';
+export const TIME = 'time';
 export const VIEW = 'view';
