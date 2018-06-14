@@ -37,7 +37,7 @@ function Tasks({ claims, classes }) {
         <ExpansionPanelDetails className={classes.root}>
           { isAuthor &&
           <Tooltip id="tooltip-icon" title="Create New Publication">
-            <Card className={classes.card}>
+            <Card>
               <Button
                 style={{
                       height: '100%',
@@ -81,7 +81,6 @@ Tasks.propTypes = {
   }),
   classes: PropTypes.shape({
     root: PropTypes.string.isRequired,
-    card: PropTypes.string.isRequired,
   }).isRequired,
 };
 

@@ -4,7 +4,6 @@ import { database } from 'firebase';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
-import { withStyles } from '@material-ui/core/styles';
 import truncate from 'lodash/truncate';
 import words from 'lodash/words';
 import Button from '@material-ui/core/Button';
@@ -23,13 +22,6 @@ import colors from '../constants/colors';
 
 global.CodeMirror = CodeMirror;
 const { Headless } = require('firepad/dist/firepad');
-
-const styles = {
-  card: {
-    width: 240,
-    maxHeight: 350,
-  },
-};
 
 const StyledP = styled.p`
   color: ${colors.darkGrey};
@@ -67,7 +59,7 @@ class TasksCard extends Component {
 
   render() {
     const {
-      doc, classes, history, id, claims,
+      doc, history, id, claims,
     } = this.props;
     const title = doc.get('title') || '';
     const phase = doc.get(PHASE);
@@ -86,8 +78,8 @@ class TasksCard extends Component {
     };
 
     return (
-      <div key={id}>
-        <Card className={classes.card}>
+      <div key={id} >
+        <Card>
           <Tooltip id="tooltip-icon" title="View Document">
             <Button
               onClick={() => { history.push(viewHref); }}
@@ -140,10 +132,6 @@ TasksCard.propTypes = {
     editor: PropTypes.bool,
     author: PropTypes.bool,
   }).isRequired,
-  classes: PropTypes.shape({
-    card: PropTypes.string.isRequired,
-    media: PropTypes.string,
-  }).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
@@ -154,4 +142,4 @@ TasksCard.propTypes = {
   }).isRequired,
 };
 
-export default withStyles(styles)(withRouter(TasksCard));
+export default withRouter(TasksCard);
