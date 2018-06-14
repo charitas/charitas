@@ -10,21 +10,21 @@ const getPhaseStyle = (phase) => {
       style: {
         backgroundColor: `${colors.purple}`,
       },
-      title: 'Creating in Progress',
+      title: 'CREATING IN PROGRESS',
     };
   } else if (phase === EDIT) {
     return {
       style: {
         backgroundColor: '#E91E63',
       },
-      title: 'Editing in Progress',
+      title: 'EDITING IN PROGRESS',
     };
   }
   return {
     style: {
       backgroundColor: '#43A047',
     },
-    title: 'Awaiting Approval',
+    title: 'AWAITING APPROVAL',
   };
 };
 
@@ -36,15 +36,21 @@ export default function PhaseBar(props) {
   const phaseStyle = getPhaseStyle(phase);
   return (
     <Paper style={phaseStyle.style}>
-      <h3 style={{
+      <div
+        style={{
           color: `${colors.white}`,
-          height: '40px',
-          margin: '8px',
+          height: '70px',
           textAlign: 'center',
         }}
       >
-        {phaseStyle.title}
-      </h3>
+        <h3 style={{ marginBottom: '0', marginTop: '4px' }}>
+          {phaseStyle.title}
+        </h3>
+        <div style={{ fontStyle: 'italic' }}>
+          <p style={{ marginBottom: '0' }}>10 current viewers</p>
+          <p>2 current editors</p>
+        </div>
+      </div>
     </Paper>
   );
 }
