@@ -14,6 +14,7 @@ import Divider from '@material-ui/core/Divider';
 import Edit from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import Icon from '@material-ui/core/Icon';
 import { CREATE, DOCUMENTS, EDIT, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/constants';
 import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import CodeMirror from 'codemirror';
@@ -120,6 +121,7 @@ class TasksCard extends Component {
                 </IconButton>
               </Tooltip>
             }
+            <Icon style={{ float: 'right', margin: '0' }}>brightness_3</Icon>
           </CardActions>
         </Card>
       </div>
