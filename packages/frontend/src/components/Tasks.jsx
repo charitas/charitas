@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
@@ -14,6 +14,7 @@ import { APPROVE, CREATE, DOCUMENTS, EDIT } from '@the-source-of-truth/shared/co
 import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import colors from '../constants/colors';
 import DocumentsContainer from '../containers/DocumentsContainer';
+import Badge from './Badge';
 
 const styles = {
   root: {
@@ -24,54 +25,74 @@ const styles = {
   },
 };
 
-function Tasks({ claims, classes }) {
-  const isAuthor = checkPermissions(claims, CREATE);
+class Tasks extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      createTaskCount: 0,
+      editTaskCount: 0,
+      approveTaskCount: 0,
+    };
+  }
 
-  return (
-    <Fragment>
-      <h2>Tasks</h2>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <h3>New Publications (Creations)</h3>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={classes.root}>
-          { isAuthor &&
-          <Tooltip id="tooltip-icon" title="Create New Publication">
-            <Card>
-              <Button
-                style={{
+  setCount = type => (count) => {
+    this.setState({
+      [`${type}TaskCount`]: count,
+    });
+  }
+
+  render() {
+    const { claims, classes } = this.props;
+    const isAuthor = checkPermissions(claims, CREATE);
+    return (
+      <Fragment>
+        <h2>Tasks</h2>
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <h3>New Publications (Creations)</h3>
+            <Badge count={this.state.createTaskCount} phase={CREATE} />
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className={classes.root}>
+            { isAuthor &&
+            <Tooltip id="tooltip-icon" title="Create New Publication">
+              <Card>
+                <Button
+                  style={{
                       height: '100%',
                       width: '100%',
                     }}
-              >
-                <a href={`/${DOCUMENTS}/create`} style={{ color: `${colors.darkGrey}` }}>
-                  <Add style={{ height: '100px', width: '100px' }} />
-                </a>
-              </Button>
-            </Card>
-          </Tooltip>
+                >
+                  <a href={`/${DOCUMENTS}/create`} style={{ color: `${colors.darkGrey}` }}>
+                    <Add style={{ height: '100px', width: '100px' }} />
+                  </a>
+                </Button>
+              </Card>
+            </Tooltip>
             }
-          <DocumentsContainer phase={CREATE} />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <h3>Publications in Progress (Editing)</h3>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={classes.root}>
-          <DocumentsContainer phase={EDIT} />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <h3>Publications Awaiting Approval</h3>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={classes.root}>
-          <DocumentsContainer phase={APPROVE} />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    </Fragment>
-  );
+            <DocumentsContainer phase={CREATE} setCount={this.setCount(CREATE)} />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <h3>Publications in Progress (Editing)</h3>
+            <Badge count={this.state.editTaskCount} phase={EDIT} />
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className={classes.root}>
+            <DocumentsContainer phase={EDIT} setCount={this.setCount(EDIT)} />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <h3>Publications Awaiting Approval</h3>
+            <Badge count={this.state.approveTaskCount} phase={APPROVE} />
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className={classes.root}>
+            <DocumentsContainer phase={APPROVE} setCount={this.setCount(APPROVE)} />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      </Fragment>
+    );
+  }
 }
 
 Tasks.propTypes = {

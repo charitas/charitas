@@ -14,10 +14,12 @@ class DocumentsContainer extends Component {
       author: PropTypes.bool,
     }),
     phase: PropTypes.oneOf([APPROVE, CREATE, EDIT, PUBLISHED]).isRequired,
+    setCount: PropTypes.func,
   }
 
   static defaultProps = {
     claims: {},
+    setCount: () => {},
   }
 
   constructor(props) {
@@ -59,7 +61,7 @@ class DocumentsContainer extends Component {
       const documents = Object.keys(data)
         .reduce((cur, acc) => cur.push(new Map({ id: acc, ...data[acc] })), new List([]))
         .sort((a, b) => a > b);
-
+      this.props.setCount(documents.size);
       this.setState({ documents });
     }
   }
