@@ -3,7 +3,7 @@ import { database } from 'firebase';
 import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
 import { connect } from 'react-redux';
-import { CHANGING_PHASE, CREATE, DOCUMENTS, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/constants';
+import { CHANGING_PHASE, CREATE, DELETED, DOCUMENTS, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/constants';
 import Firepad from '../components/Firepad';
 
 global.CodeMirror = CodeMirror;
@@ -11,6 +11,7 @@ const { fromCodeMirror } = require('firepad/dist/firepad');
 
 class FirepadContainer extends Component {
   static propTypes = {
+    claims: PropTypes.string,
     history: PropTypes.shape({
       replace: PropTypes.func.isRequired,
     }).isRequired,
@@ -27,18 +28,18 @@ class FirepadContainer extends Component {
 
   static defaultProps = {
     uid: '',
+    claims: '',
   }
 
   constructor(props) {
     super(props);
     this.state = {
       [CHANGING_PHASE]: false,
-      dialogIsOpen: false,
       loading: true,
       notFound: false,
       [PHASE]: '',
-      submitted: false,
-      submitting: false,
+      taskComplete: false,
+      taskInProgress: false,
       title: '',
     };
   }
@@ -122,7 +123,7 @@ class FirepadContainer extends Component {
 
   verifyPhase(dbPhase) {
     const { phase } = this.props.match.params;
-    if (phase === VIEW || phase === dbPhase) {
+    if ((phase === VIEW && dbPhase !== DELETED) || phase === dbPhase) {
       return true;
     }
     this.setState({
@@ -161,14 +162,6 @@ class FirepadContainer extends Component {
     });
   }
 
-  handleClose = () => {
-    this.setState({ dialogIsOpen: false });
-  };
-
-  openDialog = () => {
-    this.setState({ dialogIsOpen: true });
-  }
-
   isReadOnly = () => this.props.match.params.phase === VIEW
 
   handleTitleChange = ({ target: { value } }) => {
@@ -179,13 +172,13 @@ class FirepadContainer extends Component {
     });
   }
 
-  handleSubmit = () => {
-    this.setState({ submitting: true }, () => {
+  handleTask = type => () => {
+    this.setState({ taskInProgress: true }, () => {
       this.ref.off();
       Promise.all([
         database()
           .ref('tasks').push({
-            type: 'submit',
+            type,
             payload: {
               id: this.ref.key,
             },
@@ -196,8 +189,8 @@ class FirepadContainer extends Component {
       ])
         .then(() => {
           this.setState({
-            submitting: false,
-            submitted: true,
+            taskInProgress: false,
+            taskComplete: true,
           });
         })
         .catch(this.handleError);
@@ -209,19 +202,17 @@ class FirepadContainer extends Component {
     return (
       <Firepad
         changingPhase={this.state.changingPhase}
-        dialogIsOpen={this.state.dialogIsOpen}
+        claims={this.props.claims}
         error={this.state.error}
         firepadInst={this.firepadInst}
-        handleClose={this.handleClose}
-        handleSubmit={this.handleSubmit}
+        handleTask={this.handleTask}
         handleTitleChange={this.handleTitleChange}
         loading={loading}
         notFound={this.state.notFound}
-        openDialog={this.openDialog}
         phase={this.state.phase}
         readOnly={this.isReadOnly()}
-        submitting={this.state.submitting}
-        submitted={this.state.submitted}
+        taskInProgress={this.state.taskInProgress}
+        taskComplete={this.state.taskComplete}
         title={this.state.title}
       />
     );
@@ -229,8 +220,9 @@ class FirepadContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  uid: state.user.uid,
+  claims: state.user.claims,
   isAuthenticated: state.user.isAuthenticated,
+  uid: state.user.uid,
 });
 
 export default connect(mapStateToProps)(FirepadContainer);

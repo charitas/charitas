@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import { SUBMIT, DELETE } from '@the-source-of-truth/shared/constants';
+import upperFirst from 'lodash/upperFirst';
 import Dialog from './Dialog';
 import colors from '../constants/colors';
 
@@ -19,20 +21,25 @@ const styles = () => ({
   },
 });
 
+const getTitle = (type, taskComplete) => (taskComplete ?
+  `Content ${type === SUBMIT ? 'Submitted' : 'Deleted'}`
+  : `Are you sure you want to ${type}?`);
+
 const SubmitDialog = ({
   classes,
   dialogIsOpen,
   handleClose,
-  handleSubmit,
+  handleAccept,
   history,
-  submitted,
-  submitting,
+  taskComplete,
+  taskInProgress,
+  type,
 }) => {
   const buttonClassname = classNames({
-    [classes.buttonSuccess]: submitted,
+    [classes.buttonSuccess]: taskComplete,
   });
 
-  const title = submitted ? 'Content Submitted' : 'Are you sure you want to submit?';
+  const title = getTitle(type, taskComplete);
 
   const submitButtons = [
     {
@@ -42,13 +49,13 @@ const SubmitDialog = ({
     <div key="Submit">
       <Button
         className={buttonClassname}
-        disabled={submitting}
-        onClick={handleSubmit}
+        disabled={taskInProgress}
+        onClick={handleAccept}
         style={{ color: `${colors.blue}` }}
       >
-        Submit
+        {upperFirst(type)}
       </Button>
-      {submitting && <CircularProgress size={24} className={classes.buttonProgress} />}
+      {taskInProgress && <CircularProgress size={24} className={classes.buttonProgress} />}
     </div>,
   ];
 
@@ -56,13 +63,12 @@ const SubmitDialog = ({
     label: 'Back to tasks',
     action: () => { history.push('/tasks'); },
   }];
-
   return (
     <Dialog
       dialogIsOpen={dialogIsOpen}
       onClose={handleClose}
       title={title}
-      buttons={!submitted ? submitButtons : submittedButtons}
+      buttons={!taskComplete ? submitButtons : submittedButtons}
     />
   );
 };
@@ -73,12 +79,13 @@ SubmitDialog.propTypes = {
   }).isRequired,
   dialogIsOpen: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  handleAccept: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
-  submitted: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
+  taskComplete: PropTypes.bool.isRequired,
+  taskInProgress: PropTypes.bool.isRequired,
+  type: PropTypes.oneOf([SUBMIT, DELETE]).isRequired,
 };
 
 export default withStyles(styles)(withRouter(SubmitDialog));

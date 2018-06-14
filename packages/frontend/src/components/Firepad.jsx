@@ -1,9 +1,14 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import 'codemirror/lib/codemirror.css';
 import 'firepad/dist/firepad.css';
 import Button from '@material-ui/core/Button';
+import Delete from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import { SUBMIT, DELETE } from '@the-source-of-truth/shared/constants';
+import { checkDeletePermissions } from '@the-source-of-truth/shared/helpers';
 import colors from '../constants/colors';
 import GenericError from './errors/GenericError';
 import Loading from './Loading';
@@ -74,87 +79,125 @@ const StyledFirepad = styled.div`
   }
 `;
 
-export default function Firepad({
-  changingPhase,
-  dialogIsOpen,
-  error,
-  firepadInst,
-  handleClose,
-  handleSubmit,
-  handleTitleChange,
-  loading,
-  notFound,
-  openDialog,
-  phase,
-  readOnly,
-  submitted,
-  submitting,
-  title,
-}) {
-  if (error && error.code !== 'phase-mismatch') {
-    return (<GenericError />);
+
+export default class Firepad extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      submitDialogIsOpen: false,
+      deleteDialogIsOpen: false,
+    };
   }
-  if (changingPhase && !readOnly) {
-    return (<p>Currently moving this document to the next phase</p>);
+
+  handleDialog = (dialog, value) => () => {
+    this.setState({ [`${dialog}DialogIsOpen`]: value });
   }
-  if (notFound) {
-    return (<NotFound />);
-  }
-  if (!loading) {
-    const child = document.querySelector('.firepad-btn.firepad-dropdown');
-    if (child) {
-      child.parentNode.style.display = 'none';
+
+  render() {
+    const {
+      changingPhase,
+      claims,
+      error,
+      firepadInst,
+      handleTask,
+      taskComplete,
+      taskInProgress,
+      handleTitleChange,
+      loading,
+      notFound,
+      phase,
+      readOnly,
+      title,
+    } = this.props;
+
+    if (error && error.code !== 'phase-mismatch') {
+      return (<GenericError />);
     }
+
+    if (changingPhase && !readOnly) {
+      return (<p>Currently moving this document to the next phase</p>);
+    }
+
+    if (notFound) {
+      return (<NotFound />);
+    }
+
+    if (!loading) {
+      const child = document.querySelector('.firepad-btn.firepad-dropdown');
+      if (child) {
+        child.parentNode.style.display = 'none';
+      }
+    }
+
+    const displayStyle = loading ? { display: 'none' } : {};
+
+    return (
+      <Fragment>
+        { error && <PhaseError phase={phase} />}
+        { loading && (<Loading />) }
+        <ImageUploader firepadInst={firepadInst} />
+        <div style={displayStyle}>
+          <SubmitDialog
+            dialogIsOpen={this.state.submitDialogIsOpen}
+            handleClose={this.handleDialog(SUBMIT, false)}
+            handleAccept={handleTask(SUBMIT)}
+            taskComplete={taskComplete}
+            taskInProgress={taskInProgress}
+            type={SUBMIT}
+          />
+          <SubmitDialog
+            dialogIsOpen={this.state.deleteDialogIsOpen}
+            handleClose={this.handleDialog(DELETE, false)}
+            handleAccept={handleTask(DELETE)}
+            taskComplete={taskComplete}
+            taskInProgress={taskInProgress}
+            type={DELETE}
+          />
+          <TaskContentBody>
+            <TaskHeader>
+              {(!readOnly && checkDeletePermissions(claims, phase)) ?
+                <Tooltip id="tooltip-icon" style={{ justifySelf: 'center' }} title="Delete">
+                  <IconButton onClick={this.handleDialog(DELETE, true)} style={{ justifySelf: 'center' }}>
+                    <Delete style={{ height: '2em', width: '3em' }} />
+                  </IconButton>
+                </Tooltip>
+                  : <div />}
+              <PhaseBar phase={phase} />
+              { !readOnly &&
+              <Button onClick={this.handleDialog(SUBMIT, true)} className="buttons">Submit</Button>
+              }
+            </TaskHeader>
+            { readOnly ?
+                (<h4>{title}</h4>) :
+                <textarea
+                  onChange={handleTitleChange}
+                  placeholder="Add New Title Here"
+                  style={{
+                    backgroundColor: colors.white,
+                    border: 'none',
+                    borderBottom: `1px solid ${colors.grey}`,
+                    fontStyle: 'italic',
+                    height: '40px',
+                    resize: 'none',
+                    width: '100%',
+                  }}
+                  value={title}
+                />
+            }
+            <StyledFirepad id="firepad-container" />
+          </TaskContentBody>
+        </div>
+      </Fragment>
+    );
   }
-  const displayStyle = loading ? { display: 'none' } : {};
-  return (
-    <Fragment>
-      { error && <PhaseError phase={phase} />}
-      { loading && (<Loading />) }
-      <ImageUploader firepadInst={firepadInst} />
-      <div style={displayStyle}>
-        <SubmitDialog
-          dialogIsOpen={dialogIsOpen}
-          handleClose={handleClose}
-          handleSubmit={handleSubmit}
-          submitted={submitted}
-          submitting={submitting}
-        />
-        <TaskContentBody>
-          <TaskHeader>
-            {!readOnly ? <div>{/* Delete Placeholder */}</div> : <div />}
-            <PhaseBar phase={phase} />
-            { !readOnly &&
-            <Button onClick={openDialog} className="buttons">Submit</Button>
-                }
-          </TaskHeader>
-          { readOnly ?
-            (<h4>{title}</h4>) :
-            <textarea
-              onChange={handleTitleChange}
-              placeholder="Add New Title Here"
-              style={{
-                backgroundColor: colors.white,
-                border: 'none',
-                borderBottom: `1px solid ${colors.grey}`,
-                fontStyle: 'italic',
-                height: '40px',
-                resize: 'none',
-                width: '100%',
-              }}
-              value={title}
-            />
-        }
-          <StyledFirepad id="firepad-container" />
-        </TaskContentBody>
-      </div>
-    </Fragment>
-  );
 }
 
 Firepad.propTypes = {
   changingPhase: PropTypes.bool.isRequired,
-  dialogIsOpen: PropTypes.bool,
+  claims: PropTypes.shape({
+    editor: PropTypes.bool,
+    author: PropTypes.bool,
+  }),
   error: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.shape({
@@ -168,21 +211,19 @@ Firepad.propTypes = {
     }),
     makeImageDialog_: PropTypes.func.isRequired,
   }),
-  handleClose: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  handleTask: PropTypes.func.isRequired,
   handleTitleChange: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   notFound: PropTypes.bool.isRequired,
-  openDialog: PropTypes.func.isRequired,
   phase: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,
-  submitted: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
+  taskComplete: PropTypes.bool.isRequired,
+  taskInProgress: PropTypes.bool.isRequired,
   title: PropTypes.string,
 };
 
 Firepad.defaultProps = {
-  dialogIsOpen: false,
+  claims: {},
   error: false,
   firepadInst: null,
   readOnly: true,

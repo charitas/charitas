@@ -1,5 +1,5 @@
 import { database } from 'firebase-admin';
-import { APPROVE, CHANGING_PHASE, CREATE, DOCUMENTS, DOCUMENT_BACKUPS, EDIT, PUBLISHED } from '@the-source-of-truth/shared/constants';
+import { APPROVE, CHANGING_PHASE, CREATE, DELETE, DELETED, DOCUMENTS, DOCUMENT_BACKUPS, EDIT, PUBLISHED } from '@the-source-of-truth/shared/constants';
 import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import PromiseFirepad from './PromiseFirepad';
 
@@ -22,7 +22,7 @@ const createBackup = refToBackup =>
       console.error(error);
     });
 
-const handleSubmit = (payload, context) => {
+const handlePhaseChange = (type, payload, context) => {
   const ref = database().ref(DOCUMENTS).child(payload.id);
   return ref.once('value')
     .then((snapshot) => {
@@ -43,7 +43,7 @@ const handleSubmit = (payload, context) => {
       throw new Error('Insufficient permissions for this task');
     })
     .then(([html, text, backupRef, prevPhase, time]) => {
-      const nextPhase = getNextPhase(prevPhase);
+      const nextPhase = type === DELETE ? DELETED : getNextPhase(prevPhase);
       return ref.update({
         phase: nextPhase,
         time: { ...time, [nextPhase]: database.ServerValue.TIMESTAMP },
@@ -57,4 +57,4 @@ const handleSubmit = (payload, context) => {
     });
 };
 
-export default handleSubmit;
+export default handlePhaseChange;

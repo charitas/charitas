@@ -3,19 +3,17 @@
 exports[`FirepadContainer should pass loading true props when not authenticated 1`] = `
 <Firepad
   changingPhase={false}
-  dialogIsOpen={false}
+  claims=""
   error={false}
   firepadInst={null}
-  handleClose={[Function]}
-  handleSubmit={[Function]}
+  handleTask={[Function]}
   handleTitleChange={[Function]}
   loading={true}
   notFound={false}
-  openDialog={[Function]}
   phase=""
   readOnly={false}
-  submitted={false}
-  submitting={false}
+  taskComplete={false}
+  taskInProgress={false}
   title=""
 />
 `;
@@ -23,19 +21,17 @@ exports[`FirepadContainer should pass loading true props when not authenticated 
 exports[`FirepadContainer should render when authenticated 1`] = `
 <Firepad
   changingPhase={false}
-  dialogIsOpen={false}
+  claims=""
   error={false}
   firepadInst={null}
-  handleClose={[Function]}
-  handleSubmit={[Function]}
+  handleTask={[Function]}
   handleTitleChange={[Function]}
   loading={true}
   notFound={false}
-  openDialog={[Function]}
   phase=""
   readOnly={false}
-  submitted={false}
-  submitting={false}
+  taskComplete={false}
+  taskInProgress={false}
   title=""
 />
 `;

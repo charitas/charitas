@@ -6,7 +6,9 @@ import colors from '../constants/colors';
 const StyledHeader = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  align-content: top;
+  align-content: center;
+  justify-content: center;
+  grid-gap: 5px;
 
   .buttons {
     width: 30px;

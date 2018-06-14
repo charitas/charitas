@@ -1,6 +1,7 @@
 import { database as databaseFunction } from 'firebase-functions';
 import { database as databaseAdmin } from 'firebase-admin';
-import handleSubmit from '../documents/handleSubmit';
+import { DELETE, SUBMIT } from '@the-source-of-truth/shared/constants';
+import handlePhaseChange from '../documents/handlePhaseChange';
 
 const handleFailure = (error, docRef) => {
   const errorObj = {};
@@ -27,8 +28,8 @@ const handleTask = databaseFunction
     const taskId = context.params.task;
     const { payload, type } = snapshot.val();
     const docRef = databaseAdmin().ref(`/tasks/${taskId}`);
-    if (type === 'submit') {
-      return handleSubmit(payload, context)
+    if (type === SUBMIT || type === DELETE) {
+      return handlePhaseChange(type, payload, context)
         .catch(error => handleFailure(error, docRef))
         .finally(() => finish(docRef, context));
     }
