@@ -104,7 +104,7 @@ class FirepadContainer extends Component {
         changingPhase, phase, title, users,
       } = data;
       // plus one because we don't get counted magically
-      const numberOfUsers = (users ? Object.keys(users).length : 0) + 1;
+      const numberOfUsers = users ? Object.keys(users).length : 0;
       if (this.verifyPhase(phase)) {
         if (!this.state.firepadInitialized) {
           this.setState({ firepadInitialized: true }, this.initFirepad);
