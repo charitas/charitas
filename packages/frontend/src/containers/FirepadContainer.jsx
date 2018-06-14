@@ -41,6 +41,7 @@ class FirepadContainer extends Component {
       taskComplete: false,
       taskInProgress: false,
       title: '',
+      numberOfUsers: 1,
     };
   }
 
@@ -57,6 +58,7 @@ class FirepadContainer extends Component {
   }
 
   componentWillUnmount() {
+    this.firepadInst.dispose();
     this.ref.off();
   }
 
@@ -98,7 +100,11 @@ class FirepadContainer extends Component {
   handleSnapshot = (snapshot) => {
     const data = snapshot.val();
     if (data !== null) {
-      const { changingPhase, phase, title } = data;
+      const {
+        changingPhase, phase, title, users,
+      } = data;
+      // plus one because we don't get counted magically
+      const numberOfUsers = (users ? Object.keys(users).length : 0) + 1;
       if (this.verifyPhase(phase)) {
         if (!this.state.firepadInitialized) {
           this.setState({ firepadInitialized: true }, this.initFirepad);
@@ -106,6 +112,7 @@ class FirepadContainer extends Component {
       }
       this.setState({
         changingPhase,
+        numberOfUsers,
         phase,
         title,
       });
@@ -209,6 +216,7 @@ class FirepadContainer extends Component {
         handleTitleChange={this.handleTitleChange}
         loading={loading}
         notFound={this.state.notFound}
+        numberOfUsers={this.state.numberOfUsers}
         phase={this.state.phase}
         readOnly={this.isReadOnly()}
         taskInProgress={this.state.taskInProgress}

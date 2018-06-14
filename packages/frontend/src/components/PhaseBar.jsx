@@ -29,7 +29,7 @@ const getPhaseStyle = (phase) => {
 };
 
 export default function PhaseBar(props) {
-  const { phase } = props;
+  const { phase, numberOfUsers } = props;
   if (!phase || phase === PUBLISHED) {
     return null;
   }
@@ -47,7 +47,7 @@ export default function PhaseBar(props) {
           {phaseStyle.title}
         </h3>
         <div style={{ fontStyle: 'italic' }}>
-          <p style={{ marginBottom: '0' }}>10 current viewers</p>
+          <p style={{ marginBottom: '0' }}>{`${numberOfUsers} current viewers`}</p>
           <p>2 current editors</p>
         </div>
       </div>
@@ -56,5 +56,6 @@ export default function PhaseBar(props) {
 }
 
 PhaseBar.propTypes = {
+  numberOfUsers: PropTypes.number.isRequired,
   phase: PropTypes.string.isRequired,
 };

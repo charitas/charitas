@@ -105,6 +105,7 @@ export default class Firepad extends Component {
       handleTitleChange,
       loading,
       notFound,
+      numberOfUsers,
       phase,
       readOnly,
       title,
@@ -162,7 +163,7 @@ export default class Firepad extends Component {
                   </IconButton>
                 </Tooltip>
                   : <div />}
-              <PhaseBar phase={phase} />
+              <PhaseBar numberOfUsers={numberOfUsers} phase={phase} />
               { !readOnly &&
               <Button onClick={this.handleDialog(SUBMIT, true)} className="buttons">Submit</Button>
               }
@@ -215,6 +216,7 @@ Firepad.propTypes = {
   handleTitleChange: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   notFound: PropTypes.bool.isRequired,
+  numberOfUsers: PropTypes.number.isRequired,
   phase: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,
   taskComplete: PropTypes.bool.isRequired,
