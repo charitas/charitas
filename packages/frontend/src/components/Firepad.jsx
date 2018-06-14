@@ -9,6 +9,7 @@ import GenericError from './errors/GenericError';
 import Loading from './Loading';
 import NotFound from '../components/NotFound';
 import PhaseError from './errors/PhaseError';
+import PhaseBar from './PhaseBar';
 import SubmitDialog from './SubmitDialog';
 import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
@@ -121,7 +122,8 @@ export default function Firepad({
         />
         <TaskContentBody>
           <TaskHeader>
-            <h2>Add New Post</h2>
+            {!readOnly ? <div>{/* Delete Placeholder */}</div> : <div />}
+            <PhaseBar phase={phase} />
             { !readOnly &&
             <Button onClick={openDialog} className="buttons">Submit</Button>
                 }
