@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { PUBLISHED } from '@the-source-of-truth/shared/constants';
 import DocumentsContainer from '../containers/DocumentsContainer';
+import Pagination from './Pagination';
 
 const StyledDiv = styled.div`
   display: grid;
@@ -17,6 +18,7 @@ export default function Library() {
       <StyledDiv>
         <DocumentsContainer phase={PUBLISHED} />
       </StyledDiv>
+      <Pagination />
     </Fragment>
   );
 }
