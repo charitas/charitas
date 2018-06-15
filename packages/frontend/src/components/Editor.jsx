@@ -179,7 +179,7 @@ export default class Firepad extends Component {
                   value={title}
                 />
             }
-            <StyledFirepad id={this.props.elementId} />
+            <StyledFirepad style={{ fontSize: '20px' }}id={this.props.elementId} />
           </TaskContentBody>
         </div>
       </Fragment>
