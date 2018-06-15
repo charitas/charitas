@@ -1,15 +1,30 @@
 import React, { Component } from 'react';
-import { database } from 'firebase';
+import Quill from 'quill';
+import firebase, { database } from 'firebase';
 import PropTypes from 'prop-types';
-import CodeMirror from 'codemirror';
+import { CREATE, DELETED, DOCUMENTS, ENG, PHASE, PRIMARY, SUBMIT, VIEW } from '@the-source-of-truth/shared/constants';
+import { getNextPhase } from '@the-source-of-truth/shared/helpers';
 import { connect } from 'react-redux';
-import { CHANGING_PHASE, CREATE, DELETED, DOCUMENTS, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/constants';
+import 'quill/dist/quill.snow.css';
 import Editor from '../components/Editor';
 
-global.CodeMirror = CodeMirror;
-const { fromCodeMirror } = require('firepad/dist/firepad');
+window.Quill = Quill;
+window.firebase = firebase;
+const { fromQuill } = require('urim/dist/firepad');
 
-class FirepadContainer extends Component {
+const toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],
+  [{ color: [] }, { background: [] }],
+  [{ align: [] }],
+
+  ['link', 'image'],
+
+  [{ font: [] }],
+  ['clean'],
+];
+
+const docPath = `${ENG}/${DOCUMENTS}`;
+class UrimContainer extends Component {
   static propTypes = {
     claims: PropTypes.shape({
       author: PropTypes.bool,
@@ -27,18 +42,15 @@ class FirepadContainer extends Component {
         phase: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
-    uid: PropTypes.string,
   }
 
   static defaultProps = {
-    uid: '',
     claims: {},
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      [CHANGING_PHASE]: false,
       loading: true,
       notFound: false,
       [PHASE]: '',
@@ -61,36 +73,52 @@ class FirepadContainer extends Component {
   }
 
   componentWillUnmount() {
-    this.ref.off();
+    if (this.ref) {
+      this.ref.off();
+    }
+    if (this.primaryRef) {
+      this.primaryRef.off();
+    }
   }
 
-  getOrCreateFirepadDocument() {
+  getOrCreateUrimDocument() {
     const { phase, id } = this.props.match.params;
     if (phase === CREATE && !id) {
-      return this.createFirepadDocument();
+      return this.createUrimDocument();
     }
-    this.ref = database().ref(DOCUMENTS).child(id);
-    this.listenForDocChanges();
+    this.primaryRef = database().ref(`${docPath}/${PRIMARY}/${id}`);
     return Promise.resolve();
   }
 
-  createFirepadDocument() {
-    this.ref = database().ref(DOCUMENTS).push();
+  createUrimDocument() {
+    this.primaryRef = database().ref(`${docPath}/${PRIMARY}`).push();
+    this.ref = database().ref(`${docPath}/${CREATE}/${this.primaryRef.key}`);
+    const data = {
+      date: database.ServerValue.TIMESTAMP,
+      locked: false,
+      title: '',
+    };
+    const primaryData = {
+      ...data,
+      categories: {},
+      description: '',
+      image: '',
+      phase: CREATE,
+      pinned: false,
+      readTime: 0,
+    };
     return Promise.all([
-      this.ref.child(PHASE).set(CREATE),
-      this.ref.child('title').set(''),
-      this.ref.child(CHANGING_PHASE).set(false),
-      this.ref.child(TIME).child(CREATE).set(database.ServerValue.TIMESTAMP),
+      this.ref.update(data),
+      this.primaryRef.update(primaryData),
     ])
       .then(() => {
-        this.props.history.replace(`/${DOCUMENTS}/${CREATE}/${this.ref.key}`);
-        this.listenForDocChanges();
+        this.props.history.replace(`/${ENG}/${DOCUMENTS}/${CREATE}/${this.ref.key}`);
       })
       .catch(this.handleError);
   }
 
   listenForDocChanges() {
-    this.ref.on('value', this.handleSnapshot, this.handleError);
+    this.primaryRef.on('value', this.handleSnapshot, this.handleError);
   }
 
   handleError = (error) => {
@@ -102,14 +130,13 @@ class FirepadContainer extends Component {
   handleSnapshot = (snapshot) => {
     const data = snapshot.val();
     if (data !== null) {
-      const { changingPhase, phase, title } = data;
+      const { phase, title } = data;
       if (this.verifyPhase(phase)) {
-        if (!this.state.firepadInitialized) {
-          this.setState({ firepadInitialized: true }, this.initFirepad);
+        if (!this.state.urimInitialized) {
+          this.setState({ urimInitialized: true }, this.initUrim(phase));
         }
       }
       this.setState({
-        changingPhase,
         phase,
         title,
       });
@@ -119,7 +146,7 @@ class FirepadContainer extends Component {
   }
 
   init() {
-    this.getOrCreateFirepadDocument()
+    this.getOrCreateUrimDocument()
       .then(() => {
         this.listenForDocChanges();
       });
@@ -140,28 +167,23 @@ class FirepadContainer extends Component {
     return false;
   }
 
-  initFirepad() {
-    const { uid } = this.props;
+  initUrim(phase) {
+    if (!this.ref) {
+      const { id } = this.props.match.params;
+      this.ref = database().ref(`${docPath}/${phase}/${id}`);
+    }
     const readOnly = this.isReadOnly();
-    const cm = CodeMirror(document.getElementById('firepad-container'), {
-      lineWrapping: true,
-      readOnly: readOnly ? 'nocursor' : false,
-    });
-    this.firepadInst = fromCodeMirror(
-      this.ref, cm,
-      {
-        richTextToolbar: !readOnly,
-        richTextShortcuts: !readOnly,
-        userId: uid,
+    const editor = new Quill('#editor-container', {
+      modules: {
+        toolbar: readOnly ? !readOnly : toolbarOptions,
       },
-    );
-    this.firepadInst.on('ready', () => {
+      theme: 'snow',
+      readOnly,
+    });
+    this.urimInst = fromQuill(this.ref, editor, null);
+    this.urimInst.on('ready', () => {
       this.setState({
         loading: false,
-      }, () => {
-        // we call refresh here because we get a blank editor until we click on it otherwise
-        // see https://github.com/codemirror/CodeMirror/issues/2469
-        cm.refresh();
       });
     });
   }
@@ -173,31 +195,29 @@ class FirepadContainer extends Component {
     this.setState(newTitle, () => {
       this.ref.update(newTitle)
         .catch(this.handleError);
+      this.primaryRef.update(newTitle)
+        .catch(this.handleError);
     });
   }
 
   handleTask = type => () => {
     this.setState({ taskInProgress: true }, () => {
-      this.ref.off();
-      Promise.all([
-        database()
-          .ref('tasks').push({
-            type,
-            payload: {
-              id: this.ref.key,
-            },
-          }),
-        this.ref.update({
-          [CHANGING_PHASE]: true,
-        }),
-      ])
-        .then(() => {
-          this.setState({
-            taskInProgress: false,
-            taskComplete: true,
-          });
+      if (type === SUBMIT) {
+        const nextPhase = getNextPhase(this.state.phase);
+        this.ref.once('value').then((snap) => {
+          const { users, ...data } = snap.val();
+          return database()
+            .ref(`${docPath}/${nextPhase}/${this.primaryRef.key}`)
+            .update(data)
+            .catch(this.handleError);
         })
-        .catch(this.handleError);
+          .then(() => this.ref.update({
+            locked: true,
+          }))
+          .then(() => this.primaryRef.update({
+            [PHASE]: nextPhase,
+          }));
+      }
     });
   }
 
@@ -205,9 +225,8 @@ class FirepadContainer extends Component {
     const loading = !this.props.isAuthenticated || this.state.loading;
     return (
       <Editor
-        changingPhase={this.state.changingPhase}
         claims={this.props.claims}
-        elementId="firepad-container"
+        elementId="editor-container"
         error={this.state.error}
         firepadInst={this.firepadInst}
         handleTask={this.handleTask}
@@ -230,4 +249,4 @@ const mapStateToProps = state => ({
   uid: state.user.uid,
 });
 
-export default connect(mapStateToProps)(FirepadContainer);
+export default connect(mapStateToProps)(UrimContainer);

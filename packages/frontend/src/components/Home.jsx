@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { LIBRARY } from '@the-source-of-truth/shared/constants';
+import { ENG, LIBRARY } from '@the-source-of-truth/shared/constants';
 import colors from '../constants/colors';
 import HomeIntroduction from './HomeIntroduction';
 
@@ -66,7 +66,7 @@ class Home extends Component {
                 <Button className={classes.button} onClick={this.scrollToIntro}>
                   Introduction
                 </Button>
-                <Button color="default" className={classes.button} onClick={() => this.props.history.push(`./${LIBRARY}`)}>Library</Button>
+                <Button color="default" className={classes.button} onClick={() => this.props.history.push(`/${ENG}/${LIBRARY}`)}>Library</Button>
               </div>
             </CenteredDiv>
           </div>

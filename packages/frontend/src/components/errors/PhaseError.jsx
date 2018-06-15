@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import { APPROVE, DELETED, DOCUMENTS, PUBLISHED, TASKS, VIEW } from '@the-source-of-truth/shared/constants';
+import { APPROVE, DELETED, DOCUMENTS, ENG, PUBLISHED, TASKS, VIEW } from '@the-source-of-truth/shared/constants';
 import Dialog from '../Dialog';
 
 const getPhaseString = (phase) => {
@@ -27,14 +27,14 @@ function PhaseError({ history, match, phase }) {
   const buttons = [
     {
       label: 'Back to Tasks',
-      action: () => { history.push(`/${TASKS}`); },
+      action: () => { history.push(`/${ENG}/${TASKS}`); },
     },
   ];
   if (phase !== 'deleted') {
     buttons.unshift({
       label: 'View',
       action: () => {
-        history.push(`/${DOCUMENTS}/${VIEW}/${match.params.id}`);
+        history.push(`/${ENG}/${DOCUMENTS}/${VIEW}/${match.params.id}`);
       },
     });
   }

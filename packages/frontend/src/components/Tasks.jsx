@@ -10,7 +10,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Tooltip from '@material-ui/core/Tooltip';
-import { APPROVE, CREATE, DOCUMENTS, EDIT } from '@the-source-of-truth/shared/constants';
+import { APPROVE, CREATE, DOCUMENTS, EDIT, ENG } from '@the-source-of-truth/shared/constants';
 import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import colors from '../constants/colors';
 import DocumentsContainer from '../containers/DocumentsContainer';
@@ -62,7 +62,7 @@ class Tasks extends Component {
                       width: '100%',
                     }}
                 >
-                  <a href={`/${DOCUMENTS}/create`} style={{ color: `${colors.darkGrey}` }}>
+                  <a href={`/${ENG}/${DOCUMENTS}/create`} style={{ color: `${colors.darkGrey}` }}>
                     <Add style={{ height: '100px', width: '100px' }} />
                   </a>
                 </Button>

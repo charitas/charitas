@@ -10,12 +10,12 @@ const StyledBody = styled.div`
 
   @media(max-width: 600px) {
     grid-gap: 10px;
-    grid-template-rows: 1fr 0.75fr 14.9fr;
+    grid-template-rows: 1fr 0.75fr;
   }
 
   @media(min-width: 600px) {
     grid-gap: 10px;
-    grid-template-rows: 1fr 0.75fr 19.7fr;
+    grid-template-rows: 1fr 0.75fr;
   }
 `;
 

@@ -45,7 +45,7 @@ export default class SidebarLeftOverlay extends Component {
 
 
   renderMenuItem = (name, label, path) => (
-    <Link href={path} to={path}>
+    <Link href={`/eng${path}`} to={`/eng${path}`}>
       <Menu.Item as="div" name={name} onClick={this.props.toggleMenu}>
         {label}
       </Menu.Item>

@@ -2,8 +2,8 @@
 
 exports[`FirepadContainer should pass loading true props when not authenticated 1`] = `
 <Firepad
-  changingPhase={false}
-  claims=""
+  claims={Object {}}
+  elementId="firepad-container"
   error={false}
   firepadInst={null}
   handleTask={[Function]}
@@ -20,8 +20,8 @@ exports[`FirepadContainer should pass loading true props when not authenticated 
 
 exports[`FirepadContainer should render when authenticated 1`] = `
 <Firepad
-  changingPhase={false}
-  claims=""
+  claims={Object {}}
+  elementId="firepad-container"
   error={false}
   firepadInst={null}
   handleTask={[Function]}

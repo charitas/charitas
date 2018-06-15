@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { database } from 'firebase';
 import { List, Map } from 'immutable';
 import { connect } from 'react-redux';
-import { APPROVE, CREATE, DOCUMENTS, EDIT, PHASE, PUBLISHED } from '@the-source-of-truth/shared/constants';
+import { APPROVE, CREATE, DOCUMENTS, EDIT, ENG, PHASE, PRIMARY, PUBLISHED } from '@the-source-of-truth/shared/constants';
 import Loading from '../components/Loading';
 import TasksCard from '../components/TasksCard';
 
@@ -32,7 +32,7 @@ class DocumentsContainer extends Component {
 
   componentDidMount() {
     this.ref = database()
-      .ref(DOCUMENTS);
+      .ref(`${ENG}/${DOCUMENTS}/${PRIMARY}`);
     this.setListener();
   }
 

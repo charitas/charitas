@@ -1,14 +1,15 @@
 export const APPROVE = 'approve';
-export const CHANGING_PHASE = 'changingPhase';
 export const CREATE = 'create';
 export const DELETE = 'delete';
 export const DELETED = 'deleted';
 export const DOCUMENTS = 'documents';
 export const DOCUMENT_BACKUPS = 'documentBackups';
 export const EDIT = 'edit';
+export const ENG = 'eng';
 export const LIBRARY = 'library';
 export const PHASE = 'phase';
 export const PHASES = 'phases';
+export const PRIMARY = 'primary';
 export const PUBLISHED = 'published';
 export const SUBMIT = 'submit';
 export const TASKS = 'tasks';

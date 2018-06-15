@@ -95,7 +95,6 @@ export default class Firepad extends Component {
 
   render() {
     const {
-      changingPhase,
       claims,
       error,
       firepadInst,
@@ -112,10 +111,6 @@ export default class Firepad extends Component {
 
     if (error && error.code !== 'phase-mismatch') {
       return (<GenericError />);
-    }
-
-    if (changingPhase && !readOnly) {
-      return (<p>Currently moving this document to the next phase</p>);
     }
 
     if (notFound) {
@@ -184,7 +179,7 @@ export default class Firepad extends Component {
                   value={title}
                 />
             }
-            <StyledFirepad id="firepad-container" />
+            <StyledFirepad id={this.props.elementId} />
           </TaskContentBody>
         </div>
       </Fragment>
@@ -193,11 +188,11 @@ export default class Firepad extends Component {
 }
 
 Firepad.propTypes = {
-  changingPhase: PropTypes.bool.isRequired,
   claims: PropTypes.shape({
     editor: PropTypes.bool,
     author: PropTypes.bool,
   }),
+  elementId: PropTypes.string.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.shape({

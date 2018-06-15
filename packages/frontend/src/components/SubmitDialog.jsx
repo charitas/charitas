@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import { SUBMIT, DELETE } from '@the-source-of-truth/shared/constants';
+import { ENG, SUBMIT, DELETE } from '@the-source-of-truth/shared/constants';
 import upperFirst from 'lodash/upperFirst';
 import Dialog from './Dialog';
 import colors from '../constants/colors';
@@ -61,7 +61,7 @@ const SubmitDialog = ({
 
   const submittedButtons = [{
     label: 'Back to tasks',
-    action: () => { history.push('/tasks'); },
+    action: () => { history.push(`/${ENG}/tasks`); },
   }];
   return (
     <Dialog
