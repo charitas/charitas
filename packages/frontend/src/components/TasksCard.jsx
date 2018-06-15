@@ -15,6 +15,7 @@ import Edit from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Icon from '@material-ui/core/Icon';
+import Checkbox from '@material-ui/core/Checkbox';
 import { CREATE, DOCUMENTS, EDIT, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/constants';
 import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import CodeMirror from 'codemirror';
@@ -101,12 +102,13 @@ class TasksCard extends Component {
           <CardActions
             style={{
               display: 'grid',
-              gridTemplateColumns: '0.75fr 1fr 0.5fr',
+              gridTemplateColumns: '0.7fr 1fr 0.25fr 0.25fr',
             }}
           >
             <StyledP>{format(time, 'M/D/YY')}</StyledP>
             <StyledP>{this.getReadTime()} min read</StyledP>
-            { hasPermissions &&
+            <div>
+              { hasPermissions &&
               <Tooltip id="tooltip-icon" title={TooltipPhase()}>
                 <IconButton
                   onClick={() => { history.push(editHref); }}
@@ -121,7 +123,15 @@ class TasksCard extends Component {
                 </IconButton>
               </Tooltip>
             }
-            <Icon style={{ float: 'right', margin: '0' }}>brightness_3</Icon>
+            </div>
+            <div>
+              <Checkbox
+                icon={<Icon>brightness_3</Icon>}
+                checkedIcon={<Icon style={{ color: `${colors.blue}` }}>brightness_3</Icon>}
+                value="checkedH"
+                style={{ justifySelf: 'center' }}
+              />
+            </div>
           </CardActions>
         </Card>
       </div>
