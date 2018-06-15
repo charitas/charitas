@@ -29,6 +29,7 @@ const StyledP = styled.p`
   color: ${colors.darkGrey};
   display: inline-block;
   opacity: 0.5;
+  text-align: center;
 `;
 
 class TasksCard extends Component {
@@ -103,6 +104,7 @@ class TasksCard extends Component {
             style={{
               display: 'grid',
               gridTemplateColumns: '0.7fr 1fr 0.25fr 0.25fr',
+              paddingRight: '0',
             }}
           >
             <StyledP>{format(time, 'M/D/YY')}</StyledP>
@@ -124,14 +126,14 @@ class TasksCard extends Component {
               </Tooltip>
             }
             </div>
-            <div>
+            <Tooltip id="tooltip-icon" title="Pin">
               <Checkbox
                 icon={<Icon>brightness_3</Icon>}
                 checkedIcon={<Icon style={{ color: `${colors.blue}` }}>brightness_3</Icon>}
                 value="checkedH"
                 style={{ justifySelf: 'center' }}
               />
-            </div>
+            </Tooltip>
           </CardActions>
         </Card>
       </div>
