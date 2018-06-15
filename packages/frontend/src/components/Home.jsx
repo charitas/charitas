@@ -4,9 +4,12 @@ import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import { LIBRARY } from '@the-source-of-truth/shared/constants';
+import PinnedItems from './PinnedItems';
 import colors from '../constants/colors';
 import HomeIntroduction from './HomeIntroduction';
+import View from './View';
 
 const styles = theme => ({
   button: {
@@ -71,7 +74,11 @@ class Home extends Component {
             </CenteredDiv>
           </div>
         </StyledDiv>
-        <HomeIntroduction ref={this.ref} />
+        <View>
+          <HomeIntroduction ref={this.ref} />
+          <Divider style={{ width: '100%' }} />
+          <PinnedItems />
+        </View>
       </Fragment>
     );
   }
