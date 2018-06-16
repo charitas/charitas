@@ -59,9 +59,9 @@ exports[`Authenticate should render 1`] = `
         Or
       </Divider>
       <Link
-        href="/signin"
+        href="/eng/signin"
         replace={false}
-        to="/signin"
+        to="/eng/signin"
       >
         <Button
           as="button"
@@ -154,9 +154,9 @@ exports[`Authenticate should render a loading message when passed loading as a p
         Or
       </Divider>
       <Link
-        href="/signin"
+        href="/eng/signin"
         replace={false}
-        to="/signin"
+        to="/eng/signin"
       >
         <Button
           as="button"
@@ -255,9 +255,9 @@ exports[`Authenticate should render an error when passed as a prop 1`] = `
         Or
       </Divider>
       <Link
-        href="/signin"
+        href="/eng/signin"
         replace={false}
-        to="/signin"
+        to="/eng/signin"
       >
         <Button
           as="button"

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, Divider, Form, Header, Icon, Loader, Segment, Message } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { ENG } from '@the-source-of-truth/shared/constants';
 import colors from '../constants/colors';
 
 const StyledLoader = styled.div`
@@ -82,10 +83,10 @@ export default function Authenticate({
           {signingin ? signInButton : signUpButton}
           <Divider horizontal>Or</Divider>
           {signingin ?
-            <Link href="/signup" to="/signup">
+            <Link href={`/${ENG}/signup`} to={`/${ENG}/signup`}>
               <Button color="blue" fluid>{SIGN_UP}</Button>
             </Link> :
-            <Link href="/signin" to="/signin">
+            <Link href={`/${ENG}/signin`} to={`/${ENG}/signin`}>
               <Button color="violet" fluid>{SIGN_IN}</Button>
             </Link>
           }

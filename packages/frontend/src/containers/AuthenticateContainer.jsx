@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router';
 import { auth } from 'firebase';
 import PropTypes from 'prop-types';
+import { ENG } from '@the-source-of-truth/shared/constants';
 import Authenticate from '../components/Authenticate';
 
-const signInRoute = '/signin';
+const signInRoute = `/${ENG}/signin`;
 
 class AuthenticateContainer extends Component {
   static propTypes = {
