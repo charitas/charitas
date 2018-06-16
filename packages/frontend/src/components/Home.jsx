@@ -12,7 +12,7 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
     color: `${colors.white}`,
-    backgroundColor: `${colors.blue}`,
+    backgroundColor: `${colors.purple}`,
   },
   input: {
     display: 'none',
@@ -56,7 +56,7 @@ class Home extends Component {
     return (
       <Fragment>
         <StyledDiv>
-          <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', height: '95.5vh', width: '100%' }} >
+          <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)', height: '95.5vh', width: '100%' }} >
             <CenteredDiv>
               <StyledHeader className="StyledHome">
                 MARVELOUS WORK AND A WONDER
