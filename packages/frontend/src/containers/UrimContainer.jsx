@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Quill from 'quill';
 import firebase, { database } from 'firebase';
 import PropTypes from 'prop-types';
-import { APPROVE, CREATE, DATE, DELETE, DELETED, DOCUMENTS, EDIT, ENG, PHASE, PRIMARY, REJECT, SUBMIT, VIEW } from '@the-source-of-truth/shared/constants';
+import { APPROVE, CREATE, DATE, DELETE, DELETED, DOCUMENTS, EDIT, ENG, PHASE, PRIMARY, READ_TIME, REJECT, SUBMIT, SUMMARY, VIEW } from '@the-source-of-truth/shared/constants';
 import { getNextPhase } from '@the-source-of-truth/shared/helpers';
 import { connect } from 'react-redux';
+import words from 'lodash/words';
 import Editor from '../components/Editor';
 
 window.Quill = Quill;
@@ -54,9 +55,11 @@ class UrimContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      [SUMMARY]: '',
       loading: true,
       notFound: false,
       [PHASE]: '',
+      [READ_TIME]: 0,
       taskComplete: false,
       taskInProgress: false,
       title: '',
@@ -81,6 +84,9 @@ class UrimContainer extends Component {
     }
     if (this.primaryRef) {
       this.primaryRef.off();
+    }
+    if (this.editor) {
+      this.editor.off('text-change', this.handleTextChange);
     }
   }
 
@@ -117,7 +123,7 @@ class UrimContainer extends Component {
     const primaryData = {
       ...data,
       categories: {},
-      description: '',
+      [SUMMARY]: '',
       image: '',
       phase: CREATE,
       pinned: false,
@@ -189,14 +195,15 @@ class UrimContainer extends Component {
       this.ref = database().ref(`${docPath}/${phase}/${id}`);
     }
     const readOnly = this.isReadOnly();
-    const editor = new Quill('#editor-container', {
+    this.editor = new Quill('#editor-container', {
       modules: {
         toolbar: readOnly ? !readOnly : toolbarOptions,
       },
       theme: 'snow',
       readOnly,
     });
-    this.urimInst = fromQuill(this.ref, editor, null);
+    this.editor.on('text-change', this.handleTextChange);
+    this.urimInst = fromQuill(this.ref, this.editor, null);
     this.urimInst.on('ready', () => {
       this.setState({
         loading: false,
@@ -214,6 +221,29 @@ class UrimContainer extends Component {
       this.primaryRef.update(newTitle)
         .catch(this.handleError);
     });
+  }
+
+  handleTextChange = () => {
+    const text = this.editor.getText();
+    const data = {};
+
+    const summary = text.slice(0, 201);
+    const firstCharsChanged = summary !== this.state[SUMMARY];
+    if (firstCharsChanged) {
+      data[SUMMARY] = summary;
+    }
+
+    const readTime = Math.floor(words(text).length / 250);
+    const readTimeChanged = readTime !== this.state.readTime;
+    if (readTimeChanged) {
+      data.readTime = readTime;
+    }
+
+    if (readTimeChanged || firstCharsChanged) {
+      this.setState(data, () => {
+        this.primaryRef.update(data);
+      });
+    }
   }
 
   handleTask = type => () => {
