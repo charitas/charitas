@@ -28,7 +28,7 @@
         "edit": {
           ".read": "auth != null",
           "$doc": {
-            ".write": "(!data.exists() && auth.token.author === true) || (auth.token.editor === true && data.child('locked').val() !== true)"
+            ".write": "(!data.exists() && auth.token.author === true) || (auth.token.editor === true && data.child('locked').val() !== true) || (data.parent().parent().child('primary').child($doc).child('phase').val() === 'approve' && auth.token.approver === true)"
           }
         },
         "approve": {

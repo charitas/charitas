@@ -12,9 +12,9 @@ const { fromCodeMirror } = require('firepad/dist/firepad');
 class FirepadContainer extends Component {
   static propTypes = {
     claims: PropTypes.shape({
+      approver: PropTypes.bool,
       author: PropTypes.bool,
       editor: PropTypes.bool,
-      approver: PropTypes.bool,
     }),
     history: PropTypes.shape({
       replace: PropTypes.func.isRequired,

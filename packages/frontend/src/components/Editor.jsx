@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import 'codemirror/lib/codemirror.css';
 import 'firepad/dist/firepad.css';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Delete from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import { SUBMIT, DELETE } from '@the-source-of-truth/shared/constants';
+import { APPROVE, DELETE, REJECT, SUBMIT } from '@the-source-of-truth/shared/constants';
 import { checkDeletePermissions } from '@the-source-of-truth/shared/helpers';
 import 'quill/dist/quill.snow.css';
 import './Editor.css';
 import colors from '../constants/colors';
 import GenericError from './errors/GenericError';
+import ImageUploader from '../containers/ImageUploader';
 import Loading from './Loading';
 import NotFound from '../components/NotFound';
 import PhaseError from './errors/PhaseError';
@@ -20,7 +22,17 @@ import PhaseBar from './PhaseBar';
 import SubmitDialog from './SubmitDialog';
 import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
-import ImageUploader from '../containers/ImageUploader';
+
+const styles = {
+  root: {
+    maxHeight: '25px',
+  },
+  button: {
+    backgroundColor: `${colors.purple}`,
+    color: `${colors.white}`,
+    padding: '8px 11px',
+  },
+};
 
 const StyledEditor = styled.div`
   height: '100%';
@@ -28,12 +40,14 @@ const StyledEditor = styled.div`
 `;
 
 
-export default class Firepad extends Component {
+class Firepad extends Component {
   constructor(props) {
     super(props);
     this.state = {
       submitDialogIsOpen: false,
       deleteDialogIsOpen: false,
+      approveDialogIsOpen: false,
+      rejectDialogIsOpen: false,
     };
   }
 
@@ -44,6 +58,7 @@ export default class Firepad extends Component {
   render() {
     const {
       claims,
+      classes,
       error,
       firepadInst,
       handleTask,
@@ -96,6 +111,22 @@ export default class Firepad extends Component {
             taskInProgress={taskInProgress}
             type={DELETE}
           />
+          <SubmitDialog
+            dialogIsOpen={this.state.approveDialogIsOpen}
+            handleClose={this.handleDialog(APPROVE, false)}
+            handleAccept={handleTask(APPROVE)}
+            taskComplete={taskComplete}
+            taskInProgress={taskInProgress}
+            type={APPROVE}
+          />
+          <SubmitDialog
+            dialogIsOpen={this.state.rejectDialogIsOpen}
+            handleClose={this.handleDialog(REJECT, false)}
+            handleAccept={handleTask(REJECT)}
+            taskComplete={taskComplete}
+            taskInProgress={taskInProgress}
+            type={REJECT}
+          />
           <TaskContentBody>
             <TaskHeader>
               {(!readOnly && checkDeletePermissions(claims, phase)) ?
@@ -106,8 +137,16 @@ export default class Firepad extends Component {
                 </Tooltip>
                   : <div />}
               <PhaseBar phase={phase} />
-              { !readOnly &&
-              <Button onClick={this.handleDialog(SUBMIT, true)} className="buttons">Submit</Button>
+              { (!readOnly && phase !== APPROVE) &&
+              <Button onClick={this.handleDialog(SUBMIT, true)} className={`buttons ${classes.root}`}>Submit</Button>
+              }
+              { (!readOnly && phase === APPROVE) &&
+                <div style={{ paddingLeft: '10px', paddingBottom: '10px' }}>
+                  <Button onClick={this.handleDialog(APPROVE, true)} className="buttons" style={{ marginBottom: '4px' }}>Approve</Button>
+                  <Button onClick={this.handleDialog(REJECT, true)} className={classes.button}>
+                    Re-edit
+                  </Button>
+                </div>
               }
             </TaskHeader>
             { readOnly ?
@@ -136,6 +175,9 @@ export default class Firepad extends Component {
 }
 
 Firepad.propTypes = {
+  classes: PropTypes.shape({
+    button: PropTypes.string.isRequired,
+  }).isRequired,
   claims: PropTypes.shape({
     editor: PropTypes.bool,
     author: PropTypes.bool,
@@ -172,3 +214,5 @@ Firepad.defaultProps = {
   readOnly: true,
   title: '',
 };
+
+export default withStyles(styles)(Firepad);

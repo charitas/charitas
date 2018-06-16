@@ -5,8 +5,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import { ENG, SUBMIT, DELETE } from '@the-source-of-truth/shared/constants';
-import upperFirst from 'lodash/upperFirst';
+import { APPROVE, DELETE, ENG, REJECT, SUBMIT } from '@the-source-of-truth/shared/constants';
 import Dialog from './Dialog';
 import colors from '../constants/colors';
 
@@ -21,9 +20,36 @@ const styles = () => ({
   },
 });
 
-const getTitle = (type, taskComplete) => (taskComplete ?
-  `Content ${type === SUBMIT ? 'Submitted' : 'Deleted'}`
-  : `Are you sure you want to ${type}?`);
+const areYouSure = action => `Are you sure you want to ${action}?`;
+
+const getTitle = (type, taskComplete) => {
+  const isSubmit = type === SUBMIT;
+  const isDelete = type === DELETE;
+  const isApprove = type === APPROVE;
+  const isReject = type === REJECT;
+
+  if (taskComplete) {
+    if (isSubmit) {
+      return 'Content Submitted';
+    }
+    if (isDelete) {
+      return 'Content Deleted';
+    }
+    if (isApprove) {
+      return 'Content Approved';
+    }
+    if (isReject) {
+      return 'Content Sent Back to Editing';
+    }
+  }
+  if (isSubmit || isDelete || isApprove) {
+    return areYouSure(type);
+  }
+  if (isReject) {
+    return areYouSure('send to editing');
+  }
+  return 'Are you sure?';
+};
 
 const SubmitDialog = ({
   classes,
@@ -53,7 +79,7 @@ const SubmitDialog = ({
         onClick={handleAccept}
         style={{ color: `${colors.blue}` }}
       >
-        {upperFirst(type)}
+        Okay
       </Button>
       {taskInProgress && <CircularProgress size={24} className={classes.buttonProgress} />}
     </div>,
@@ -85,7 +111,7 @@ SubmitDialog.propTypes = {
   }).isRequired,
   taskComplete: PropTypes.bool.isRequired,
   taskInProgress: PropTypes.bool.isRequired,
-  type: PropTypes.oneOf([SUBMIT, DELETE]).isRequired,
+  type: PropTypes.oneOf([APPROVE, DELETE, REJECT, SUBMIT]).isRequired,
 };
 
 export default withStyles(styles)(withRouter(SubmitDialog));

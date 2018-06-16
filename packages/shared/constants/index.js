@@ -12,6 +12,7 @@ export const PHASE = 'phase';
 export const PHASES = 'phases';
 export const PRIMARY = 'primary';
 export const PUBLISHED = 'published';
+export const REJECT = 'reject';
 export const SUBMIT = 'submit';
 export const TASKS = 'tasks';
 export const TIME = 'time';
