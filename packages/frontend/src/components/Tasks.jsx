@@ -60,9 +60,10 @@ class Tasks extends Component {
                   style={{
                       height: '100%',
                       width: '100%',
+                      padding: '0',
                     }}
                 >
-                  <a href={`/${ENG}/${DOCUMENTS}/create`} style={{ color: `${colors.darkGrey}` }}>
+                  <a href={`/${ENG}/${DOCUMENTS}/create`} style={{ color: `${colors.darkGrey}`, height: '100%', width: '100%' }}>
                     <Add style={{ height: '100px', width: '100px' }} />
                   </a>
                 </Button>
