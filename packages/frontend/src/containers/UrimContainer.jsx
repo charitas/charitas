@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { CREATE, DELETED, DOCUMENTS, ENG, PHASE, PRIMARY, SUBMIT, VIEW } from '@the-source-of-truth/shared/constants';
 import { getNextPhase } from '@the-source-of-truth/shared/helpers';
 import { connect } from 'react-redux';
-import 'quill/dist/quill.snow.css';
 import Editor from '../components/Editor';
 
 window.Quill = Quill;

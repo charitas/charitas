@@ -9,6 +9,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import { SUBMIT, DELETE } from '@the-source-of-truth/shared/constants';
 import { checkDeletePermissions } from '@the-source-of-truth/shared/helpers';
+import 'quill/dist/quill.snow.css';
+import './Editor.css';
 import colors from '../constants/colors';
 import GenericError from './errors/GenericError';
 import Loading from './Loading';
@@ -20,63 +22,9 @@ import TaskContentBody from './TaskContentBody';
 import TaskHeader from './TaskHeader';
 import ImageUploader from '../containers/ImageUploader';
 
-const StyledFirepad = styled.div`
+const StyledEditor = styled.div`
   height: '100%';
   width: '100%';
-  .CodeMirror {
-    background-color: ${colors.white};
-  }
-  .firepad-with-toolbar .CodeMirror {
-    bottom: 0px;
-    @media(max-width: 386px) {
-      top: 98px;
-    }
-    @media(min-width: 387px) and (max-width: 695px) {
-      top: 72px;
-    }
-    @media(min-width: 696px) and (max-width: 800px) {
-      top: 46px;
-    }
-    @media(min-width: 800px) and (max-width: 974px) {
-      top: 72px;
-    }
-    @media(min-width: 975px) {
-      top: 46px;
-    }
-  }
-  .CodeMirror-vscrollbar {
-    display: none !important;
-  }
-  .firepad-toolbar {
-    border-bottom: 1px solid ${colors.grey};
-    line-height: 15px;
-    @media(max-width: 386px) {
-      height: 98px;
-    }
-    @media(min-width: 387px) and (max-width: 639px) {
-      height: 72px;
-    }
-    @media(min-width: 640px) and (max-width: 800px) {
-      height: 46px;
-    }
-    @media(min-width: 800px) and (max-width: 975px) {
-      height: 72px;
-    }
-    @media(min-width: 975px) {
-      height: 46px;
-    }
-  }
-  .firepad-btn {
-    border: 0;
-    color: ${colors.darkGrey};
-    background-color: ${colors.white};
-    &:hover {
-    background-color: ${colors.darkGrey};
-    }
-  }
-  .powered-by-firepad {
-    display: none;
-  }
 `;
 
 
@@ -179,7 +127,7 @@ export default class Firepad extends Component {
                   value={title}
                 />
             }
-            <StyledFirepad style={{ fontSize: '20px' }}id={this.props.elementId} />
+            <StyledEditor style={{ border: 'none', fontSize: '20px' }}id={this.props.elementId} />
           </TaskContentBody>
         </div>
       </Fragment>
