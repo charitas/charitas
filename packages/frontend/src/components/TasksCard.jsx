@@ -14,7 +14,7 @@ import Divider from '@material-ui/core/Divider';
 import Edit from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import { CREATE, DOCUMENTS, EDIT, ENG, PHASE, TIME, VIEW } from '@the-source-of-truth/shared/constants';
+import { CREATE, DATE, DOCUMENTS, EDIT, ENG, PHASE, VIEW } from '@the-source-of-truth/shared/constants';
 import { checkPermissions } from '@the-source-of-truth/shared/helpers';
 import CodeMirror from 'codemirror';
 import format from 'date-fns/format';
@@ -66,8 +66,7 @@ class TasksCard extends Component {
     const viewHref = `/${ENG}/${DOCUMENTS}/${VIEW}/${id}`;
     const editHref = `/${ENG}/${DOCUMENTS}/${phase}/${id}`;
     const hasPermissions = checkPermissions(claims, phase);
-    const timeObj = doc.get(TIME);
-    const time = timeObj ? timeObj[phase] : '';
+    const date = doc.get(DATE);
     const TooltipPhase = () => {
       if (phase === CREATE) {
         return 'Continue creating';
@@ -103,7 +102,7 @@ class TasksCard extends Component {
               gridTemplateColumns: '0.75fr 1fr 0.5fr',
             }}
           >
-            <StyledP>{format(time, 'M/D/YY')}</StyledP>
+            <StyledP>{format(date, 'M/D/YY')}</StyledP>
             <StyledP>{this.getReadTime()} min read</StyledP>
             { hasPermissions &&
               <Tooltip id="tooltip-icon" title={TooltipPhase()}>

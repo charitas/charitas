@@ -1,5 +1,6 @@
 export const APPROVE = 'approve';
 export const CREATE = 'create';
+export const DATE = 'date';
 export const DELETE = 'delete';
 export const DELETED = 'deleted';
 export const DOCUMENTS = 'documents';

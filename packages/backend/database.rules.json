@@ -13,6 +13,12 @@
       ".read": "auth != null",
       "documents": {
         ".read": "auth != null",
+        "deleted": {
+          ".read": "false",
+          "$doc": {
+            ".write": "auth.token.author === true || auth.token.approver === true"
+          }
+        },
         "create": {
           ".read": "auth != null",
           "$doc": {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Quill from 'quill';
 import firebase, { database } from 'firebase';
 import PropTypes from 'prop-types';
-import { CREATE, DELETED, DOCUMENTS, ENG, PHASE, PRIMARY, SUBMIT, VIEW } from '@the-source-of-truth/shared/constants';
+import { CREATE, DATE, DELETE, DELETED, DOCUMENTS, ENG, PHASE, PRIMARY, SUBMIT, VIEW } from '@the-source-of-truth/shared/constants';
 import { getNextPhase } from '@the-source-of-truth/shared/helpers';
 import { connect } from 'react-redux';
 import Editor from '../components/Editor';
@@ -82,6 +82,16 @@ class UrimContainer extends Component {
     if (this.primaryRef) {
       this.primaryRef.off();
     }
+  }
+
+  getNextPhase = (type) => {
+    if (type === DELETE) {
+      return DELETED;
+    }
+    if (type === SUBMIT) {
+      return getNextPhase(this.state.phase);
+    }
+    throw new Error('Unknown type');
   }
 
   getOrCreateUrimDocument() {
@@ -205,22 +215,24 @@ class UrimContainer extends Component {
 
   handleTask = type => () => {
     this.setState({ taskInProgress: true }, () => {
-      if (type === SUBMIT) {
-        const nextPhase = getNextPhase(this.state.phase);
-        this.ref.once('value').then((snap) => {
-          const { users, ...data } = snap.val();
-          return database()
-            .ref(`${docPath}/${nextPhase}/${this.primaryRef.key}`)
-            .update(data)
-            .catch(this.handleError);
-        })
-          .then(() => this.ref.update({
-            locked: true,
-          }))
-          .then(() => this.primaryRef.update({
-            [PHASE]: nextPhase,
-          }));
-      }
+      const nextPhase = this.getNextPhase(type);
+      this.ref.once('value').then((snap) => {
+        const { users, ...data } = snap.val();
+        return database()
+          .ref(`${docPath}/${nextPhase}/${this.primaryRef.key}`)
+          .update(data)
+          .catch(this.handleError);
+      })
+        .then(() => this.ref.update({
+          locked: true,
+        }))
+        .then(() => this.primaryRef.update({
+          [PHASE]: nextPhase,
+          [DATE]: database.ServerValue.TIMESTAMP,
+        }))
+        .then(() => {
+          this.props.history.replace(`/${ENG}/tasks`);
+        });
     });
   }
 
