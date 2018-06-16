@@ -20,5 +20,8 @@
     "ignore": [
       "/**/*.map"
     ]
+  },
+  "storage": {
+    "rules": "packages/backend/storage.rules"
   }
 }
