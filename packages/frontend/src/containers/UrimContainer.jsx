@@ -220,7 +220,7 @@ class UrimContainer extends Component {
         const { users, ...data } = snap.val();
         return database()
           .ref(`${docPath}/${nextPhase}/${this.primaryRef.key}`)
-          .update(data)
+          .update({ ...data, [DATE]: database.ServerValue.TIMESTAMP })
           .catch(this.handleError);
       })
         .then(() => this.ref.update({

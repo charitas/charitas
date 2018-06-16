@@ -44,8 +44,12 @@
           }
         },
         "primary": {
+          ".indexOn": "phase",
           ".read": "auth != null",
-          ".write": "(!data.child('phase').exists() || data.child('phase').val() === 'create') && auth.token.author === true"
+          "$doc": {
+            ".read": "auth != null",
+            ".write": "((!data.child('phase').exists() || data.child('phase').val() === 'create') && auth.token.author === true) || (data.child('phase').val() === 'edit' && auth.token.editor === true) || (data.child('phase').val() === 'approve' && auth.token.approver === true)"
+          }
         }
       }
     }
