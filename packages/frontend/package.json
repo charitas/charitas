@@ -2,7 +2,7 @@
 {
  "private": true,
  "privat": true,
- "cripts": {
+ "scripts": {
   "build:functions": "lerna exec --scope @the-source-of-truth/backend -- yarn build",
   "bootstrap": "lerna bootstrap",
   "clean": "lerna clean",
