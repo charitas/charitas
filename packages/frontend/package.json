@@ -1,6 +1,7 @@
 
 {
  "private": true,
+ "privat": true,
  "scripts": {
   "build:functions": "lerna exec --scope @the-source-of-truth/backend -- yarn build",
   "build:hosting": "lerna exec --scope @the-source-of-truth/frontend -- yarn build",
