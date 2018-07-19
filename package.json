@@ -5,5 +5,18 @@
   "repository": "https://github.com/charitas/charitas",
   "author": "Kyle Bradford <kfoxb@kfoxb.com>",
   "license": "Apache-2.0",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "commitizen": "2.10.1",
+    "cz-lerna-changelog": "1.2.1",
+    "lerna": "2.11.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-lerna-changelog"
+    }
+  },
+  "scripts": {
+    "commit": "git-cz"
+  }
 }
