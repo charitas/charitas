@@ -4,6 +4,6 @@ node_js:
   - "10"
 before_install: .travis/before_install.sh
 after_success: .travis/after_success.sh
-script: yarn commitlint && yarn lint && yarn test
+script: yarn commitlint-travis && yarn lint && yarn test
 git:
   depth: 1

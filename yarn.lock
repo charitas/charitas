@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@commitlint/cli@7.0.0":
+"@commitlint/cli@7.0.0", "@commitlint/cli@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-7.0.0.tgz#3bf86d8ab2fbd5074c3114b7ba3f4b41b775f3dc"
   dependencies:
@@ -123,6 +123,14 @@
   resolved "https://registry.yarnpkg.com/@commitlint/top-level/-/top-level-7.0.0.tgz#ff28580ab8c1431290e37b1d507e0ef370c38d99"
   dependencies:
     find-up "^2.1.0"
+
+"@commitlint/travis-cli@7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@commitlint/travis-cli/-/travis-cli-7.0.0.tgz#2d8698310b65908973ec1c5e66b15164bd43f5ea"
+  dependencies:
+    "@commitlint/cli" "^7.0.0"
+    babel-runtime "6.26.0"
+    execa "0.9.0"
 
 "@marionebl/sander@^0.6.0":
   version "0.6.1"
@@ -1051,6 +1059,18 @@ event-stream@^3.3.0:
     split "0.3"
     stream-combiner "~0.0.4"
     through "~2.3.1"
+
+execa@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-0.9.0.tgz#adb7ce62cf985071f60580deb4a88b9e34712d01"
+  dependencies:
+    cross-spawn "^5.0.1"
+    get-stream "^3.0.0"
+    is-stream "^1.1.0"
+    npm-run-path "^2.0.0"
+    p-finally "^1.0.0"
+    signal-exit "^3.0.0"
+    strip-eof "^1.0.0"
 
 execa@^0.7.0:
   version "0.7.0"
