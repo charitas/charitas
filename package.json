@@ -1,4 +1,5 @@
-{ "name": "charitas",
+{
+  "name": "charitas",
   "version": "0.0.0",
   "main": "index.js",
   "repository": "https://github.com/charitas/charitas",
@@ -6,6 +7,8 @@
   "license": "Apache-2.0",
   "private": true,
   "devDependencies": {
+    "@commitlint/cli": "7.0.0",
+    "@commitlint/config-conventional": "7.0.1",
     "commitizen": "2.10.1",
     "cz-lerna-changelog": "1.2.1",
     "lerna": "2.11.0",
@@ -21,7 +24,6 @@
   ],
   "scripts": {
     "commit": "git-cz",
-    "commitlint": "echo 'commitlint not setup'",
     "lint": "echo 'no linting setup yet'",
     "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform",
     "test": "echo 'no testing setup yet'"
