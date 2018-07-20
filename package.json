@@ -1,5 +1,4 @@
-{
-  "name": "charitas",
+{ "name": "charitas",
   "version": "0.0.0",
   "main": "index.js",
   "repository": "https://github.com/charitas/charitas",
@@ -21,6 +20,10 @@
     "packages/*"
   ],
   "scripts": {
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "commitlint": "echo 'commitlint not setup'",
+    "lint": "echo 'no linting setup yet'",
+    "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform",
+    "test": "echo 'no testing setup yet'"
   }
 }
