@@ -24,6 +24,7 @@
     "packages/*"
   ],
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "commit": "git-cz",
     "lint": "echo 'no linting setup yet'",
     "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform",
