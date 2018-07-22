@@ -4,3 +4,4 @@ node_modules
 *.swo
 .vscode
 .released-packages
+yarn-error.log
