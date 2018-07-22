@@ -5,11 +5,18 @@
   "repository": "https://github.com/charitas/charitas",
   "author": "Kyle Bradford <kfoxb@kfoxb.com>",
   "license": "Apache-2.0",
+  "config": {
+    "commitizen": {
+      "path": "cz-lerna-changelog"
+    }
+  },
   "dependencies": {
     "slate": "0.34.6",
     "slate-react": "0.13.3"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "7.0.1",
+    "commitizen": "2.10.1",
     "immutable": "3.8.2",
     "react": "16.4.1",
     "react-dom": "16.4.1"
@@ -18,5 +25,8 @@
     "immutable": ">=3.8.1",
     "react": ">=0.14.0",
     "react-dom": ">=0.14.0"
+  },
+  "scripts": {
+    "commit": "git-cz"
   }
 }
