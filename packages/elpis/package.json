@@ -16,6 +16,10 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "7.0.1",
+    "babel-core": "6.26.3",
+    "babel-loader": "7.1.5",
+    "babel-plugin-add-module-exports": "0.2.1",
+    "babel-preset-env": "1.7.0",
     "commitizen": "2.10.1",
     "eslint": "4.19.1",
     "eslint-config-airbnb": "17.0.0",
