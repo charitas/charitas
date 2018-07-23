@@ -5,3 +5,4 @@ node_modules
 .vscode
 .released-packages
 yarn-error.log
+dist
