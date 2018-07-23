@@ -1,4 +1,8 @@
 {
-  "presets": [["env", { "modules": false }]],
-  "plugins": ["add-module-exports"]
+  "presets": ["react", ["env", { "modules": false }]],
+  "plugins": [
+    "add-module-exports",
+    "transform-class-properties",
+    "transform-object-rest-spread"
+  ]
 }
