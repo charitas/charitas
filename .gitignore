@@ -6,3 +6,4 @@ node_modules
 .released-packages
 yarn-error.log
 dist
+.rpt2_cache
